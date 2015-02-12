@@ -1,0 +1,147 @@
+/**
+ * Sizes
+ */
+/**
+ * Colors
+ */
+/**
+ * Misc
+ */
+html,
+body {
+  background-color: #f4f4f4;
+  color: #222;
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+html a,
+body a {
+  color: #28a;
+  text-decoration: none;
+}
+
+.clearfix:after, body > article:after, body > article > section.pages ul.pages:after {
+  content: "";
+  font-size: 0px;
+  visibility: hidden;
+  clear: both;
+  display: block;
+  height: 0px;
+  width: 100%;
+}
+.clearfix .left, body > article .left, body > article > section.pages ul.pages .left {
+  float: left;
+}
+.clearfix .right, body > article .right, body > article > section.pages ul.pages .right {
+  float: right;
+}
+
+.fluid, body > header,
+body > article,
+body > footer {
+  margin: 0px auto;
+  width: 960px;
+}
+
+body > article {
+  padding-top: 15px;
+}
+body > article > aside {
+  float: right;
+  width: 192px;
+}
+body > article > section {
+  box-sizing: border-box;
+  float: left;
+  padding-right: 20px;
+  width: 768px;
+}
+body > article > section > h1:first-child {
+  color: #abb;
+  font-size: 14px;
+  font-weight: normal;
+  text-shadow: 1px 1px #fff;
+  margin: 0px;
+}
+body > footer {
+  color: #bbb;
+  font-size: 12px;
+  text-align: center;
+}
+
+body > article > aside > h2 {
+  color: #abb;
+  font-size: 14px;
+  font-weight: normal;
+  text-shadow: 1px 1px #fff;
+  margin: 0px;
+  margin-bottom: 16px;
+}
+body > article > aside > ul {
+  border-top: 1px solid #e4e4e4;
+  list-style: none;
+  margin: 0px;
+  margin-bottom: 30px;
+  padding: 0px;
+}
+body > article > aside > ul li {
+  border-bottom: 1px solid #e4e4e4;
+  color: #555;
+  font-size: 14px;
+  padding: 8px 8px;
+}
+body > article > aside > ul li:hover {
+  color: #aaa;
+}
+
+body > article > section p {
+  font-size: 14px;
+  line-height: 140%;
+  margin: 0px;
+  margin-bottom: 15px;
+}
+body > article > section a:hover {
+  text-decoration: underline;
+}
+
+body > article > section.pages ul.pages {
+  list-style: none;
+  padding: 0px;
+}
+body > article > section.pages ul.pages li {
+  background-color: #fcfcfc;
+  border-bottom: 4px solid #e4e4e4;
+  box-sizing: border-box;
+  float: left;
+  margin-right: 6%;
+  margin-bottom: 3%;
+  padding: 30px;
+  width: 47%;
+}
+body > article > section.pages ul.pages li:nth-child(2n) {
+  margin-right: 0px;
+}
+body > article > section.pages ul.pages li:nth-child(2n + 1) {
+  clear: left;
+}
+body > article > section.pages ul.pages li:nth-last-child(-n + 2) {
+  margin-bottom: 0px;
+}
+body > article > section.pages ul.pages li h2 {
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0px;
+  margin-bottom: 15px;
+}
+body > article > section.pages ul.pages li h2 span {
+  color: #bbb;
+  font-size: 14px;
+}
+body > article > section.pages ul.pages li p.info {
+  color: #bbb;
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+
+/*# sourceMappingURL=main.css.map */

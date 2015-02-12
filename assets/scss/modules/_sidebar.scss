@@ -1,0 +1,32 @@
+body > article > aside {
+	> h2 {
+		color: $subtle-active-color;
+		font-size: 14px;
+		font-weight: normal;
+		text-shadow: $header-shadow;
+		
+		margin: 0px;
+		margin-bottom: 16px;
+	}
+	
+	> ul {
+		border-top: 1px solid $border-color;
+		list-style: none;
+		
+		margin: 0px;
+		margin-bottom: 30px;
+		padding: 0px;
+		
+		li {
+			border-bottom: 1px solid $border-color;
+			color: #555;
+			font-size: 14px;
+			
+			padding: 8px 8px;
+			
+			&:hover {
+				color: #aaa;
+			}
+		}
+	}
+}

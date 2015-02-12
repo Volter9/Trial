@@ -1,0 +1,40 @@
+body {
+	> header,
+	> article,
+	> footer {
+		@extend .fluid;
+	}
+	
+	> article {
+		@extend .clearfix;
+		
+		padding-top: 15px;
+		
+		> aside {
+			float: right;
+			width: $sidebar-width;
+		}
+		
+		> section {
+			box-sizing: border-box;
+			float: left;
+			padding-right: 20px;
+			width: $width - $sidebar-width;
+			
+			> h1:first-child {
+				color: $subtle-active-color;
+				font-size: 14px;
+				font-weight: normal;
+				text-shadow: $header-shadow;
+								
+				margin: 0px;
+			}
+		}
+	}
+	
+	> footer {
+		color: $subtle-text-color;
+		font-size: 12px;
+		text-align: center;
+	}
+}
