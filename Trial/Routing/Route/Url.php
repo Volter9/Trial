@@ -34,21 +34,17 @@ class Url {
 		$this->url = str_replace($base, '', $this->url);
 	}
 	
-	public function match (Request $request) {
-		return $this->compareMethod($request)
-			&& $this->matchUrl($request);
+	public function match (Url $url) {
+		return $this->compareMethod($url->getMethod())
+			&& $this->matchUrl($url->getUrl());
 	}
 	
-	private function compareMethod (Request $request) {
-		$method = $request->getMethod();
-		
+	private function compareMethod ($method) {
 		return $method === '*' 
 			|| $method === $this->method;
 	}
 	
-	protected function matchUrl (Request $request) {
-		$url = $request->getUrl();
-		
+	protected function matchUrl ($url) {
 		return $this->url === $url 
 			|| preg_match($this->pattern, $url);
 	}

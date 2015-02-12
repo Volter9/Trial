@@ -9,6 +9,7 @@ use Trial\View\Plugins\Plugin;
 
 class Template implements Output {
 	
+	private $app;
 	private $container;
 	private $data;
 	private $view;
@@ -19,13 +20,16 @@ class Template implements Output {
 	private $views = [];
 	
 	public function __construct (Container $container, $view, array $data) {
+		$this->app = $container->get('app');
 		$this->container = $container;
 		$this->data = $data;
 		$this->view = $view;
 	}
 	
 	public function render (Response $response = null) {
-		$view = new View($this->container, $this, $this->view, $this->data);
+		$view = new View(
+			$this, $this->view, $this->app->buildAppPath($name), $this->data
+		);
 		$this->mainView = $view;
 		
 		$view->render();
@@ -33,7 +37,7 @@ class Template implements Output {
 	
 	public function renderPartial ($name, array $data = []) {
 		$view = new View(
-			$this->container, $this, $name, array_merge(
+			$this, $name, $this->app->buildAppPath($name), array_merge(
 				$this->mainView->getVariables(), $data
 			)
 		);
@@ -47,9 +51,7 @@ class Template implements Output {
 	}
 	
 	public function __call ($plugin, $params) {
-		$plugin = $this->getPlugin($plugin);
-		
-		return $plugin->execute($params);
+		return $this->getPlugin($plugin)->execute($params);
 	}
 	
 	public function getPlugin ($name) {

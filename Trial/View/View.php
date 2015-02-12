@@ -6,7 +6,6 @@ use Trial\Injection\Container,
 
 class View implements Output {
 	
-	private $container;
 	private $template;
 	
 	private $name;
@@ -14,16 +13,15 @@ class View implements Output {
 	private $view;
 	
 	public function __construct (
-		Container $container, 
 		Template $template, 
-		$view, 
+		$name,
+		$path, 
 		array $variables = []
 	) {
-		$this->container = $container;
 		$this->template = $template;
 		
-		$this->name = $view;
-		$this->view = $container->get('app')->buildAppPath("Views/$view");
+		$this->name = $name;
+		$this->view = $path;
 		$this->variables = $variables;
 	}
 	
@@ -36,14 +34,6 @@ class View implements Output {
 		
 		$closure = $closure->bindTo($this->template);
 		$closure($this->view, $this->variables);
-	}
-	
-	public function assign ($key, $value = null) {
-		$this->variables[$key] = $value;
-	}
-	
-	public function inject (array $values) {
-		$this->variables = array_merge($this->variables, $values);
 	}
 	
 	public function getVariables () {

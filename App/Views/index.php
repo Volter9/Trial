@@ -14,17 +14,17 @@
 				</span>
 			</h2>
 			
-			<p> 
+			<p>
 				<a href="#">The animals</a> can't manufacture the amino acid lysine. 
 				Unless they're continually supplied with lysine by us, they'll slip into a coma and die.
 			</p>
 			
-			<p> 
+			<p>
 				The animals can't manufacture the amino acid lysine. 
 				Unless they're <a href="#">continually</a> supplied with lysine by us, they'll slip into a coma and die.
 			</p>
 			
-			<p> 
+			<p>
 				The animals can't manufacture the <a href="#">amino acid lysine</a>. 
 				Unless they're continually supplied with lysine by us, they'll slip into a coma and die.
 			</p>

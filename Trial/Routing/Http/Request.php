@@ -1,24 +1,31 @@
 <?php namespace Trial\Routing\Http;
 
-use Trial\Routing\Route\Url;
+use Trial\Routing\Route\Parameters,
+	Trial\Routing\Route\Url;
 
 class Request {
 	
 	private $input;
-	private $url;
+	
 	private $parameters;
-		
+	private $url;
+	
 	static public function fromUrl () {
 		return new Request(static::getRequestPath());
 	}
 	
 	static protected function getRequestPath () {
-		$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-		$url = chop($url, '/');
+		$url = $_SERVER['REQUEST_URI'];
+		$url = parse_url($url, PHP_URL_PATH);
 	
-		return $url;
+		return chop($url, '/');
 	}
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param string $url
+	 */
 	public function __construct ($url) {
 		// Hahaha
 		$this->input = new Input;
@@ -30,35 +37,22 @@ class Request {
 	}
 	
 	private function findBase () {
-		$base = BASE_PATH;
 		$root = $this->input->getServer('DOCUMENT_ROOT');
-		$fragments = explode($root, $base);
+		$fragments = explode($root, BASE_PATH);
 		
 		return '/' . trim(end($fragments), '/');
 	}
 	
 	public function getUrl () {
-		return $this->url->getUrl();
+		return $this->url;
 	}
 	
-	public function getMethod () {
-		return $this->url->getMethod();
-	}
-	
-	public function setParameters (array $parameters) {
+	public function setParameters (Parameters $parameters) {
 		$this->parameters = $parameters;
 	}
 	
-	public function getParameter ($key) {
-		if (!isset($this->parameters[$key])) {
-			return false;
-		}
-		
-		return $this->parameters[$key];
-	}
-	
-	public function isPost () {
-		return $this->method === 'POST';
+	public function getParameters () {
+		return $this->parameters;
 	}
 	
 	public function getInput () {

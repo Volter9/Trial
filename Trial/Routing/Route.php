@@ -11,6 +11,7 @@ class Route {
 	
 	private $url;
 	private $action;
+	private $parameters;
 	
 	private $id;
 	
@@ -46,22 +47,19 @@ class Route {
 	 * @param \Trial\Routing\Route\Action $action
 	 * @param string $id
 	 */
-	public function __construct ($url, $action, $id) {
+	public function __construct (Url $url, Action $action, $id) {
 		$this->url = $url;
 		$this->action = $action;
 		$this->id = $id;
 		
 		$this->pattern = $this->compilePattern($url->getUrl());
 		$this->url->setPattern($this->pattern);
+		// Hahaha
 		$this->parameters = new Parameters($url);
 	}
 	
 	private function compilePattern ($url) {
-		$url = preg_replace(
-			$this->symbolPattern, 
-			$this->anyPattern, 
-			$url
-		);
+		$url = preg_replace($this->symbolPattern, $this->anyPattern, $url);
 		
 		return "#^$url$#i";
 	}
@@ -76,21 +74,18 @@ class Route {
 	
 	public function match (Request $request) {
 		return $this->action->exists() 
-			&& $this->url->match($request);
+			&& $this->url->match($request->getUrl());
 	}
 	
 	public function getParameters (Request $request) {
-		return $this->parameters->parseParameters($request->getUrl());
+		// WTF? getUrl()->getUrl()
+		$this->parameters->parseParameters($request->getUrl()->getUrl());
+		
+		return $this->parameters;
 	}
 	
-	public function url ($id, array $params) {
-		$url = $this->parameters->apply($params);
-				
-		return $this->cleanup($url);
-	}
-	
-	private function cleanup ($url) {
-		return preg_replace('/\/{2,}/', '/', $url);
+	public function url (array $params) {
+		return $this->parameters->apply($params);
 	}
 	
 }

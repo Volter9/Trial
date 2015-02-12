@@ -3,44 +3,48 @@
 class Parameters {
 	
 	private $url;
+	private $parameters;
 	
 	private $pattern;
 	private $symbol = '/@([\w\d-_]+)/';
-	
-	private $parameters;
 	
 	public function __construct (Url $url) {
 		$this->url = $url;
 		$this->pattern = $url->getPattern();
 	}
 	
-	private function getParameters () {
+	public function parseParameters ($url) {
 		if (!$this->parameters) {
-			preg_match_all($this->symbol, $this->url->getUrl(), $matches);
+			$keys = $this->getParameters();
+			$values = $this->readParameters($url);
 			
-			$this->parameters = $matches[1];
+			$this->parameters = array_combine($keys, $values);
 		}
 		
 		return $this->parameters;
+	}
+	
+	private function getParameters () {
+		preg_match_all($this->symbol, $this->url->getUrl(), $matches);
+		
+		return $matches[1];
 	}
 	
 	private function readParameters ($url) {
 		preg_match_all($this->pattern, $url, $matches);
 		array_shift($matches);
 		
-		return array_map(
-			function ($match) {
-				return $match[0];
-			}, 
-			$matches
-		);
+		return array_map(function ($match) {
+			return $match[0];
+		}, $matches);
 	}
 	
-	public function parseParameters ($url) {
-		$params = $this->getParameters();
-		$values = $this->readParameters($url);
+	public function get ($key) {
+		if (isset($this->parameters[$key])) {
+			return $this->parameters[$key];
+		}
 		
-		return array_combine($params, $values);
+		return false;
 	}
 	
 	public function apply (array $params) {
@@ -50,11 +54,11 @@ class Parameters {
 			return $url;
 		}
 		
-		foreach ($this->parameters as $index => $value) {
+		foreach (array_keys($this->parameters) as $index => $value) {
 			$url = str_replace("/@$value", $params[$index], $url);
 		}
 		
-		return $url;
+		return preg_replace('/\/{2,}/', '/', $url);
 	}
 	
 }

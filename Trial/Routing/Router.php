@@ -36,21 +36,13 @@ class Router {
 	public function urlTo ($id, array $params = []) {
 		$route = $this->routes->getById($id);
 		
-		if (!$route) {
-			return '';
-		}
-		
-		return $route->url($id, $params);
+		return $route ? $route->url($params) : '';
 	}
 	
 	public function route (Request $request) {
 		$route = $this->routes->match($request);
 		
-		if (!$route) {
-			$route = $this->errorRoute;
-		}
-		
-		return $route;
+		return $route ?: $this->errorRoute;
 	}
 	
 }

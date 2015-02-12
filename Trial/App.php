@@ -74,15 +74,16 @@ class App {
 	 */
 	public function boot () {
 		if ($this->running) {
-			throw new Exception (
-				'Cannot run the app again!'
-			);
+			throw new Exception('Cannot run the app again!');
 		}
 		
 		$this->running = true;
 		
-		$this->registerFactories($this->container->factory());
-		$this->registerConfigs($this->container);
+		$container = $this->container;
+		$factory = $container->factory();
+		
+		$this->registerFactories($factory);
+		$this->registerConfigs($container, $factory);
 		$this->tweak();
 		$this->setupServices();
 		
@@ -95,17 +96,21 @@ class App {
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
-		$factory->register('router',
+		$factory->register(
+			'router',
 			function ($routes = []) {
 				return new Router($this, new Routes($routes));
 			}
 		);
 		
-		$factory->register('config', function ($path) {
-			return new Config(
-				$this->get('app')->buildAppPath($path)
-			);
-		});
+		$factory->register(
+			'config', 
+			function ($path) {
+				return new Config(
+					$this->get('app')->buildAppPath($path)
+				);
+			}
+		);
 	}
 	
 	/**
@@ -113,9 +118,7 @@ class App {
 	 * 
 	 * @param \Trial\Injection\Container
 	 */
-	protected function registerConfigs ($container) {
-		$factory = $container->factory();
-		
+	protected function registerConfigs ($container, $factory) {
 		$container->set('app', $this);
 		
 		$container->set('config.db', $factory->create('config', 'Configs/database'));
