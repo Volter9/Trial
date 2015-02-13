@@ -11,7 +11,14 @@ class Request {
 	private $url;
 	
 	static public function fromUrl () {
-		return new Request(static::getRequestPath());
+		$input = new Input;
+		
+		$url = new Url(
+			$input->getServer('REQUEST_METHOD'), 
+			static::getRequestPath()
+		);
+		
+		return new Request($url, $input);
 	}
 	
 	static protected function getRequestPath () {
@@ -24,14 +31,12 @@ class Request {
 	/**
 	 * Constructor
 	 * 
-	 * @param string $url
+	 * @param \Trial\Routing\Route\Url $url
+	 * @param \Trial\Routing\Http\Input
 	 */
-	public function __construct ($url) {
-		// Hahaha
-		$this->input = new Input;
-		$this->url = new Url(
-			$this->input->getServer('REQUEST_METHOD'), $url
-		);
+	public function __construct (Url $url, Input $input) {
+		$this->input = $input;
+		$this->url = $url;
 		
 		$this->url->setBase($this->findBase());
 	}

@@ -28,7 +28,7 @@ class Template implements Output {
 	
 	public function render (Response $response = null) {
 		$view = new View(
-			$this, $this->view, $this->app->buildAppPath($name), $this->data
+			$this, $this->view, $this->buildPath($this->view), $this->data
 		);
 		$this->mainView = $view;
 		
@@ -37,13 +37,17 @@ class Template implements Output {
 	
 	public function renderPartial ($name, array $data = []) {
 		$view = new View(
-			$this, $name, $this->app->buildAppPath($name), array_merge(
+			$this, $name, $this->buildPath($name), array_merge(
 				$this->mainView->getVariables(), $data
 			)
 		);
 		
 		$this->views[$name] = $view;
 		$view->render();
+	}
+	
+	protected function buildPath ($view) {
+		return $this->app->buildAppPath("Views/$view");
 	}
 	
 	public function registerPlugin (Plugin $plugin) {
