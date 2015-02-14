@@ -30,8 +30,16 @@ class Collection implements Iterator, Countable {
 		return array_pop($this->items);
 	}
 	
+	public function append ($value) {
+		array_push($this->items, $value);
+	}
+	
 	public function shift () {
 		return array_shift($this->items);
+	}
+	
+	public function prepend ($value) {
+		array_unshift($this->items, $value);
 	}
 	
 	public function slice ($offset, $count) {

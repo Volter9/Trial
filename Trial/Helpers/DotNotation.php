@@ -26,7 +26,7 @@ class DotNotation {
 	 * @param string $key
 	 * @return mixed
 	 */
-	static public function get (array $array, $key) {
+	static public function get (array $array, $key, $default = null) {
 		if (
 			strpos($key, static::$delimeter) === false &&
 			isset($array[$key])
@@ -36,6 +36,10 @@ class DotNotation {
 		
 		$reference = static::fetch($array, $key);
 		$result = $reference;
+		
+		if ($result === false && $default !== null) {
+			return $default;
+		}
 		
 		return $result;
 	}
@@ -69,8 +73,8 @@ class DotNotation {
 	static protected function fetch (array &$array, $key, $value = null) {
 		$keys = explode(static::$delimeter, $key);
 		
-		/*
-		// I wish I could put this while in other method,
+		/* 
+		// I wish I could extract it in seperate method,
 		// but references are unpredictable...
 		*/
 		while (is_array($array) && $key !== null) {
@@ -87,6 +91,10 @@ class DotNotation {
 		
 		if ($value !== null) {
 			$array = $value;
+		}
+		
+		if ($array === null) {
+			return false;
 		}
 		
 		return $array;

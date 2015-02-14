@@ -2,4 +2,4 @@
 
 use Trial\DB\ORM\Entity;
 
-class User extends Entity {}
+class Group extends Entity {}

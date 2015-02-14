@@ -14,13 +14,14 @@ class Mapper {
 	
 	private $query;
 	
-	public function __construct (Connection $connection, $entity) {
+	public function __construct (Connection $connection, $entity, $table, $relations) {
 		$this->checkClass($entity);
-		$this->setTable($entity);
 		
 		$this->entity = $entity;
-		$this->pk = $entity::$pk;
+		$this->table = $table;
+		$this->relations = $relations;
 		
+		$this->pk = $entity::$pk;
 		$this->query = $connection->getTable($this->table);
 	}
 	
@@ -30,18 +31,6 @@ class Mapper {
 				"Entity's class '$entitiy' does not exists!"
 			);
 		}
-	}
-	
-	private function setTable ($entity) {
-		$table = $entity::$table;
-		
-		if (!$table) {
-			throw new Exception (
-				"Entity '$entity' has empty table!"
-			);
-		}
-		
-		$this->table = $table;
 	}
 	
 	public function build (array $data) {

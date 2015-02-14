@@ -2,8 +2,6 @@
 
 use Trial\Routing\Controller;
 
-use Trial\Core\Collection;
-
 class Index extends Controller {
 	
 	public function indexAction ($request, $response) {

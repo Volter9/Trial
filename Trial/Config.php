@@ -65,15 +65,18 @@ class Config implements ConfigInterface {
 	/**
 	 * Get a value of key
 	 * 
-	 * @param string|null $key
+	 * @param string $key
+	 * @param string $default
 	 * @return mixed
 	 */
-	public function get ($key = null) {
+	public function get ($key = null, $default = null) {
 		if ($key === null) {
 			return $this->data;
 		}
 		
-		return DotNotation::get($this->data, $key);
+		$value = DotNotation::get($this->data, $key);
+		
+		return $value ?: $default;
 	}
 	
 }

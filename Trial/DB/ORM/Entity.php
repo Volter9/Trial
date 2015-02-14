@@ -10,8 +10,6 @@ class Entity implements ArrayAccess {
 	private $clean = true;
 	
 	public static $pk = 'id';
-	public static $mapper = '\Trial\DB\ORM\Mapper';
-	public static $table = '';
 	
 	public static function getRules () {
 		return [];

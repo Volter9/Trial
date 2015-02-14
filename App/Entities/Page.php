@@ -2,8 +2,4 @@
 
 use Trial\DB\ORM\Entity;
 
-class Page extends Entity {
-	
-	public static $table = 'pages';
-	
-}
+class Page extends Entity {}

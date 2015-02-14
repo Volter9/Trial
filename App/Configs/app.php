@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Application config
+ */
+
 return [
 	'services' => [
 		'\Trial\Services\ConnectionService',
