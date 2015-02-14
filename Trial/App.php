@@ -59,8 +59,9 @@ class App {
 	}
 	
 	/**
-	 * Build a pth to 
+	 * Build a path to app
 	 * 
+	 * @todo "that's not your responsibility, son"
 	 * @param string $file
 	 * @param string $ext
 	 * @return string

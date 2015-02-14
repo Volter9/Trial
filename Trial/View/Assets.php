@@ -1,15 +1,17 @@
 <?php namespace Trial\View;
 
+use Trial\Injection\Container;
+
 class Assets {
 	
-	private $app;
+	private $assets;
 	
-	public function __cosntruct (Container $container) {
-		$this->app = $container->get('app');
+	public function __construct (Container $container) {
+		$this->assets = $container->get('config.app')->get('assets');
 	}
 	
-	public function css () {
-		
+	public function buildPath ($asset) {
+		return $this->assets . $asset;
 	}
 	
 }

@@ -10,7 +10,6 @@ class AuthService implements Service {
 		$mapper = $container->get('orm')
 			->mapper('\App\Entities\User');
 		
-		// Test
 		$user = $mapper->get(1);
 	}
 	

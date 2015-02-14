@@ -9,5 +9,5 @@ return [
 		// '\App\Services\AuthService'
 	],
 	
-	'assets' => 'assets'
+	'assets' => '/oop_cms/assets/'
 ];
