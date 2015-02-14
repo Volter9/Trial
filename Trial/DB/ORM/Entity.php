@@ -6,14 +6,8 @@ class Entity implements ArrayAccess {
 	
 	private $data;
 	
-	private $dirty = false;
-	private $clean = true;
-	
-	public static $pk = 'id';
-	
-	public static function getRules () {
-		return [];
-	}
+	private $dirty = true;
+	private $original = true;
 	
 	/**
 	 * Constructor
@@ -22,38 +16,27 @@ class Entity implements ArrayAccess {
 	 */
 	public function __construct (array $data = []) {
 		$this->data = $data;
-		
-		!empty($data) and $this->dirty = true;
 	}
 	
 	public function getData () {
 		return $this->data;
 	}
 	
-	
 	public function isDirty () {
 		return $this->dirty;
 	}
 	
-	public function markClean () {
-		if (!$this->dirty) {
-			throw new Exception (
-				'Entity is not dirty yet!'
-			);
-		}
-		
+	public function clean () {
 		$this->dirty = false;
 	}
 	
-	
-	public function isClean () {
-		return $this->clean;
+	public function isOriginal () {
+		return $this->original;
 	}
 	
-	public function markOld () {
-		$this->clean = false;
+	public function expire () {
+		$this->original = false;
 	}
-	
 	
 	public function toJSON () {
 		return json_encode($this->data);

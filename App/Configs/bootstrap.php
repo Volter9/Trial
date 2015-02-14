@@ -2,6 +2,8 @@
 
 /**
  * Bootstrap file
+ * 
+ * @package Trial
  */
 
 ob_start();

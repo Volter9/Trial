@@ -2,6 +2,10 @@
 
 use Trial\DB\Query\Query;
 
+/**
+ * @todo decompose
+ */
+
 class Builder {
 	
 	private $query;

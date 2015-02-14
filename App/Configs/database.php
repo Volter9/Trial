@@ -2,6 +2,8 @@
 
 /**
  * Database config
+ * 
+ * @package Trial
  */
 
 return [

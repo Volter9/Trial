@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Routes
+ * Routes 
+ * 
+ * @package Trial
+ * @var \Trial\Routing\Router $routes
  */
 
 $router->add('GET /@abc', '\App\Controllers\Index', 'home');

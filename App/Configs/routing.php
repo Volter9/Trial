@@ -2,6 +2,8 @@
 
 /**
  * Routing config
+ * 
+ * @package Trial
  */
 
 return [

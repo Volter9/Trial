@@ -9,26 +9,31 @@ use Trial\Core\Collection,
 class Mapper {
 	
 	private $connection;
+	private $entity;
 	private $table;
-	private $pk;
 	
+	private $pk = 'id';
 	private $query;
 	
-	public function __construct (Connection $connection, $entity, $table, $relations) {
+	public function __construct (
+		Connection $connection, 
+		$entity, 
+		$table, 
+		array $relations
+	) {
 		$this->checkClass($entity);
 		
 		$this->entity = $entity;
 		$this->table = $table;
 		$this->relations = $relations;
 		
-		$this->pk = $entity::$pk;
-		$this->query = $connection->getTable($this->table);
+		$this->query = $connection->getTable($table);
 	}
 	
 	private function checkClass ($entity) {
 		if (!class_exists($entity)) {
 			throw new Exception (
-				"Entity's class '$entitiy' does not exists!"
+				"Entity '$entitiy' does not exists!"
 			);
 		}
 	}
@@ -40,9 +45,7 @@ class Mapper {
 	}
 	
 	public function create (array $data) {
-		$id = $this->query
-			->insert($data)
-			->execute();
+		$id = $this->query->insert($data)->execute();
 		
 		return $this->get($id);
 	}
@@ -52,28 +55,25 @@ class Mapper {
 			return;
 		}
 		
-		if ($entity->isClean()) {
+		if ($entity->isOriginal()) {
 			$result = $this->insert($entity);
-			$entity->markOld();
+			$entity->expire();
 		}
 		else {
 			$result = $this->update($entity);
 		}
 		
-		$entity->markClean();
+		$entity->clean();
 		
 		return $result;
 	}
 	
 	public function insert (Entity $entity) {
 		$data = $entity->getData();
-		$pk = $this->pk;
 		
-		$id = $this->query
-			->insert($data)
-			->execute();
+		$id = $this->query->insert($data)->execute();
 		
-		$entity[$pk] = $id;
+		$entity[$this->pk] = $id;
 		
 		return $id;
 	}
@@ -82,8 +82,7 @@ class Mapper {
 		$data = $entity->getData();
 		$pk = $this->pk;
 		
-		return $this->query
-			->update($data)
+		return $this->query->update($data)
 			->where("$pk = ?", [$data[$pk]])
 			->execute();
 	}
@@ -94,8 +93,7 @@ class Mapper {
 		}
 		
 		$pk = $this->pk;
-		$result = $this->query
-			->select()
+		$result = $this->query->select()
 			->where("$pk = ?", [$id])
 			->limit(1)
 			->execute();
@@ -105,17 +103,14 @@ class Mapper {
 		}
 		
 		$entity = $this->wrapOne($result);
-		$entity->markOld();
+		$entity->expire();
 		
 		return $entity;
 	}
 	
 	public function all () {
 		return $this->wrap(
-			$this->query
-				->select()
-				->orderBy('id DESC')
-				->execute()
+			$this->query->select()->orderBy('id DESC')->execute()
 		);
 	}
 	
@@ -125,8 +120,14 @@ class Mapper {
 		return $this->wrap($this->query->execute());
 	}
 	
+	public function getQuery () {
+		return $this->query;
+	}
+	
 	/**
 	 * Wrappers
+	 * 
+	 * @todo extract into seperate class
 	 */
 	
 	protected function wrap ($result) {
@@ -135,10 +136,6 @@ class Mapper {
 		}
 		
 		return $this->query->getLimit() === 1 
-			|| (
-				count($result) === 1 && 
-				is_array($result[0])
-			)
 			? $this->wrapOne($result[0])
 			: $this->wrapInCollection($result);
 	}
@@ -150,7 +147,7 @@ class Mapper {
 	}
 	
 	protected function wrapInCollection (array $data) {
-		return new Collection (array_map([$this, 'wrapOne'], $data));
+		return new Collection(array_map([$this, 'wrapOne'], $data));
 	}
 	
 }

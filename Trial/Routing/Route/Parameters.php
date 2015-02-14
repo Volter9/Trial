@@ -7,10 +7,18 @@ class Parameters {
 	
 	private $pattern;
 	private $symbol = '/@([\w\d-_]+)/';
+	private $any = '([\w\d-_]+)';
 	
 	public function __construct (Url $url) {
 		$this->url = $url;
-		$this->pattern = $url->getPattern();
+		$this->pattern = $this->compilePattern($url->getUrl());
+		$this->url->setPattern($this->pattern);
+	}
+	
+	private function compilePattern ($url) {
+		$url = preg_replace($this->symbol, $this->any, $url);
+		
+		return "#^$url$#i";
 	}
 	
 	public function parseParameters ($url) {

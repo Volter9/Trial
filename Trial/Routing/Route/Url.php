@@ -26,10 +26,6 @@ class Url {
 		$this->pattern = $pattern;
 	}
 	
-	public function getPattern () {
-		return $this->pattern;
-	}
-	
 	public function setBase ($base) {
 		$this->url = str_replace($base, '', $this->url);
 	}

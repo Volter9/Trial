@@ -2,27 +2,32 @@
 
 /**
  * ORM config
+ * 
+ * @package Trial
  */
 
 return [
 	'users' => [
 		'entity' => '\App\Entities\User',
 		'relations' => [
-			'oneToOne' => ['groups']
+			'oneToOne' => ['groups'],
+			'field' => 'group_id'
 		]
 	],
 	
 	'pages' => [
 		'entity' => '\App\Entities\Page',
 		'relations' => [
-			'oneToOne' => ['categories']
+			'oneToOne' => ['categories'],
+			'field' => 'category_id'
 		]
 	],
 	
 	'categories' => [
 		'entity' => '\App\Entities\Category',
 		'relations' => [
-			'hierarchical' => ['categories']
+			'hierarchical' => ['categories'],
+			'field' => 'parent_id'
 		]
 	],
 	

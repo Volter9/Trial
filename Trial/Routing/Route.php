@@ -6,7 +6,6 @@ use Trial\Routing\Route\Action,
 	Trial\Routing\Route\Parameters,
 	Trial\Routing\Route\Url;
 
-
 class Route {
 	
 	private $url;
@@ -15,29 +14,24 @@ class Route {
 	
 	private $id;
 	
-	private $pattern;
-	
-	private $symbolPattern = '/@([\w\d-_]+)/';
-	private $anyPattern = '([\w\d-_]+)';
-	
 	static public function fromUrl ($url, $controller, $id = '') {
 		list($method, $url) = explode(' ', $url);
 		list($controller, $action) = static::parseAction($controller);
 		
-		$url = new Url($method, $url);
-		$action = new Action($controller, $action);
+		$url        = new Url($method, $url);
+		$action     = new Action($controller, $action);
+		$parameters = new Parameters($url);
 		
-		return new Route($url, $action, $id);
+		return new Route($url, $action, $parameters, $id);
 	}
 	
 	static private function parseAction ($controller) {
 		$action = 'index';
+		$token = '::';
 		
-		if (strpos($controller, '::') !== false) {
-			list ($controller, $action) = explode('::', $controller);
-		}
-		
-		return [$controller, $action];
+		return strpos($controller, $token) !== false
+			? explode($token, $controller)
+			: [$controller, $action];
 	}
 	
 	/**
@@ -47,21 +41,16 @@ class Route {
 	 * @param \Trial\Routing\Route\Action $action
 	 * @param string $id
 	 */
-	public function __construct (Url $url, Action $action, $id) {
+	public function __construct (
+		Url $url, 
+		Action $action, 
+		Parameters $parameters, 
+		$id
+	) {
 		$this->url = $url;
 		$this->action = $action;
+		$this->parameters = $parameters;
 		$this->id = $id;
-		
-		$this->pattern = $this->compilePattern($url->getUrl());
-		$this->url->setPattern($this->pattern);
-		// Hahaha
-		$this->parameters = new Parameters($url);
-	}
-	
-	private function compilePattern ($url) {
-		$url = preg_replace($this->symbolPattern, $this->anyPattern, $url);
-		
-		return "#^$url$#i";
 	}
 	
 	public function getController () {

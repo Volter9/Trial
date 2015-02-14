@@ -2,6 +2,8 @@
 
 /**
  * Application config
+ * 
+ * @package Trial
  */
 
 return [

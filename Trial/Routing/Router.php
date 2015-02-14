@@ -24,12 +24,6 @@ class Router {
 	}
 	
 	public function setErrorRoute($url, $controller) {
-		if ($this->errorRoute) {
-			throw new Exception (
-				'Cannot set error controller again'
-			);
-		}
-		
 		$this->errorRoute = Route::fromUrl($url, $controller);
 	}
 	

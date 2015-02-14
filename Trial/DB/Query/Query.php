@@ -5,6 +5,10 @@ use Exception;
 use Trial\DB\Connection,
 	Trial\DB\Query\Builders\Builder;
 
+/**
+ * @todo decompose
+ */
+
 class Query {
 	
 	private $connection;
