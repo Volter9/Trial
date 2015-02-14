@@ -1,8 +1,9 @@
 <?php namespace Trial\Core;
 
-use Iterator;
+use Iterator,
+	Countable;
 
-class Collection implements Iterator {
+class Collection implements Iterator, Countable {
 	
 	protected $items;
 	
@@ -33,6 +34,14 @@ class Collection implements Iterator {
 		return array_shift($this->items);
 	}
 	
+	public function slice ($offset, $count) {
+		return array_slice($this->items, $offset, $count);
+	}
+	
+	public function content () {
+		return $this->items;
+	}
+	
 	/**
 	 * Iterator interface implementation
 	 */
@@ -56,5 +65,13 @@ class Collection implements Iterator {
     public function valid () {
         return isset($this->items[$this->position]);
     }
+	
+	/**
+	 * Countable interface implementation
+	 */
+	
+	public function count () {
+		return count($this->items);
+	}
 	
 }

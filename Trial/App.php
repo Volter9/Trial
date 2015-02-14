@@ -93,6 +93,7 @@ class App {
 	/**
 	 * Register factories
 	 * 
+	 * @todo remove that method
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
@@ -123,7 +124,6 @@ class App {
 		
 		$container->set('config.db', $factory->create('config', 'Configs/database'));
 		$container->set('config.app', $factory->create('config', 'Configs/app'));
-		$container->set('config.callbacks', $factory->create('config', 'Configs/callbacks'));
 		$container->set('config.routing', $factory->create('config', 'Configs/routing'));
 		
 		$container->set('router', $factory->create('router'));
@@ -133,11 +133,7 @@ class App {
 	 * Tweak the PHP system
 	 */
 	protected function tweak () {
-		$callback = $this->container
-			->get('config.callbacks')
-			->get('init');
-		
-		$callback();
+		include $this->buildAppPath('Configs/bootstrap');
 	}
 	
 	/**
@@ -148,9 +144,9 @@ class App {
 			->get('config.app')
 			->get('services');
 		
-		foreach ($services as $name => $service) {
-			$service = new $service($this->container);
-			$service->register();
+		foreach ($services as $service) {
+			$service = new $service;
+			$service->register($this->container);
 		}
 	}
 	
@@ -162,11 +158,7 @@ class App {
 	public function dispatch (Request $request) {
 		$router = $this->container->get('router');
 		
-		$callback = $this->container
-			->get('config.callbacks')
-			->get('routes');
-		
-		$callback($router);
+		include $this->buildAppPath('Configs/routes');
 		
 		$route = $router->route($request);
 		

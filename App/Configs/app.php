@@ -2,8 +2,12 @@
 
 return [
 	'services' => [
-		'connections' => '\Trial\Services\ConnectionService',
-		'view' => '\Trial\Services\ViewService',
-		'mapper' => '\Trial\Services\MapperService'
-	]
+		'\Trial\Services\ConnectionService',
+		'\Trial\Services\ViewService',
+		'\Trial\Services\MapperService',
+		
+		// '\App\Services\AuthService'
+	],
+	
+	'assets' => 'assets'
 ];

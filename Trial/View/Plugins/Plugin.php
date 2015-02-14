@@ -1,11 +1,11 @@
 <?php namespace Trial\View\Plugins;
 
-use Trial\Injection\Container;
+use Trial\Injection\Container,
+	Trial\Core\Collection;
 
 interface Plugin {
 	
-	public function execute (array $arguments = []);
-	
+	public function execute (Collection $arguments);
 	public function getName ();
 	
 }

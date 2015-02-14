@@ -8,20 +8,16 @@ class View implements Output {
 	
 	private $template;
 	
-	private $name;
 	private $variables;
-	private $view;
+	private $path;
 	
 	public function __construct (
 		Template $template, 
-		$name,
 		$path, 
 		array $variables = []
 	) {
 		$this->template = $template;
-		
-		$this->name = $name;
-		$this->view = $path;
+		$this->path = $path;
 		$this->variables = $variables;
 	}
 	
@@ -33,7 +29,7 @@ class View implements Output {
 		};
 		
 		$closure = $closure->bindTo($this->template);
-		$closure($this->view, $this->variables);
+		$closure($this->path, $this->variables);
 	}
 	
 	public function getVariables () {

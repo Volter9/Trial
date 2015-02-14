@@ -1,13 +1,14 @@
 <?php namespace Trial\Services;
 
-use Trial\Injection\Container,
-	Trial\DB\ConnectionManager;
+use Trial\Injection\Container;
 
-class ConnectionService extends Service {
+use Trial\DB\ConnectionManager;
+
+class ConnectionService implements Service {
 	
-	public function register () {
-		$this->container->set(
-			'connections', new ConnectionManager($this->container)
+	public function register (Container $container) {
+		$container->set(
+			'connections', new ConnectionManager($container)
 		);
 	}
 	

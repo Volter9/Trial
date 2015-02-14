@@ -1,6 +1,7 @@
 <?php namespace Trial\View;
 
-use Trial\Injection\Container;
+use Trial\Injection\Container,
+	Trial\Core\Collection;
 
 use Trial\Routing\Http\Output,
 	Trial\Routing\Http\Response;
@@ -28,7 +29,7 @@ class Template implements Output {
 	
 	public function render (Response $response = null) {
 		$view = new View(
-			$this, $this->view, $this->buildPath($this->view), $this->data
+			$this, $this->buildPath($this->view), $this->data
 		);
 		$this->mainView = $view;
 		
@@ -37,7 +38,7 @@ class Template implements Output {
 	
 	public function renderPartial ($name, array $data = []) {
 		$view = new View(
-			$this, $name, $this->buildPath($name), array_merge(
+			$this, $this->buildPath($name), array_merge(
 				$this->mainView->getVariables(), $data
 			)
 		);
@@ -55,7 +56,9 @@ class Template implements Output {
 	}
 	
 	public function __call ($plugin, $params) {
-		return $this->getPlugin($plugin)->execute($params);
+		return $this->getPlugin($plugin)->execute(
+			new Collection($params)
+		);
 	}
 	
 	public function getPlugin ($name) {

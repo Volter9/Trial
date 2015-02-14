@@ -1,6 +1,7 @@
 <?php namespace Trial\View\Plugins;
 
-use Trial\Injection\Container;
+use Trial\Injection\Container,
+	Trial\Core\Collection;
 
 class RoutePlugin implements Plugin {
 	
@@ -10,11 +11,11 @@ class RoutePlugin implements Plugin {
 		$this->router = $container->get('router');
 	}
 	
-	public function execute (array $arguments = []) {
-		$id = current($arguments);
-		$params = array_slice($arguments, 1);
-		
-		return $this->router->urlTo($id, $params);
+	public function execute (Collection $arguments) {
+		return $this->router->urlTo(
+			$arguments->pop(), 
+			$arguments->content()
+		);
 	}
 	
 	public function getName () {

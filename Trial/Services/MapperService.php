@@ -4,12 +4,12 @@ use Trial\Injection\Container;
 	
 use Trial\DB\ORM\Factory;
 
-class MapperService extends Service {
+class MapperService implements Service {
 	
-	public function register () {
-		$factory = new Factory($this->container);
+	public function register (Container $container) {
+		$factory = new Factory($container);
 		
-		$this->container->set('orm', $factory);
+		$container->set('orm', $factory);
 	}
 	
 }

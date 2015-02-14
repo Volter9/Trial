@@ -5,14 +5,13 @@ use Trial\Injection\Container;
 use Trial\View\Factory,
 	Trial\View\Plugins\RoutePlugin;
 
-class ViewService extends Service {
+class ViewService implements Service {
 	
-	public function register () {
-		$factory = new Factory($this->container);
+	public function register (Container $container) {
+		$factory = new Factory($container);
+		$factory->registerPlugin(new RoutePlugin($container));
 		
-		$factory->registerPlugin(new RoutePlugin($this->container));
-		
-		$this->container->set('view', $factory);
+		$container->set('view', $factory);
 	}
 	
 }
