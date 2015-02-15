@@ -37,15 +37,10 @@ class Request {
 	public function __construct (Url $url, Input $input) {
 		$this->input = $input;
 		$this->url = $url;
-		
-		$this->url->setBase($this->findBase());
 	}
 	
-	private function findBase () {
-		$root = $this->input->getServer('DOCUMENT_ROOT');
-		$fragments = explode($root, BASE_PATH);
-		
-		return '/' . trim(end($fragments), '/');
+	public function setBase ($base) {
+		$this->url->setBase($base);
 	}
 	
 	public function getUrl () {

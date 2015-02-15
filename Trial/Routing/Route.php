@@ -39,6 +39,7 @@ class Route {
 	 * 
 	 * @param \Trial\Routing\Route\Url $url
 	 * @param \Trial\Routing\Route\Action $action
+	 * @param \Trial\Routing\Route\Parameters $parameters
 	 * @param string $id
 	 */
 	public function __construct (
@@ -67,7 +68,7 @@ class Route {
 	}
 	
 	public function getParameters (Request $request) {
-		// WTF? getUrl()->getUrl()
+		// @todo rename method to avoid getUrl()->getUrl()
 		$this->parameters->parseParameters($request->getUrl()->getUrl());
 		
 		return $this->parameters;

@@ -5,6 +5,10 @@
 	</head>
 	
 	<body>
+		<header>
+			<?php $this->renderPartial('blocks/header') ?>
+		</header>
+		
 		<article>
 			<?php $this->renderPartial('blocks/sidebar') ?>
 			<?php $this->renderPartial($view) ?>

@@ -11,6 +11,7 @@ class Mapper {
 	private $connection;
 	private $entity;
 	private $table;
+	private $relation;
 	
 	private $pk = 'id';
 	private $query;
@@ -19,13 +20,14 @@ class Mapper {
 		Connection $connection, 
 		$entity, 
 		$table, 
-		array $relations
+		Relation $relation = null
 	) {
 		$this->checkClass($entity);
 		
 		$this->entity = $entity;
 		$this->table = $table;
-		$this->relations = $relations;
+		$this->relation = $relation;
+		$this->relation->setMapper($this);
 		
 		$this->query = $connection->getTable($table);
 	}

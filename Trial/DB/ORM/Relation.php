@@ -1,17 +1,30 @@
 <?php namespace Trial\DB\ORM;
 
-abstract class Realtion {
+/**
+ * Relation
+ * 
+ * Null object, extend to provide custom behavior
+ * 
+ * @package Trial
+ */
+
+class Relation {
 	
 	protected $factory;
-	protected $entity;
+	protected $mapper;
 	protected $relations;
 	
-	public function __construct (Factory $factory, $entity, array $relations) {
+	public function __construct (Factory $factory, array $relations) {
 		$this->factory = $factory;
-		$this->entity = $entity;
 		$this->relations = $relations;
 	}
 	
-	abstract public function relate (Entity $entity);
+	public function setMapper (Mapper $mapper) {
+		$this->mapper = $mapper;
+	}
+	
+	public function relate (Entity $entity) {
+		return $entity;
+	}
 	
 }

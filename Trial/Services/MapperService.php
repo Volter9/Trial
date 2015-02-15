@@ -7,9 +7,7 @@ use Trial\DB\ORM\Factory;
 class MapperService implements Service {
 	
 	public function register (Container $container) {
-		$factory = new Factory($container);
-		
-		$container->set('orm', $factory);
+		$container->set('orm', new Factory($container));
 	}
 	
 }

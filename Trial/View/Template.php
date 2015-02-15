@@ -16,9 +16,7 @@ class Template implements Output {
 	private $view;
 	
 	private $plugins = [];
-	
 	private $mainView;
-	private $views = [];
 	
 	public function __construct (Container $container, $view, array $data) {
 		$this->app = $container->get('app');
@@ -28,6 +26,10 @@ class Template implements Output {
 	}
 	
 	public function render (Response $response = null) {
+		if ($this->mainView) {
+			throw new Exception('Template already was rendered!');
+		}
+		
 		$view = new View(
 			$this, $this->buildPath($this->view), $this->data
 		);
@@ -39,11 +41,10 @@ class Template implements Output {
 	public function renderPartial ($name, array $data = []) {
 		$view = new View(
 			$this, $this->buildPath($name), array_merge(
-				$this->mainView->getVariables(), $data
+				$this->mainView->getData(), $data
 			)
 		);
 		
-		$this->views[$name] = $view;
 		$view->render();
 	}
 	

@@ -8,32 +8,32 @@ class View implements Output {
 	
 	private $template;
 	
-	private $variables;
+	private $data;
 	private $path;
 	
 	public function __construct (
 		Template $template, 
 		$path, 
-		array $variables = []
+		array $data = []
 	) {
 		$this->template = $template;
 		$this->path = $path;
-		$this->variables = $variables;
+		$this->data = $data;
 	}
 	
 	public function render (Response $response = null) {	
-		$closure = function ($__view, $__variables) {
-			extract($__variables);
+		$closure = function ($__view, $__data) {
+			extract($__data);
 			
 			include $__view;
 		};
 		
 		$closure = $closure->bindTo($this->template);
-		$closure($this->path, $this->variables);
+		$closure($this->path, $this->data);
 	}
 	
-	public function getVariables () {
-		return $this->variables;
+	public function getData () {
+		return $this->data;
 	}
 	
 }

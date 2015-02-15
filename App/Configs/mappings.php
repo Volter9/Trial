@@ -10,7 +10,8 @@ return [
 	'users' => [
 		'entity' => '\App\Entities\User',
 		'relations' => [
-			'oneToOne' => ['groups'],
+			'type' => 'oneToOne',
+			'tables' => ['groups'],
 			'field' => 'group_id'
 		]
 	],
@@ -18,7 +19,8 @@ return [
 	'pages' => [
 		'entity' => '\App\Entities\Page',
 		'relations' => [
-			'oneToOne' => ['categories'],
+			'type' => 'oneToOne',
+			'tables' => ['categories'],
 			'field' => 'category_id'
 		]
 	],
@@ -26,7 +28,8 @@ return [
 	'categories' => [
 		'entity' => '\App\Entities\Category',
 		'relations' => [
-			'hierarchical' => ['categories'],
+			'type' => 'hierarchical',
+			'tables' => ['categories'],
 			'field' => 'parent_id'
 		]
 	],
@@ -34,7 +37,8 @@ return [
 	'comments' => [
 		'entity' => '\App\Entities\Comment',
 		'relations' => [
-			'oneToOneBinding' => [
+			'type' => 'oneToOneBinding',
+			'tables' => [
 				'comments',
 				'pages',
 				'categories',
@@ -53,5 +57,12 @@ return [
 		'\App\Entities\Category' => 'categories',
 		'\App\Entities\Comment' => 'comment',
 		'\App\Entities\Group' => 'groups'
+	],
+	
+	'relations' => [
+		'oneToOne' => '\Trial\DB\ORM\Relations\OneToOne',
+		'oneToOneBinding' => '\Trial\DB\ORM\Relations\OneToOneBinding',
+		'hierarchical' => '\Trial\DB\ORM\Relations\Hierarchical',
+		'multiple' => '\Trial\DB\ORM\Relations\Multiple'
 	]
 ];
