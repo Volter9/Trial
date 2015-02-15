@@ -31,16 +31,8 @@ class Factory {
 		return new $mapper(
 			$this->connections->get($connection), 
 			$entity, 
-			$table, 
-			$this->relation($relation)
+			$table
 		);
-	}
-	
-	protected function relation ($info) {
-		$type = $info['type'];
-		$class = $this->relations[$type];
-		
-		return new $class($this, $info);
 	}
 	
 }

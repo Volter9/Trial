@@ -13,6 +13,7 @@ return [
 		'\Trial\Services\MapperService',
 		
 		// '\App\Services\AuthService'
+		'\App\Services\TemplatesService'
 	],
 	
 	'assets' => '/oop_cms/assets/'

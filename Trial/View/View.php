@@ -4,6 +4,8 @@ use Trial\Injection\Container,
 	Trial\Routing\Http\Output,
 	Trial\Routing\Http\Response;
 
+use Trial\View\Template\Data;
+
 class View implements Output {
 	
 	private $template;
@@ -14,7 +16,7 @@ class View implements Output {
 	public function __construct (
 		Template $template, 
 		$path, 
-		array $data = []
+		Data $data
 	) {
 		$this->template = $template;
 		$this->path = $path;
@@ -29,7 +31,7 @@ class View implements Output {
 		};
 		
 		$closure = $closure->bindTo($this->template);
-		$closure($this->path, $this->data);
+		$closure($this->path, $this->data->content());
 	}
 	
 	public function getData () {

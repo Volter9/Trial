@@ -8,41 +8,40 @@ use Trial\Routing\Http\Output,
 
 use Trial\View\Plugins\Plugin;
 
+use Trial\View\Template\Data;
+
 class Template implements Output {
 	
 	private $app;
-	private $container;
 	private $data;
 	private $view;
 	
-	private $plugins = [];
+	private $plugins;
 	private $mainView;
 	
-	public function __construct (Container $container, $view, array $data) {
+	public function __construct (Container $container, Data $data, $view) {
 		$this->app = $container->get('app');
-		$this->container = $container;
-		$this->data = $data;
 		$this->view = $view;
+		$this->data = $data;
+	}
+	
+	public function getData () {
+		return $this->data;
 	}
 	
 	public function render (Response $response = null) {
-		if ($this->mainView) {
-			throw new Exception('Template already was rendered!');
-		}
-		
-		$view = new View(
+		$this->mainView = new View(
 			$this, $this->buildPath($this->view), $this->data
 		);
-		$this->mainView = $view;
 		
-		$view->render();
+		$this->mainView->render();
 	}
 	
 	public function renderPartial ($name, array $data = []) {
+		$content = clone $this->data;
+		
 		$view = new View(
-			$this, $this->buildPath($name), array_merge(
-				$this->mainView->getData(), $data
-			)
+			$this, $this->buildPath($name), $content->merge($data)
 		);
 		
 		$view->render();
@@ -52,24 +51,22 @@ class Template implements Output {
 		return $this->app->buildAppPath("Views/$view");
 	}
 	
-	public function registerPlugin (Plugin $plugin) {
-		$this->plugins[$plugin->getName()] = $plugin;
+	public function view ($view, array $data) {
+		$this->data
+			->merge($data)
+			->set('view', $view);
+		
+		return $this;
+	}
+	
+	public function setPlugins (Plugins $plugins) {
+		$this->plugins = $plugins;
 	}
 	
 	public function __call ($plugin, $params) {
-		return $this->getPlugin($plugin)->execute(
-			new Collection($params)
-		);
+		return $this->plugins
+			->get($plugin)
+			->execute(new Collection($params));
 	}
-	
-	public function getPlugin ($name) {
-		if (!isset($this->plugins[$name])) {
-			throw new Exception(
-				"Plugin '$name' does not exists!"
-			);
-		}
 		
-		return $this->plugins[$name];
-	}
-	
 }

@@ -11,7 +11,6 @@ class Mapper {
 	private $connection;
 	private $entity;
 	private $table;
-	private $relation;
 	
 	private $pk = 'id';
 	private $query;
@@ -19,15 +18,12 @@ class Mapper {
 	public function __construct (
 		Connection $connection, 
 		$entity, 
-		$table, 
-		Relation $relation = null
+		$table
 	) {
 		$this->checkClass($entity);
 		
 		$this->entity = $entity;
 		$this->table = $table;
-		$this->relation = $relation;
-		$this->relation->setMapper($this);
 		
 		$this->query = $connection->getTable($table);
 	}

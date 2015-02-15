@@ -2,26 +2,21 @@
 
 use Trial\Injection\Container;
 
-use Trial\View\Plugins\Plugin;
+use Trial\View\Plugins\Plugin,
+	Trial\View\Template\Data;
 
 class Factory {
 	
-	private $plugins = [];
+	private $plugins;
 	
-	public function __construct (Container $container) {
+	public function __construct (Container $container, Plugins $plugins) {
 		$this->container = $container;
-	}
-	
-	public function registerPlugin (Plugin $plugin) {
-		$this->plugins[] = $plugin;
+		$this->plugins = $plugins;
 	}
 	
 	public function create ($view, array $data = []) {
-		$template = new Template($this->container, $view, $data);
-		
-		foreach ($this->plugins as $plugin) {
-			$template->registerPlugin($plugin);
-		}
+		$template = new Template($this->container, new Data($data), $view);
+		$template->setPlugins($this->plugins);
 		
 		return $template;
 	}

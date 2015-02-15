@@ -38,7 +38,7 @@ class Config implements ConfigInterface {
 	}
 	
 	/**
-	 * Check if 
+	 * Check if config exists
 	 * 
 	 * @param string $file
 	 * @throws \Exception

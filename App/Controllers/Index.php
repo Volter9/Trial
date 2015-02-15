@@ -6,16 +6,12 @@ class Index extends Controller {
 	
 	public function indexAction ($request, $response) {
 		$factory = $this->container->get('orm');
-		
-		$pages = $factory->mapper('\App\Entities\Page');
-		
-		$data = [
-			'title' => 'Главная Страница',
-			'view' => 'pages',
-			'pages' => $pages->all()
-		];
+		$pages = $factory->table('pages');
 				
-		return $this->viewFactory->create('main', $data);
+		return $this->container->get('templates.main')->view('pages', [
+			'title' => 'Главная Страница',
+			'pages' => $pages->all()
+		]);
 	}
 	
 }

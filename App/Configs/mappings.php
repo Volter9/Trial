@@ -19,9 +19,17 @@ return [
 	'pages' => [
 		'entity' => '\App\Entities\Page',
 		'relations' => [
-			'type' => 'oneToOne',
-			'tables' => ['categories'],
-			'field' => 'category_id'
+			'type' => 'multiple',
+			'tables' => [
+				'categories' => [
+					'type' => 'oneToOne',
+					'field' => 'category_id'
+				],
+				'users' => [
+					'type' => 'oneToOne',
+					'field' => 'user_id'
+				]
+			]
 		]
 	],
 	
