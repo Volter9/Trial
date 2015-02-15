@@ -5,16 +5,21 @@ use Trial\Routing\Controller;
 class Categories extends Controller {
 	
 	public function indexAction ($request, $response) {
-		$data = [
-			'title' => 'Все категории',
-			'view' => 
-		];
-		
-		return $this->viewFactory->create('main', $data);
+		return $this->container
+			->factory()
+			->create('template')
+			->view('categories', [
+				'title' => 'Категории',
+			]);
 	}
 	
 	public function categoryAction ($request, $response) {
-		return $this->viewFactory->create('main', $data);
+		return $this->container
+			->factory()
+			->create('template')
+			->view('category', [
+				'title' => 'Категория',
+			]);
 	}
 	
 }

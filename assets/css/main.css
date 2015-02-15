@@ -48,7 +48,7 @@ body > article {
     padding-right: 20px;
     width: 768px; }
     body > article > section > h1:first-child {
-      color: #bbb;
+      color: #aaa;
       font-size: 14px;
       font-weight: normal;
       text-shadow: 1px 1px #fff;
@@ -86,25 +86,31 @@ body > header {
       color: #eee; }
 
 body > article > aside > h2 {
-  color: #bbb;
+  color: #aaa;
   font-size: 14px;
   font-weight: normal;
   text-shadow: 1px 1px #fff;
   margin: 0px;
   margin-bottom: 16px; }
 body > article > aside > ul {
-  border-top: 1px solid #e4e4e4;
+  border-top: 1px solid #ddd;
   list-style: none;
   margin: 0px;
   margin-bottom: 30px;
   padding: 0px; }
   body > article > aside > ul li {
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid #ddd;
     color: #555;
-    font-size: 14px;
-    padding: 8px 8px; }
-    body > article > aside > ul li:hover {
-      color: #aaa; }
+    font-size: 14px; }
+    body > article > aside > ul li a {
+      display: block;
+      padding: 8px 8px; }
+      body > article > aside > ul li a:hover {
+        color: #55bbdd;
+        text-decoration: underline; }
+    body > article > aside > ul li span {
+      display: block;
+      padding: 8px 8px; }
 
 body > article > section p {
   font-size: 14px;
@@ -119,7 +125,7 @@ body > article > section.pages ul.pages {
   padding: 0px; }
   body > article > section.pages ul.pages li {
     background-color: #fcfcfc;
-    border-bottom: 4px solid #e4e4e4;
+    border-bottom: 4px solid #ddd;
     box-sizing: border-box;
     float: left;
     margin-right: 6%;

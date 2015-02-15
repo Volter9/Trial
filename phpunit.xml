@@ -7,7 +7,7 @@
          stopOnSkipped="true">
 	<testsuites>
 		<testsuite name="Trial tests">
-			<directory>./tests</directory>
+			<directory>./Tests</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

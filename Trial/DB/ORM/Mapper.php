@@ -11,6 +11,7 @@ class Mapper {
 	private $connection;
 	private $entity;
 	private $table;
+	private $columns;
 	
 	private $pk = 'id';
 	private $query;
@@ -68,7 +69,6 @@ class Mapper {
 	
 	public function insert (Entity $entity) {
 		$data = $entity->getData();
-		
 		$id = $this->query->insert($data)->execute();
 		
 		$entity[$this->pk] = $id;

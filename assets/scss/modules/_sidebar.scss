@@ -22,10 +22,19 @@ body > article > aside {
 			color: #555;
 			font-size: 14px;
 			
-			padding: 8px 8px;
+			a {
+				display: block;
+				padding: 8px 8px;
+				
+				&:hover {
+					color: lighten($link-color, 20%);
+					text-decoration: underline;	
+				}
+			}
 			
-			&:hover {
-				color: #aaa;
+			span {
+				display: block;
+				padding: 8px 8px;
 			}
 		}
 	}

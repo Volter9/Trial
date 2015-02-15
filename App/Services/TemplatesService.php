@@ -7,13 +7,22 @@ use Trial\Services\Service;
 class TemplatesService implements Service {
 	
 	public function register (Container $container) {
-		$categories = $container->get('orm')->table('categories')->all();
+		$template = function () {
+			$categories = $this
+				->get('orm')
+				->table('categories')
+				->all();
+			
+			$template = $this
+				->get('view')
+				->create('main', [
+					'categories' => $categories
+				]);
+			
+			return $template;
+		};
 		
-		$container->set(
-			'templates.main', $container->get('view')->create('main', [
-				'categories' => $categories
-			])
-		);
+		$container->factory()->register('template', $template);
 	}
 	
 }

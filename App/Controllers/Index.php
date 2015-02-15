@@ -7,11 +7,14 @@ class Index extends Controller {
 	public function indexAction ($request, $response) {
 		$factory = $this->container->get('orm');
 		$pages = $factory->table('pages');
-				
-		return $this->container->get('templates.main')->view('pages', [
-			'title' => 'Главная Страница',
-			'pages' => $pages->all()
-		]);
+		
+		return $this->container
+			->factory()
+			->create('template')
+			->view('pages', [
+				'title' => 'Главная Страница',
+				'pages' => $pages->all()
+			]);
 	}
 	
 }

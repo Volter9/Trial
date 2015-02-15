@@ -2,10 +2,13 @@
 	<h2>Категории</h2>
 	
 	<ul>
-		<li>Тест</li>
-		<li>Тест1</li>
-		<li>Тест2</li>
-		<li>Тест3</li>
+	<?php foreach ($categories as $category): ?>
+		<li>
+			<a href="<?php echo $this->route('category', $category['id']) ?>">
+				<?php echo $category['title'] ?>
+			</a>
+		</li>
+	<?php endforeach; ?>
 	</ul>
 	
 	<?php if (true) $this->renderPartial('blocks/panel') ?>
