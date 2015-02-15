@@ -9,7 +9,7 @@
  */
 html,
 body {
-  background-color: #f4f4f4;
+  background-color: #eee;
   color: #222;
   font-family: sans-serif;
   margin: 0px;
@@ -59,12 +59,12 @@ body > footer {
   text-align: center; }
 
 body > header {
-  background-color: #383838; }
+  background-color: #484848; }
   body > header h1 {
     font-weight: normal;
     line-height: 100%;
     margin: 0px;
-    padding: 10px 20px; }
+    padding: 4px 20px; }
     body > header h1 a {
       font-size: 18px; }
   body > header ul {
@@ -76,7 +76,7 @@ body > header {
       body > header ul li a {
         color: #fff;
         display: inline-block;
-        padding: 21px 20px; }
+        padding: 15px 20px; }
         body > header ul li a:hover {
           background-color: rgba(255, 255, 255, 0.05); }
   body > header a {
