@@ -14,7 +14,7 @@ class RoutePlugin implements Plugin {
 	
 	public function execute (Collection $arguments) {
 		return $this->router->urlTo(
-			$arguments->pop(), 
+			$arguments->shift(), 
 			$arguments->content()
 		);
 	}

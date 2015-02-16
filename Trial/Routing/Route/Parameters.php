@@ -12,6 +12,8 @@ class Parameters {
 	public function __construct (Url $url) {
 		$this->url = $url;
 		$this->pattern = $this->compilePattern($url->getUrl());
+		$this->parameters = $this->getParameters();
+		
 		$this->url->setPattern($this->pattern);
 	}
 	
@@ -23,10 +25,9 @@ class Parameters {
 	
 	public function parseParameters ($url) {
 		if (!$this->parameters) {
-			$keys = $this->getParameters();
 			$values = $this->readParameters($url);
 			
-			$this->parameters = array_combine($keys, $values);
+			$this->parameters = array_combine($this->parameters, $values);
 		}
 		
 		return $this->parameters;
@@ -58,12 +59,12 @@ class Parameters {
 	public function apply (array $params) {
 		$url = '/' . $this->url->getUrl();
 		
-		if (!empty($params)) {
+		if (empty($params)) {
 			return $url;
 		}
 		
-		foreach (array_keys($this->parameters) as $index => $value) {
-			$url = str_replace("/@$value", $params[$index], $url);
+		foreach ($this->parameters as $index => $value) {
+			$url = str_replace("/@$value", "/$params[$index]", $url);
 		}
 		
 		return preg_replace('/\/{2,}/', '/', $url);
