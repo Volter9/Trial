@@ -9,10 +9,11 @@ class RuleSet {
 	}
 	
 	public function isAllowed ($rule) {
-		return in_array($this->rules);
+		return in_array($this->rules, '*')
+			|| in_array($this->rules, $rule);
 	}
 	
-	public function getAll () {
+	public function get () {
 		return $this->rules;
 	}
 	

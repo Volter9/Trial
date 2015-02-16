@@ -7,6 +7,7 @@ use Trial\DB\Connection,
 
 /**
  * @todo decompose
+ * @todo make the order of operation unimportant
  */
 
 class Query {
@@ -67,12 +68,12 @@ class Query {
 		return $this;
 	}
 	
-	public function select ($columns = '*') {
-		$this->columns = $columns;
+	public function select ($column) {
+		$this->columns = $column ?: '*';
 		$select = $this->builder->formSelect();
 		
 		$this->type = 'select';
-		$this->sql = $select['query'];
+		$this->sql = trim($select['query']);
 		$this->data = $select['data'];
 		
 		return $this;
@@ -109,7 +110,8 @@ class Query {
 	}
 	
 	public function execute () {
-		$statement = $this->connection->query(trim($this->sql), $this->data);
+		$statement = $this->connection
+			->query(trim($this->sql), $this->data);
 
 		$this->clear();
 		
@@ -120,7 +122,9 @@ class Query {
 				return $statement->fetchAll();
 			
 			case 'insert':
-				return $this->connection->getConnection()->lastInsertId();
+				return $this->connection
+					->getConnection()
+					->lastInsertId();
 			
 			case 'update':
 			case 'delete':

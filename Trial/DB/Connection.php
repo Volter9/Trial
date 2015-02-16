@@ -5,6 +5,10 @@ use PDO,
 
 use Trial\DB\Query\Query;
 
+/**
+ * @todo extract query caching
+ */
+
 class Connection {
 	
 	const ONE = 1;
@@ -16,7 +20,6 @@ class Connection {
 	private $dsn;
 	
 	private $pdo;
-	
 	private $queries = [];
 	
 	public function __construct (array $config) {

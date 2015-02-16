@@ -59,14 +59,9 @@ return [
 		'entity' => '\App\Entities\Group'
 	],
 	
-	'map' => [
-		'\App\Entities\User' => 'users',
-		'\App\Entities\Page' => 'pages',
-		'\App\Entities\Category' => 'categories',
-		'\App\Entities\Comment' => 'comment',
-		'\App\Entities\Group' => 'groups'
-	],
-	
+	/**
+	 * Types of relation available
+	 */
 	'relations' => [
 		'oneToOne' => '\Trial\DB\ORM\Relations\OneToOne',
 		'oneToOneBinding' => '\Trial\DB\ORM\Relations\OneToOneBinding',

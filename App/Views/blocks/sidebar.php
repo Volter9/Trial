@@ -11,5 +11,5 @@
 	<?php endforeach; ?>
 	</ul>
 	
-	<?php if (true) $this->renderPartial('blocks/panel') ?>
+	<?php $this->partial('blocks/panel') ?>
 </aside>

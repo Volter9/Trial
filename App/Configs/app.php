@@ -12,7 +12,7 @@ return [
 		'\Trial\Services\ViewService',
 		'\Trial\Services\MapperService',
 		
-		// '\App\Services\AuthService'
+		// '\App\Services\GuardService'
 		'\App\Services\TemplatesService'
 	],
 	

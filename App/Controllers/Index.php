@@ -11,7 +11,7 @@ class Index extends Controller {
 		return $this->container
 			->factory()
 			->create('template')
-			->view('pages', [
+			->view('pages/index', [
 				'title' => 'Главная Страница',
 				'pages' => $pages->all()
 			]);

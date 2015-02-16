@@ -7,9 +7,8 @@ class Parameters {
 	private $url;
 	private $parameters;
 	
+	private $values;
 	private $pattern;
-	private $symbol = '/@([\w\d-_]+)/';
-	private $any = '([\w\d-_]+)';
 	
 	public function __construct (Url $url) {
 		$this->url = $url;
@@ -22,12 +21,12 @@ class Parameters {
 	public function parseParameters ($url) {
 		$values = UrlParsing::parseTokens($this->pattern, $url);
 		
-		return array_combine($this->parameters, $values);
+		return $this->values = array_combine($this->parameters, $values);
 	}
 		
 	public function get ($key) {
-		if (isset($this->parameters[$key])) {
-			return $this->parameters[$key];
+		if (isset($this->values[$key])) {
+			return $this->values[$key];
 		}
 		
 		return false;

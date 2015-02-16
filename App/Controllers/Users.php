@@ -2,13 +2,13 @@
 
 use Trial\Routing\Controller;
 
-class Pages extends Controller {
+class Users extends Controller {
 	
 	public function indexAction ($request, $response) {
 		
 	}
 	
-	public function pageAction ($request, $response) {
+	public function userAction ($request, $response) {
 		
 	}
 	

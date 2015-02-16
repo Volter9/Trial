@@ -30,11 +30,11 @@ class Mapper {
 	}
 	
 	private function checkClass ($entity) {
-		if (!class_exists($entity)) {
-			throw new Exception (
-				"Entity '$entitiy' does not exists!"
-			);
+		if (class_exists($entity)) {
+			return;
 		}
+		
+		throw new Exception("Entity '$entitiy' does not exists!");
 	}
 	
 	public function build (array $data) {
@@ -56,7 +56,6 @@ class Mapper {
 		
 		if ($entity->isOriginal()) {
 			$result = $this->insert($entity);
-			$entity->expire();
 		}
 		else {
 			$result = $this->update($entity);
@@ -72,6 +71,7 @@ class Mapper {
 		$id = $this->query->insert($data)->execute();
 		
 		$entity[$this->pk] = $id;
+		$entity->expire();
 		
 		return $id;
 	}
@@ -80,8 +80,9 @@ class Mapper {
 		$data = $entity->getData();
 		$pk = $this->pk;
 		
-		return $this->query->update($data)
+		return $this->query
 			->where("$pk = ?", [$data[$pk]])
+			->update($data)
 			->execute();
 	}
 	
@@ -91,9 +92,10 @@ class Mapper {
 		}
 		
 		$pk = $this->pk;
-		$result = $this->query->select()
+		$result = $this->query
 			->where("$pk = ?", [$id])
 			->limit(1)
+			->select($this->columns)
 			->execute();
 		
 		if (!$result) {
@@ -108,7 +110,10 @@ class Mapper {
 	
 	public function all () {
 		return $this->wrap(
-			$this->query->select()->orderBy('id DESC')->execute()
+			$this->query
+				->orderBy('id DESC')
+				->select($this->columns)
+				->execute()
 		);
 	}
 	
@@ -120,6 +125,12 @@ class Mapper {
 	
 	public function getQuery () {
 		return $this->query;
+	}
+	
+	public function limit ($columns = '*') {
+		$this->columns = $columns;
+		
+		return $this;
 	}
 	
 	/**

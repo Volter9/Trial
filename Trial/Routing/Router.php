@@ -28,8 +28,9 @@ class Router {
 	
 	public function urlTo ($id, array $params = []) {
 		$route = $this->routes->getById($id);
+		$url = $route ? $route->url($params) : '';
 		
-		return $this->base . ($route ? $route->url($params) : '');
+		return $this->base . $url;
 	}
 	
 	public function route (Request $request) {

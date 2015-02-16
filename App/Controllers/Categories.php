@@ -8,7 +8,7 @@ class Categories extends Controller {
 		return $this->container
 			->factory()
 			->create('template')
-			->view('categories', [
+			->view('categories/index', [
 				'title' => 'Категории',
 			]);
 	}
@@ -17,7 +17,7 @@ class Categories extends Controller {
 		return $this->container
 			->factory()
 			->create('template')
-			->view('category', [
+			->view('categories/category', [
 				'title' => 'Категория',
 			]);
 	}

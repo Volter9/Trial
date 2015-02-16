@@ -61,9 +61,7 @@ class Response {
 	}
 	
 	public function sendHeaders () {
-		if ($this->code !== 200) {
-			http_response_code($this->code);
-		}
+		http_response_code($this->code);
 		
 		foreach ($this->headers as $header => $value) {
 			header("$header: $value");

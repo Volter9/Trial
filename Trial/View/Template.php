@@ -13,32 +13,34 @@ use Trial\View\Template\Data;
 class Template implements Output {
 	
 	private $app;
-	private $data;
-	private $view;
 	
 	private $plugins;
-	private $mainView;
+	private $view;
 	
-	public function __construct (Container $container, Data $data, $view) {
+	public function __construct (
+		Container $container, 
+		Plugins $plugins, 
+		Data $data, 
+		$view
+	) {
 		$this->app = $container->get('app');
-		$this->view = $view;
-		$this->data = $data;
+		$this->plugins = $plugins;
+		
+		$this->view = new View(
+			$this, $this->buildPath($view), $data
+		);
 	}
 	
 	public function getData () {
-		return $this->data;
+		return $this->view->getData();
 	}
 	
 	public function render (Response $response = null) {
-		$this->mainView = new View(
-			$this, $this->buildPath($this->view), $this->data
-		);
-		
-		$this->mainView->render();
+		$this->view->render();
 	}
 	
-	public function renderPartial ($name, array $data = []) {
-		$content = clone $this->data;
+	public function partial ($name, array $data = []) {
+		$content = clone $this->view->getData();
 		
 		$view = new View(
 			$this, $this->buildPath($name), $content->merge($data)
@@ -52,15 +54,12 @@ class Template implements Output {
 	}
 	
 	public function view ($view, array $data) {
-		$this->data
+		$this->view
+			->getData()
 			->merge($data)
 			->set('view', $view);
 		
 		return $this;
-	}
-	
-	public function setPlugins (Plugins $plugins) {
-		$this->plugins = $plugins;
 	}
 	
 	public function __call ($plugin, $params) {

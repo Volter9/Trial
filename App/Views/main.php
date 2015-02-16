@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php $this->renderPartial('blocks/head') ?>
+		<?php $this->partial('blocks/head') ?>
 	</head>
 	
 	<body>
 		<header>
-			<?php $this->renderPartial('blocks/header') ?>
+			<?php $this->partial('blocks/header') ?>
 		</header>
 		
 		<article>
-			<?php $this->renderPartial('blocks/sidebar') ?>
-			<?php $this->renderPartial($view) ?>
+			<?php $this->partial('blocks/sidebar') ?>
+			<?php $this->partial($view) ?>
 		</article>
 		
-		<?php $this->renderPartial('blocks/footer') ?>
+		<?php $this->partial('blocks/footer') ?>
 	</body>
 </html>

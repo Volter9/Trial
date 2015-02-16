@@ -8,12 +8,6 @@ class Container {
 	private $factory;
 	
 	public function setFactory (Factory $factory) {
-		if ($this->factory) {
-			throw new Exception (
-				'Factory already exists in current container!'
-			);
-		}
-		
 		$this->factory = $factory;
 	}
 	

@@ -1,5 +1,9 @@
 <?php namespace Trial\Routing\Http;
 
+/**
+ * @todo make it unit testable
+ */
+
 class Input {
 	
 	private $arrays;

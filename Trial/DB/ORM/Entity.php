@@ -4,7 +4,7 @@ use ArrayAccess;
 
 class Entity implements ArrayAccess {
 	
-	private $data;
+	protected $data;
 	
 	private $dirty = true;
 	private $original = true;
