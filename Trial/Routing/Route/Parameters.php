@@ -1,5 +1,7 @@
 <?php namespace Trial\Routing\Route;
 
+use Trial\Helpers\UrlParsing;
+
 class Parameters {
 	
 	private $url;
@@ -11,43 +13,18 @@ class Parameters {
 	
 	public function __construct (Url $url) {
 		$this->url = $url;
-		$this->pattern = $this->compilePattern($url->getUrl());
-		$this->parameters = $this->getParameters();
+		$this->pattern = UrlParsing::compilePattern($url->getUrl());
+		$this->parameters = UrlParsing::getTokens($url->getUrl());
 		
 		$this->url->setPattern($this->pattern);
 	}
 	
-	private function compilePattern ($url) {
-		$url = preg_replace($this->symbol, $this->any, $url);
-		
-		return "#^$url$#i";
-	}
-	
 	public function parseParameters ($url) {
-		if (!$this->parameters) {
-			$values = $this->readParameters($url);
-			
-			$this->parameters = array_combine($this->parameters, $values);
-		}
+		$values = UrlParsing::parseTokens($this->pattern, $url);
 		
-		return $this->parameters;
+		return array_combine($this->parameters, $values);
 	}
-	
-	private function getParameters () {
-		preg_match_all($this->symbol, $this->url->getUrl(), $matches);
 		
-		return $matches[1];
-	}
-	
-	private function readParameters ($url) {
-		preg_match_all($this->pattern, $url, $matches);
-		array_shift($matches);
-		
-		return array_map(function ($match) {
-			return $match[0];
-		}, $matches);
-	}
-	
 	public function get ($key) {
 		if (isset($this->parameters[$key])) {
 			return $this->parameters[$key];
@@ -56,18 +33,14 @@ class Parameters {
 		return false;
 	}
 	
-	public function apply (array $params) {
+	public function apply (array $values) {
 		$url = '/' . $this->url->getUrl();
 		
-		if (empty($params)) {
+		if (empty($values)) {
 			return $url;
 		}
 		
-		foreach ($this->parameters as $index => $value) {
-			$url = str_replace("/@$value", "/$params[$index]", $url);
-		}
-		
-		return preg_replace('/\/{2,}/', '/', $url);
+		return UrlParsing::applyValues($url, $this->parameters, $values);
 	}
 	
 }
