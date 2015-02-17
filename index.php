@@ -23,9 +23,8 @@ define('BASE_PATH', __DIR__ . '/');
 require 'Trial/Autoloader.php';
 
 use Trial\Autoloader,
-	Trial\App,
-	Trial\Routing\Http\Request;
+	Trial\App;
 
 Autoloader::register();
 
-(new App('App'))->boot()->dispatch(Request::fromUrl());
+(new App('App'))->boot()->dispatch();

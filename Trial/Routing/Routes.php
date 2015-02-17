@@ -10,7 +10,7 @@ class Routes {
 		$this->routes = $routes;
 	}
 	
-	public function add (Route $route, $id) {
+	public function add ($id, Route $route) {
 		$this->routes[$id] = $route;
 	}
 	

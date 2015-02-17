@@ -12,41 +12,33 @@ class Route {
 	private $action;
 	private $parameters;
 	
-	private $id;
-	
-	static public function fromUrl ($url, $controller, $id = '') {
+	static public function fromUrl ($url, $controller) {
 		$url        = Url::fromString($url);
 		$action     = Action::fromString($controller);
 		$parameters = new Parameters($url);
 		
-		return new Route($url, $action, $parameters, $id);
-	}	
+		return new Route($url, $action, $parameters);
+	}
+	
 	/**
 	 * Route's constructor
 	 * 
 	 * @param \Trial\Routing\Route\Url $url
 	 * @param \Trial\Routing\Route\Action $action
 	 * @param \Trial\Routing\Route\Parameters $parameters
-	 * @param string $id
 	 */
 	public function __construct (
 		Url $url, 
 		Action $action, 
-		Parameters $parameters, 
-		$id
+		Parameters $parameters
 	) {
 		$this->url = $url;
 		$this->action = $action;
 		$this->parameters = $parameters;
-		$this->id = $id;
 	}
 	
 	public function getController () {
 		return $this->action->toArray();
-	}
-	
-	public function getId () {
-		return $this->id;
 	}
 	
 	public function match (Request $request) {

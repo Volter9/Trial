@@ -6,7 +6,8 @@ use Trial\Injection\Container,
 use Trial\Routing\Dispatcher,
 	Trial\Routing\Router,
 	Trial\Routing\Routes,
-	Trial\Routing\Http\Request;
+	Trial\Routing\Http\Request,
+	Trial\Routing\Http\Input;
 	
 use Trial\View\Template;
 
@@ -98,16 +99,24 @@ class App {
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
-		$factory->register('router', function ($routes = []) {
-			$routes = new Routes($routes);
-			
-			return new Router($this, $routes);
-		});
-		
 		$factory->register('config', function ($path) {
 			$app = $this->get('app');
 			
 			return new Config($app->buildAppPath($path));
+		});
+		
+		$factory->register('input', function () {
+			$arrays = [
+				'get' => $_GET,
+				'post' => $_POST,
+				'server' => $_SERVER
+			];
+			
+			return new Input($arrays, getallheaders());
+		});
+		
+		$factory->register('request', function () {
+			return Request::withInput($this->factory()->create('input'));
 		});
 	}
 	
@@ -124,7 +133,7 @@ class App {
 		$container->set('config.app', $factory->create('config', 'Configs/app'));
 		$container->set('config.routing', $factory->create('config', 'Configs/routing'));
 		
-		$container->set('router', $factory->create('router'));
+		$container->set('routes', include $this->buildAppPath('Configs/routes'));
 	}
 	
 	/**
@@ -150,17 +159,18 @@ class App {
 	
 	/**
 	 * Dispatch the request
-	 * 
-	 * @param \Trial\Routing\Http\Request
 	 */
-	public function dispatch (Request $request) {
-		$router = $this->container->get('router');
+	public function dispatch () {
+		$container = $this->container;
 		
-		include $this->buildAppPath('Configs/routes');
+		$request = $container->factory()->create('request');
+		
+		$router = new Router($container);
+		$router->setRoutes($container->get('routes'));
 		
 		$route = $router->route($request);
 		
-		$dispatcher = new Dispatcher($this->container);
+		$dispatcher = new Dispatcher($container);
 		$dispatcher->dispatch($route, $request)->send();
 		
 		return $this;

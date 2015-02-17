@@ -2,14 +2,16 @@
 
 class Action {
 	
+	const DELIMETER = '::';
+	
 	private $controller;
 	private $action;
 	
 	static public function fromString ($controller) {
 		$action = 'index';
 		
-		if (strpos($controller, '::') !== false) {
-			list($controller, $action) = explode('::', $controller);
+		if (strpos($controller, self::DELIMETER) !== false) {
+			list($controller, $action) = explode(self::DELIMETER, $controller);
 		}
 		
 		return new static($controller, $action);

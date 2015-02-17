@@ -14,15 +14,17 @@ use Trial\Routing\Routes,
  * @var \Trial\Routing\Router $routes
  */
 
-$router->add('GET /', '\App\Controllers\Index', 'home');
+$routes = new Routes;
 
-$router->add('GET /pages/@page', '\App\Controllers\Pages::page', 'page');
-$router->add('GET /pages/', '\App\Controllers\Pages', 'pages');
+$routes->add('home', Route::fromUrl('/', '\App\Controllers\Index'));
 
-$router->add('GET /categories/@category', '\App\Controllers\Categories::category', 'category');
-$router->add('GET /categories/', '\App\Controllers\Categories::category', 'categories');
+$routes->add('page', Route::fromUrl('/pages/', '\App\Controllers\Pages'));
+$routes->add('pages', Route::fromUrl('/pages/@page', '\App\Controllers\Pages::page'));
 
-$router->add('GET /users/', '\App\Controllers\Users', 'users');
-$router->add('GET /users/@user', '\App\Controllers\Users::user', 'user');
+$routes->add('category', Route::fromUrl('/categories/@category', '\App\Controllers\Categories::category'));
+$routes->add('categories', Route::fromUrl('/categories/', '\App\Controllers\Categories::category'));
 
-$router->setErrorRoute('GET /', '\App\Controllers\Error');
+$routes->add('user', Route::fromUrl('/users/@user', '\App\Controllers\Users::user'));
+$routes->add('users', Route::fromUrl('/users/', '\App\Controllers\Users'));
+
+return $routes;

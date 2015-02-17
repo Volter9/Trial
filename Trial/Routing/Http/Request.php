@@ -10,19 +10,17 @@ class Request {
 	private $parameters;
 	private $url;
 	
-	static public function fromUrl () {
-		$input = new Input;
-		
+	static public function withInput (Input $input) {
 		$url = new Url(
-			$input->getServer('REQUEST_METHOD'), 
-			static::getRequestPath()
+			$input->get('server', 'request_method'), 
+			static::getRequestPath($input)
 		);
 		
 		return new Request($url, $input);
 	}
 	
-	static protected function getRequestPath () {
-		$url = $_SERVER['REQUEST_URI'];
+	static protected function getRequestPath (Input $input) {
+		$url = $input->get('server', 'request_uri');
 		$url = parse_url($url, PHP_URL_PATH);
 	
 		return chop($url, '/');

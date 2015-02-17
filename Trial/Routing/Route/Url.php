@@ -46,8 +46,8 @@ class Url {
 	}
 	
 	private function compareMethod ($method) {
-		return $method === '*' 
-			|| $method === $this->method;
+		return $this->method === '*' 
+			|| $this->method === $method;
 	}
 	
 	protected function matchUrl ($url) {
