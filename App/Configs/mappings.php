@@ -11,7 +11,7 @@ return [
 		'entity' => '\App\Entities\User',
 		'relations' => [
 			'type' => 'oneToOne',
-			'tables' => ['groups'],
+			'table' => 'groups',
 			'field' => 'group_id'
 		]
 	],
@@ -23,10 +23,12 @@ return [
 			'tables' => [
 				'categories' => [
 					'type' => 'oneToOne',
+					'table' => 'categories',
 					'field' => 'category_id'
 				],
 				'users' => [
 					'type' => 'oneToOne',
+					'table' => 'users',
 					'field' => 'user_id'
 				]
 			]
@@ -37,7 +39,7 @@ return [
 		'entity' => '\App\Entities\Category',
 		'relations' => [
 			'type' => 'hierarchical',
-			'tables' => ['categories'],
+			'table' => 'categories',
 			'field' => 'parent_id'
 		]
 	],

@@ -5,6 +5,16 @@ class Action {
 	private $controller;
 	private $action;
 	
+	static public function fromString ($controller) {
+		$action = 'index';
+		
+		if (strpos($controller, '::') !== false) {
+			list($controller, $action) = explode('::', $controller);
+		}
+		
+		return new static($controller, $action);
+	}
+	
 	public function __construct ($controller, $action) {
 		$this->controller = $controller;
 		$this->action = $action;

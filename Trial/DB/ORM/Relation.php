@@ -1,5 +1,7 @@
 <?php namespace Trial\DB\ORM;
 
+use Trial\Core\Collection;
+
 /**
  * Relation
  * 
@@ -8,7 +10,7 @@
  * @package Trial
  */
 
-class Relation {
+abstract class Relation {
 	
 	protected $factory;
 	protected $mapper;
@@ -17,14 +19,20 @@ class Relation {
 	public function __construct (Factory $factory, array $relations) {
 		$this->factory = $factory;
 		$this->relations = $relations;
+		
+		$this->initialize();
 	}
 	
-	public function setMapper (Mapper $mapper) {
-		$this->mapper = $mapper;
+	protected function initialize () {}
+	
+	public function relate (Collection $collection) {
+		foreach ($collection as $entity) {
+			$this->relateOne($entity);
+		}
+		
+		return $collection;
 	}
 	
-	public function relate (Entity $entity) {
-		return $entity;
-	}
+	abstract public function relateOne (Entity $entity);
 	
 }

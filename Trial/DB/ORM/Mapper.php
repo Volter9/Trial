@@ -54,12 +54,9 @@ class Mapper {
 			return;
 		}
 		
-		if ($entity->isOriginal()) {
-			$result = $this->insert($entity);
-		}
-		else {
-			$result = $this->update($entity);
-		}
+		$result = $entity->isOriginal()
+			? $this->insert($entity)
+			: $this->update($entity);
 		
 		$entity->clean();
 		
@@ -68,7 +65,9 @@ class Mapper {
 	
 	public function insert (Entity $entity) {
 		$data = $entity->getData();
-		$id = $this->query->insert($data)->execute();
+		$id = $this->query
+			->insert($data)
+			->execute();
 		
 		$entity[$this->pk] = $id;
 		$entity->expire();
@@ -102,14 +101,14 @@ class Mapper {
 			return false;
 		}
 		
-		$entity = $this->wrapOne($result);
+		$entity = $this->wrapOne($result[0]);
 		$entity->expire();
 		
 		return $entity;
 	}
 	
 	public function all () {
-		return $this->wrap(
+		return $this->wrapInCollection(
 			$this->query
 				->orderBy('id DESC')
 				->select($this->columns)
@@ -120,7 +119,7 @@ class Mapper {
 	public function custom (Closure $callback) {
 		$callback($this->query);
 		
-		return $this->wrap($this->query->execute());
+		return $this->wrapInCollection($this->query->execute());
 	}
 	
 	public function getQuery () {
@@ -138,16 +137,6 @@ class Mapper {
 	 * 
 	 * @todo extract into seperate class
 	 */
-	
-	protected function wrap ($result) {
-		if (!$result) {
-			return false;
-		}
-		
-		return $this->query->getLimit() === 1 
-			? $this->wrapOne($result[0])
-			: $this->wrapInCollection($result);
-	}
 	
 	protected function wrapOne (array $data) {
 		$entity = $this->entity;

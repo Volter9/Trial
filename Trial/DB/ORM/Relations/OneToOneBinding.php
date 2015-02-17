@@ -5,7 +5,7 @@ use Trial\DB\ORM\Relation,
 
 class OneToOneBinding extends Relation {
 	
-	public function relate (Entity $entity) {
+	public function relateOne (Entity $entity) {
 		// Nothing here yet
 	}
 	

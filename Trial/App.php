@@ -98,27 +98,24 @@ class App {
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
-		$factory->register(
-			'router',
-			function ($routes = []) {
-				return new Router($this, new Routes($routes));
-			}
-		);
+		$factory->register('router', function ($routes = []) {
+			$routes = new Routes($routes);
+			
+			return new Router($this, $routes);
+		});
 		
-		$factory->register(
-			'config', 
-			function ($path) {
-				return new Config(
-					$this->get('app')->buildAppPath($path)
-				);
-			}
-		);
+		$factory->register('config', function ($path) {
+			$app = $this->get('app');
+			
+			return new Config($app->buildAppPath($path));
+		});
 	}
 	
 	/**
 	 * Get configs and configure
 	 * 
-	 * @param \Trial\Injection\Container
+	 * @param \Trial\Injection\Container $container
+	 * @param \Trial\Injection\Factory $factory
 	 */
 	protected function registerConfigs ($container, $factory) {
 		$container->set('app', $this);

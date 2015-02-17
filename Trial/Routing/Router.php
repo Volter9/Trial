@@ -8,7 +8,6 @@ class Router {
 	private $config;
 	private $container;
 	
-	private $errorRoute;
 	private $routes;
 	private $base;
 	
@@ -19,7 +18,7 @@ class Router {
 	}
 	
 	public function add ($url, $controller, $id = '') {
-		$this->routes->add(Route::fromUrl($url, $controller, $id));
+		$this->routes->add(Route::fromUrl($url, $controller), $id);
 	}
 	
 	public function setErrorRoute($url, $controller) {
@@ -40,6 +39,9 @@ class Router {
 		return $route ?: $this->errorRoute;
 	}
 	
+	/**
+	 * @todo not your responsibility
+	 */
 	private function getBase (Request $request) {
 		if (!$this->base) {
 			$root = $request->getInput()->getServer('DOCUMENT_ROOT');

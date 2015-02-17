@@ -10,13 +10,8 @@ class Routes {
 		$this->routes = $routes;
 	}
 	
-	public function add ($route) {
-		if ($id = $route->getId()) {
-			$this->routes[$id] = $route;
-		}
-		else {
-			$this->routes[] = $route;
-		}
+	public function add (Route $route, $id) {
+		$this->routes[$id] = $route;
 	}
 	
 	public function getById ($id) {

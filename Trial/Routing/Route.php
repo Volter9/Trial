@@ -15,25 +15,12 @@ class Route {
 	private $id;
 	
 	static public function fromUrl ($url, $controller, $id = '') {
-		list($method, $url) = explode(' ', $url);
-		list($controller, $action) = static::parseAction($controller);
-		
-		$url        = new Url($method, $url);
-		$action     = new Action($controller, $action);
+		$url        = Url::fromString($url);
+		$action     = Action::fromString($controller);
 		$parameters = new Parameters($url);
 		
 		return new Route($url, $action, $parameters, $id);
-	}
-	
-	static private function parseAction ($controller) {
-		$action = 'index';
-		$token = '::';
-		
-		return strpos($controller, $token) !== false
-			? explode($token, $controller)
-			: [$controller, $action];
-	}
-	
+	}	
 	/**
 	 * Route's constructor
 	 * 

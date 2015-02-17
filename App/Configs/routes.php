@@ -1,5 +1,8 @@
 <?php
 
+use Trial\Routing\Routes,
+	Trial\Routing\Route;
+
 /**
  * Routes:
  * - Index

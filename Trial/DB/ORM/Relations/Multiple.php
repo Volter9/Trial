@@ -5,7 +5,13 @@ use Trial\DB\ORM\Relation,
 
 class Multiple extends Relation {
 	
-	public function relate (Entity $entity) {
+	protected $relations = [];
+	
+	protected function initialize () {
+		
+	}
+	
+	public function relateOne (Entity $entity) {
 		// Nothing here yet
 	}
 	
