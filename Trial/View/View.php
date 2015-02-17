@@ -8,30 +8,25 @@ use Trial\View\Template\Data;
 
 class View implements Output {
 	
-	private $template;
+	protected $data;
+	protected $path;
 	
-	private $data;
-	private $path;
-	
-	public function __construct (
-		Template $template, 
-		$path, 
-		Data $data
-	) {
-		$this->template = $template;
+	public function __construct (Data $data, $path) {
 		$this->path = $path;
 		$this->data = $data;
 	}
 	
-	public function render (Response $response = null) {	
-		$closure = function ($__view, $__data) {
+	public function render (Response $response = null) {
+		$closure = $this->isolate();
+		$closure($this->path, $this->data->content());
+	}
+	
+	protected function isolate () {
+		return function ($__view, $__data) {
 			extract($__data);
 			
 			include $__view;
 		};
-		
-		$closure = $closure->bindTo($this->template);
-		$closure($this->path, $this->data->content());
 	}
 	
 	public function getData () {

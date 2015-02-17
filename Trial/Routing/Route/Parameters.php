@@ -19,6 +19,10 @@ class Parameters {
 	}
 	
 	public function parseParameters ($url) {
+		if ($this->values) {
+			return $this->values;
+		}
+		
 		$values = UrlParsing::parseTokens($this->pattern, $url);
 		
 		return $this->values = array_combine($this->parameters, $values);
@@ -32,12 +36,8 @@ class Parameters {
 		return false;
 	}
 	
-	public function apply (array $values) {
+	public function apply (array $values = []) {
 		$url = '/' . $this->url->getUrl();
-		
-		if (empty($values)) {
-			return $url;
-		}
 		
 		return UrlParsing::applyValues($url, $this->parameters, $values);
 	}

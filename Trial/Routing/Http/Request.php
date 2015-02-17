@@ -12,7 +12,7 @@ class Request {
 	
 	static public function withInput (Input $input) {
 		$url = new Url(
-			$input->get('server', 'request_method'), 
+			$input->get('server', 'REQUEST_METHOD'), 
 			static::getRequestPath($input)
 		);
 		
@@ -20,7 +20,7 @@ class Request {
 	}
 	
 	static protected function getRequestPath (Input $input) {
-		$url = $input->get('server', 'request_uri');
+		$url = $input->get('server', 'REQUEST_URI');
 		$url = parse_url($url, PHP_URL_PATH);
 	
 		return chop($url, '/');

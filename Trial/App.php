@@ -1,5 +1,7 @@
 <?php namespace Trial;
 
+use Trial\Core\PathBuilder;
+
 use Trial\Injection\Container,
 	Trial\Injection\Factory;
 	
@@ -25,7 +27,7 @@ class App {
 	private $container;
 	
 	/**
-	 * @var string Path to app
+	 * @var \Trial\Core\PathBuilder App path builder
 	 */
 	private $path;
 	
@@ -47,7 +49,7 @@ class App {
 		$this->container = $container;
 		$this->container->setFactory($factory);
 		
-		$this->path = $path;
+		$this->path = new PathBuilder($path, 'php');
 	}
 	
 	/**
@@ -60,19 +62,9 @@ class App {
 	}
 	
 	/**
-	 * Build a path to app
-	 * 
-	 * @todo "that's not your responsibility, son"
-	 * @param string $file
-	 * @param string $ext
-	 * @return string
-	 */
-	public function buildAppPath ($file, $ext = 'php') {
-		return BASE_PATH . "{$this->path}/{$file}.{$ext}";
-	}
-	
-	/**
 	 * Boot the app
+	 * 
+	 * @return \Trial\App
 	 */
 	public function boot () {
 		if ($this->running) {
@@ -95,14 +87,14 @@ class App {
 	/**
 	 * Register factories
 	 * 
-	 * @todo remove that method
+	 * @todo extract this method
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
 		$factory->register('config', function ($path) {
 			$app = $this->get('app');
 			
-			return new Config($app->buildAppPath($path));
+			return new Config($app->getPath()->build($path));
 		});
 		
 		$factory->register('input', function () {
@@ -128,19 +120,19 @@ class App {
 	 */
 	protected function registerConfigs ($container, $factory) {
 		$container->set('app', $this);
+		$container->set('app.path', $this->path);
 		
 		$container->set('config.db', $factory->create('config', 'Configs/database'));
 		$container->set('config.app', $factory->create('config', 'Configs/app'));
-		$container->set('config.routing', $factory->create('config', 'Configs/routing'));
 		
-		$container->set('routes', include $this->buildAppPath('Configs/routes'));
+		$container->set('routes', include $this->path->build('Configs/routes'));
 	}
 	
 	/**
 	 * Tweak the PHP system
 	 */
 	protected function tweak () {
-		include $this->buildAppPath('Configs/bootstrap');
+		include $this->path->build('Configs/bootstrap');
 	}
 	
 	/**
@@ -162,18 +154,15 @@ class App {
 	 */
 	public function dispatch () {
 		$container = $this->container;
+		$factory = $container->factory();
 		
-		$request = $container->factory()->create('request');
+		$router = new Router($container->get('routes'));
+		$dispatcher = new Dispatcher($container);
 		
-		$router = new Router($container);
-		$router->setRoutes($container->get('routes'));
-		
+		$request = $factory->create('request');
 		$route = $router->route($request);
 		
-		$dispatcher = new Dispatcher($container);
 		$dispatcher->dispatch($route, $request)->send();
-		
-		return $this;
 	}
 	
 }

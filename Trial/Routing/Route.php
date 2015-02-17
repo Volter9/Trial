@@ -13,11 +13,10 @@ class Route {
 	private $parameters;
 	
 	static public function fromUrl ($url, $controller) {
-		$url        = Url::fromString($url);
-		$action     = Action::fromString($controller);
-		$parameters = new Parameters($url);
+		$url = Url::fromString($url);
+		$action = Action::fromString($controller);
 		
-		return new Route($url, $action, $parameters);
+		return new Route($url, $action, new Parameters($url));
 	}
 	
 	/**
@@ -41,13 +40,15 @@ class Route {
 		return $this->action->toArray();
 	}
 	
-	public function match (Request $request) {
+	public function match (Request $request) {	
 		return $this->action->exists() 
 			&& $this->url->match($request->getUrl());
 	}
 	
+	/**
+	 * @todo remove confusion of getUrl()->getUrl()
+	 */
 	public function getParameters (Request $request) {
-		// @todo rename method to avoid getUrl()->getUrl()
 		$this->parameters->parseParameters($request->getUrl()->getUrl());
 		
 		return $this->parameters;

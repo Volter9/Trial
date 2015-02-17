@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Any cool project should have ascii logo:
+ * Any cool project should have an ascii logo (not really):
  * ___________           ___             ___                 ____
  * \          \          \__\            \  \               /__  \
  *  \___    ___\ ___  ___  ___  ___  ____ \  \    ___    __    \  \

@@ -11,18 +11,11 @@ use Trial\DB\Query\Query;
 
 class Connection {
 	
-	const ONE = 1;
-	const SIMPLE = 2;
-	const CUD = 4;
-	const INSERT = 8;
-	
 	private $config;
 	private $dsn;
 	
 	private $pdo;
 	private $queries = [];
-	
-	private $count = 0;
 	
 	public function __construct (array $config) {
 		$host = $config['host'];
@@ -56,14 +49,8 @@ class Connection {
 		return $this->pdo;
 	}
 	
-	public function getCount () {
-		return $this->count;
-	}
-	
 	public function query ($query, array $parameters = []) {
 		try {
-			$this->count ++;
-			
 			$statement = $this->cacheStatement($query);		
 			$statement->execute($parameters);
 		}

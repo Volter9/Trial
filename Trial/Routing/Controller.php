@@ -30,13 +30,4 @@ abstract class Controller {
 		$this->viewFactory = $container->get('view');
 	}
 	
-	/**
-	 * Index action
-	 * 
-	 * @param \Trial\Routing\Http\Request $request
-	 * @param \Trial\Routing\Http\Response $response
-	 * @return \Trial\Routing\Http\Output|null
-	 */
-	abstract public function indexAction ($request, $response);
-	
 }

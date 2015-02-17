@@ -8,11 +8,12 @@ use Trial\Routing\Http\Output,
 
 use Trial\View\Plugins\Plugin;
 
-use Trial\View\Template\Data;
+use Trial\View\Template\Data,
+	Trial\View\Template\Partial;
 
 class Template implements Output {
 	
-	private $app;
+	private $path;
 	
 	private $plugins;
 	private $view;
@@ -23,12 +24,10 @@ class Template implements Output {
 		Data $data, 
 		$view
 	) {
-		$this->app = $container->get('app');
+		$this->path = $container->get('app.path');
 		$this->plugins = $plugins;
 		
-		$this->view = new View(
-			$this, $this->buildPath($view), $data
-		);
+		$this->view = new Partial($this, $data, $this->path->build("Views/$view"));
 	}
 	
 	public function getData () {
@@ -42,20 +41,15 @@ class Template implements Output {
 	public function partial ($name, array $data = []) {
 		$content = clone $this->view->getData();
 		
-		$view = new View(
-			$this, $this->buildPath($name), $content->merge($data)
+		$view = new Partial(
+			$this, $content->merge($data), $this->path->build("Views/$name")
 		);
 		
 		$view->render();
 	}
 	
-	protected function buildPath ($view) {
-		return $this->app->buildAppPath("Views/$view");
-	}
-	
 	public function view ($view, array $data) {
-		$this->view
-			->getData()
+		$this->getData()
 			->merge($data)
 			->set('view', $view);
 		

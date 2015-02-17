@@ -1,5 +1,7 @@
 <?php namespace Trial\Routing\Http;
 
+use Trial\Helpers\DotNotation;
+
 /**
  * @todo make it unit testable
  */
@@ -15,15 +17,15 @@ class Input {
 	}
 	
 	public function getHeader ($header = null) {
-		if (!$header === null) {
+		if ($header === null) {
 			return $this->headers;
 		}
 		
-		if (!isset($this->headers[$header])) {
-			return false;
-		}
-		
-		return $this->headers[$header];
+		return DotNotation::get($this->headers, $header, false);
+	}
+	
+	public function post ($key = null) {
+		return $this->get('post', $key);
 	}
 	
 	public function get ($array, $key = null) {
@@ -33,11 +35,7 @@ class Input {
 			return $array;
 		}
 		
-		if (isset($array[$key])) {
-			return $array[$key];
-		}
-		
-		return false;
+		return DotNotation::get($array, $key, false);
 	}
 	
 }

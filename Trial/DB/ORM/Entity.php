@@ -38,14 +38,6 @@ class Entity implements ArrayAccess {
 		$this->original = false;
 	}
 	
-	public function toJSON () {
-		return json_encode($this->data);
-	}
-	
-	public function __toString () {
-		return $this->toJSON();
-	}
-	
 	/**
 	 * ArrayAccess interface implementation
 	 */

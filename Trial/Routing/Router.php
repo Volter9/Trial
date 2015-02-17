@@ -13,12 +13,7 @@ class Router {
 	private $routes;
 	private $base;
 	
-	public function __construct (Container $container) {
-		$this->container = $container;
-		$this->config = $container->get('config.routing');
-	}
-	
-	public function setRoutes (Routes $routes) {
+	public function __construct (Routes $routes) {
 		$this->routes = $routes;
 	}
 	
@@ -35,7 +30,7 @@ class Router {
 	}
 	
 	/**
-	 * @todo not your responsibility
+	 * @todo "not your responsibility"
 	 */
 	private function getBase (Request $request) {
 		if (!$this->base) {
