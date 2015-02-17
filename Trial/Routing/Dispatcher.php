@@ -35,8 +35,6 @@ class Dispatcher {
 		$request->setParameters($route->getParameters($request));
 		$response = new Response;
 		
-		$this->container->set('route', $route);
-		
 		$body = (new $controller($this->container))->$action($request, $response);
 		$body and $response->setBody($body);
 		

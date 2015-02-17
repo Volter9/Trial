@@ -7,7 +7,7 @@ class Assets {
 	private $assets;
 	
 	public function __construct (Container $container) {
-		$this->assets = $container->get('config.app')->get('assets');
+		$this->assets = $container->get('configs.app')->get('assets');
 	}
 	
 	public function buildPath ($asset) {

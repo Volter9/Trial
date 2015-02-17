@@ -9,8 +9,11 @@ use Trial\Routing\Dispatcher,
 	Trial\Routing\Router,
 	Trial\Routing\Routes,
 	Trial\Routing\Http\Request,
-	Trial\Routing\Http\Input;
-	
+	Trial\Routing\Http\Input,
+	Trial\Routing\UrlBuilder;
+
+use Trial\Routing\Factory as RoutingFactory;
+
 use Trial\View\Template;
 
 /**
@@ -78,7 +81,7 @@ class App {
 		
 		$this->registerFactories($factory);
 		$this->registerConfigs($container, $factory);
-		$this->tweak();
+		$this->systemTweaks();
 		$this->setupServices();
 		
 		return $this;
@@ -87,7 +90,6 @@ class App {
 	/**
 	 * Register factories
 	 * 
-	 * @todo extract this method
 	 * @param \Trial\Injection\Factory
 	 */
 	protected function registerFactories ($factory) {
@@ -95,20 +97,6 @@ class App {
 			$app = $this->get('app');
 			
 			return new Config($app->getPath()->build($path));
-		});
-		
-		$factory->register('input', function () {
-			$arrays = [
-				'get' => $_GET,
-				'post' => $_POST,
-				'server' => $_SERVER
-			];
-			
-			return new Input($arrays, getallheaders());
-		});
-		
-		$factory->register('request', function () {
-			return Request::withInput($this->factory()->create('input'));
 		});
 	}
 	
@@ -122,16 +110,14 @@ class App {
 		$container->set('app', $this);
 		$container->set('app.path', $this->path);
 		
-		$container->set('config.db', $factory->create('config', 'Configs/database'));
-		$container->set('config.app', $factory->create('config', 'Configs/app'));
-		
-		$container->set('routes', include $this->path->build('Configs/routes'));
+		$container->set('configs.db', $factory->create('config', 'Configs/database'));
+		$container->set('configs.app', $factory->create('config', 'Configs/app'));
 	}
 	
 	/**
 	 * Tweak the PHP system
 	 */
-	protected function tweak () {
+	protected function systemTweaks () {
 		include $this->path->build('Configs/bootstrap');
 	}
 	
@@ -140,7 +126,7 @@ class App {
 	 */
 	protected function setupServices () {
 		$services = $this->container
-			->get('config.app')
+			->get('configs.app')
 			->get('services');
 		
 		foreach ($services as $service) {
@@ -154,15 +140,15 @@ class App {
 	 */
 	public function dispatch () {
 		$container = $this->container;
-		$factory = $container->factory();
 		
-		$router = new Router($container->get('routes'));
-		$dispatcher = new Dispatcher($container);
-		
-		$request = $factory->create('request');
+		$router = $container->get('routing.router');
+		$dispatcher = $container->get('routing.dispatcher');
+		$request = $container->get('routing.request');
+	
 		$route = $router->route($request);
 		
-		$dispatcher->dispatch($route, $request)->send();
+		$response = $dispatcher->dispatch($route, $request);
+		$response->send();
 	}
 	
 }

@@ -11,7 +11,7 @@ class ConnectionManager {
 	
 	public function __construct (Container $container) {
 		$this->container = $container;
-		$this->config = $container->get('config.db');
+		$this->config = $container->get('configs.db');
 		
 		if ($this->config->get('autoload')) {
 			$this->connect();

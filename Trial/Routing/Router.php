@@ -17,9 +17,7 @@ class Router {
 		$this->routes = $routes;
 	}
 	
-	public function route (Request $request) {
-		$request->setBase($this->getBase($request));
-		
+	public function route (Request $request) {	
 		$route = $this->routes->match($request);
 		
 		if ($route) {
@@ -27,20 +25,6 @@ class Router {
 		}
 		
 		throw new Exception('Not found');
-	}
-	
-	/**
-	 * @todo "not your responsibility"
-	 */
-	private function getBase (Request $request) {
-		if (!$this->base) {
-			$root = $request->getInput()->get('server', 'DOCUMENT_ROOT');
-			$fragments = explode($root, BASE_PATH);
-			
-			$this->base = '/' . trim(end($fragments), '/');
-		}
-		
-		return $this->base;
 	}
 	
 }

@@ -1,30 +1,22 @@
 <?php namespace Trial\View\Plugins;
 
 use Trial\Injection\Container;
-	
+
 use Trial\Core\Collection;
+
+use Trial\Routing\UrlBuilder;
 
 class RoutePlugin implements Plugin {
 	
 	private $router;
+	private $request;
 	
 	public function __construct (Container $container) {
-		$this->routes = $container->get('routes');
-		$this->base = $this->getBase();
-	}
-	
-	private function getBase () {
-		// @todo
-		$root = $_SERVER['DOCUMENT_ROOT'];
-		$fragments = explode($root, BASE_PATH);
-		
-		$base = '/' . trim(end($fragments), '/');
-		
-		return $base;
+		$this->builder = $container->get('routing.builder');
 	}
 	
 	public function execute (Collection $arguments) {
-		return $this->urlTo(
+		return $this->builder->urlTo(
 			$arguments->shift(), 
 			$arguments->content()
 		);

@@ -8,6 +8,7 @@
 
 return [
 	'services' => [
+		'\Trial\Services\RoutingService',
 		'\Trial\Services\ConnectionService',
 		'\Trial\Services\ViewService',
 		'\Trial\Services\MapperService',
