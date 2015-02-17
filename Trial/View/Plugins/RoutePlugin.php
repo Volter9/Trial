@@ -16,18 +16,10 @@ class RoutePlugin implements Plugin {
 	}
 	
 	public function execute (Collection $arguments) {
-		return $this->builder->urlTo(
+		return $this->builder->urlToRoute(
 			$arguments->shift(), 
 			$arguments->content()
 		);
-	}
-	
-	protected function urlTo ($id, array $params) {
-		$route = $this->routes->getById($id);
-		
-		$url = $route ? $route->url($params) : '';
-		
-		return $this->base . $url;
 	}
 	
 	public function getName () {

@@ -36,10 +36,6 @@ class Url {
 		$this->pattern = $pattern;
 	}
 	
-	public function setBase ($base) {
-		$this->url = str_replace($base, '', $this->url);
-	}
-	
 	public function match (Url $url) {
 		return $this->compareMethod($url->getMethod())
 			&& $this->matchUrl($url->getUrl());

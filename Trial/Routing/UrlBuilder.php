@@ -15,25 +15,26 @@ class UrlBuilder {
 		$this->input = $input;
 		$this->routes = $routes;
 		
-		$this->base = $this->resolveBase();
+		$this->base = $this->base();
 	}
 	
-	private function resolveBase () {
+	private function base () {
 		$root = $this->input->get('server', 'DOCUMENT_ROOT');
 		$fragments = explode($root, BASE_PATH);
 		
-		return '/' . trim(end($fragments), '/');
+		return rtrim(end($fragments), '/');
 	}
 	
-	public function getBase () {
-		return $this->base;
-	}
-	
-	public function urlTo ($id, array $params) {
-		$route = $this->routes->getById($id);
-		$url = $route ? $route->url($params) : '';
+	public function urlToRoute ($id, array $params) {
+		if (!$route = $this->routes->getById($id)) {
+			return '';
+		}
 		
-		return $this->base . $url;
+		return $this->base . $route->url($params);
+	}
+	
+	public function url ($path) {
+		return "/{$this->base}$path";
 	}
 	
 	public function requestUrl () {
@@ -41,12 +42,9 @@ class UrlBuilder {
 		
 		$url = $input->get('server', 'REQUEST_URI');
 		$url = parse_url($url, PHP_URL_PATH);
-		$url = chop($url, '/');
+		$url = str_replace($this->base, '', $url);
 		
-		$url = new Url($input->get('server', 'REQUEST_METHOD'), $url);
-		$url->setBase($this->base);
-		
-		return $url;
+		return new Url($input->get('server', 'REQUEST_METHOD'), $url);
 	}
 	
 }

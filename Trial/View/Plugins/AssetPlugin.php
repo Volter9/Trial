@@ -8,14 +8,16 @@ use Trial\View\Assets;
 
 class AssetPlugin implements Plugin {
 	
-	private $assets;
+	private $builder;
 	
 	public function __construct (Container $container) {
-		$this->assets = new Assets($container);
+		$this->builder = $container->get('routing.builder');
 	}
 	
 	public function execute (Collection $arguments) {
-		return $this->assets->buildPath($arguments->first());
+		$path = $arguments->first();
+		
+		return $this->builder->url("/assets/$path");
 	}
 	
 	public function getName () {
