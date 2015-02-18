@@ -28,6 +28,10 @@ class Input {
 		return $this->get('post', $key);
 	}
 	
+	public function server ($key = null) {
+		return $this->get('server', $key);
+	}
+	
 	public function get ($array, $key = null) {
 		$array = $this->arrays[$array];
 		

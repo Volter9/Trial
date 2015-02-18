@@ -4,22 +4,13 @@ use Trial\Core\PathBuilder;
 
 use Trial\Injection\Container,
 	Trial\Injection\Factory;
-	
-use Trial\Routing\Dispatcher,
-	Trial\Routing\Router,
-	Trial\Routing\Routes,
-	Trial\Routing\Http\Request,
-	Trial\Routing\Http\Input,
-	Trial\Routing\UrlBuilder;
-
-use Trial\Routing\Factory as RoutingFactory;
-
-use Trial\View\Template;
 
 /**
  * App class
  * 
  * Initializes the application
+ * 
+ * @package Trial
  */
 
 class App {

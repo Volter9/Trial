@@ -3,7 +3,7 @@
 /**
  * Auto loader class
  * 
- * Registers SPL autoloader which is faster than custom function
+ * Registers SPL autoloader which is faster than custom autoloader
  * 
  * @package Trial
  */

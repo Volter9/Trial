@@ -30,6 +30,7 @@ class Factory {
 	
 	public function relation ($table) {
 		$relation = $this->config->get("$table.relations");
+		
 		$type = $relation['type'];
 		$class = $this->relations[$type];
 		

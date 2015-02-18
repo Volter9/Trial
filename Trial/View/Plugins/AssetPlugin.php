@@ -4,8 +4,6 @@ use Trial\Core\Collection;
 
 use Trial\Injection\Container;
 
-use Trial\View\Assets;
-
 class AssetPlugin implements Plugin {
 	
 	private $builder;

@@ -54,13 +54,11 @@ class Mapper {
 			return;
 		}
 		
-		$result = $entity->isOriginal()
-			? $this->insert($entity)
-			: $this->update($entity);
-		
 		$entity->clean();
 		
-		return $result;
+		return $entity->isOriginal()
+			? $this->insert($entity)
+			: $this->update($entity);
 	}
 	
 	public function insert (Entity $entity) {

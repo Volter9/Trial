@@ -11,7 +11,7 @@ class RoutingService implements Service {
 		
 		$path = $container->get('app.path');
 		
-		$input = $factory->input();
+		$input  = $factory->input();
 		$routes = include $path->build('Configs/routes');
 		
 		$builder    = $factory->urlBuilder($input, $routes);

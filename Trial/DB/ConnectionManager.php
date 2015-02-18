@@ -4,13 +4,10 @@ use Trial\Injection\Container;
 
 class ConnectionManager {
 	
+	private $config;
 	private $connections = [];
 	
-	private $container;
-	private $config;
-	
 	public function __construct (Container $container) {
-		$this->container = $container;
 		$this->config = $container->get('configs.db');
 		
 		if ($this->config->get('autoload')) {

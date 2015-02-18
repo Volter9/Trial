@@ -62,7 +62,7 @@ class Query {
 		return $this->offset;
 	}
 	
-	public function setTable ($table) {
+	public function from ($table) {
 		$this->table = $table;
 		
 		return $this;

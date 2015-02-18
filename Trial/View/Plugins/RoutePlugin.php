@@ -4,12 +4,9 @@ use Trial\Injection\Container;
 
 use Trial\Core\Collection;
 
-use Trial\Routing\UrlBuilder;
-
 class RoutePlugin implements Plugin {
 	
-	private $router;
-	private $request;
+	private $builder;
 	
 	public function __construct (Container $container) {
 		$this->builder = $container->get('routing.builder');

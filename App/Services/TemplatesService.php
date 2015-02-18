@@ -13,13 +13,11 @@ class TemplatesService implements Service {
 				->table('categories')
 				->all();
 			
-			$template = $this
+			return $this
 				->get('view')
 				->create('main', [
 					'categories' => $categories
 				]);
-			
-			return $template;
 		};
 		
 		$container->factory()->register('template', $template);

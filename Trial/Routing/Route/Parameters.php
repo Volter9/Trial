@@ -37,7 +37,7 @@ class Parameters {
 	}
 	
 	public function apply (array $values = []) {
-		$url = '/' . $this->url->getUrl();
+		$url = $this->url->getUrl();
 		
 		return UrlParsing::applyValues($url, $this->parameters, $values);
 	}

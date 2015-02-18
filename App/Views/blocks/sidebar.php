@@ -2,14 +2,14 @@
 	<h2>Категории</h2>
 	
 	<ul>
-	<?php foreach ($categories as $category): ?>
+<?php foreach ($categories as $category): ?> 
 		<li>
 			<a href="<?php echo $this->route('category', $category['id']) ?>">
-				<?php echo $category['title'] ?>
+				<?php echo $category['title'] ?> 
 			</a>
 		</li>
-	<?php endforeach; ?>
+<?php endforeach; ?> 
 	</ul>
 	
-	<?php $this->partial('blocks/panel') ?>
+	<?php $this->partial('blocks/panel') ?> 
 </aside>

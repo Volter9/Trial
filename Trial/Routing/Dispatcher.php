@@ -15,6 +15,11 @@ use Trial\Injection\Container,
 class Dispatcher {
 	
 	/**
+	 * @var \Trial\Injection\Container
+	 */
+	private $container;
+		
+	/**
 	 * Constructor
 	 * 
 	 * @param \Trial\Injection\Container $container

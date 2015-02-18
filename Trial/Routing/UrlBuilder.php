@@ -19,10 +19,10 @@ class UrlBuilder {
 	}
 	
 	private function base () {
-		$root = $this->input->get('server', 'DOCUMENT_ROOT');
-		$fragments = explode($root, BASE_PATH);
+		$root = $this->input->server('DOCUMENT_ROOT');
+		$base = substr(BASE_PATH, strlen($root) - 1);
 		
-		return rtrim(end($fragments), '/');
+		return rtrim($base, '/');
 	}
 	
 	public function urlToRoute ($id, array $params) {
@@ -34,17 +34,17 @@ class UrlBuilder {
 	}
 	
 	public function url ($path) {
-		return "/{$this->base}$path";
+		return $this->base . $path;
 	}
 	
 	public function requestUrl () {
 		$input = $this->input;	
+		$url = $input->server('REQUEST_URI');
 		
-		$url = $input->get('server', 'REQUEST_URI');
-		$url = parse_url($url, PHP_URL_PATH);
-		$url = str_replace($this->base, '', $url);
+		$path = parse_url($url, PHP_URL_PATH);
+		$path = str_replace($this->base, '', $path);
 		
-		return new Url($input->get('server', 'REQUEST_METHOD'), $url);
+		return new Url($input->server('REQUEST_METHOD'), $path);
 	}
 	
 }

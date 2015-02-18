@@ -79,7 +79,7 @@ class Connection {
 	}
 	
 	public function getTable ($table) {
-		return $this->getBuilder()->setTable($table);
+		return $this->getBuilder()->from($table);
 	}
 	
 }

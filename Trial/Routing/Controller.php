@@ -16,18 +16,12 @@ abstract class Controller {
 	protected $container;
 	
 	/**
-	 * @var \Trial\View\Factory Template factory
-	 */
-	protected $viewFactory;
-	
-	/**
 	 * Constructor
 	 * 
 	 * @param \Trial\Injection\Container $container
 	 */
 	public function __construct (Container $container) {
 		$this->container = $container;
-		$this->viewFactory = $container->get('view');
 	}
 	
 }

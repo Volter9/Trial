@@ -5,7 +5,7 @@ use Trial\Core\Collection;
 /**
  * Relation
  * 
- * Null object, extend to provide custom behavior
+ * Extend to provide custom behavior
  * 
  * @package Trial
  */

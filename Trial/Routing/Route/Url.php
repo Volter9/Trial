@@ -10,11 +10,9 @@ class Url {
 	private $pattern;
 	
 	static public function fromString ($url) {
-		$method = '*';
+		$url = strpos($url, ' ') === false ? "* $url" : $url;
 		
-		if (strpos($url, ' ') !== false) {
-			list($method, $url) = explode(' ', $url);
-		}
+		list($method, $url) = explode(' ', $url);
 		
 		return new static($method, $url);
 	}
