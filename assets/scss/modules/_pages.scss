@@ -47,6 +47,10 @@ body > article > section.pages {
 				font-size: 12px;
 				
 				margin-bottom: 0px;
+				
+				a {
+					color: desaturate(lighten($link-color, 20%), 30%);
+				}
 			}
 		}
 	}

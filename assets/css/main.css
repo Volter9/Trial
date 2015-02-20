@@ -101,7 +101,8 @@ body > article > aside > ul {
   body > article > aside > ul li {
     border-bottom: 1px solid #ddd;
     color: #555;
-    font-size: 14px; }
+    font-size: 12px;
+    line-height: 120%; }
     body > article > aside > ul li a {
       display: block;
       padding: 8px 8px; }
@@ -150,5 +151,7 @@ body > article > section.pages ul.pages {
       color: #bbb;
       font-size: 12px;
       margin-bottom: 0px; }
+      body > article > section.pages ul.pages li p.info a {
+        color: #74acbe; }
 
 /*# sourceMappingURL=main.css.map */

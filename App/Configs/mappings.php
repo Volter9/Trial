@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ORM config
+ * Mapper's config
  * 
  * @package Trial
  */
@@ -18,6 +18,7 @@ return [
 	
 	'pages' => [
 		'entity' => '\App\Entities\Page',
+		'mapper' => '\App\Mappers\Pages',
 		'relations' => [
 			'type' => 'multiple',
 			'tables' => [
@@ -37,24 +38,12 @@ return [
 	
 	'categories' => [
 		'entity' => '\App\Entities\Category',
-		'relations' => [
-			'type' => 'hierarchical',
-			'table' => 'categories',
-			'field' => 'parent_id'
-		]
+		'mapper' => '\App\Mappers\Categories'
 	],
 	
 	'comments' => [
 		'entity' => '\App\Entities\Comment',
-		'relations' => [
-			'type' => 'oneToOneBinding',
-			'tables' => [
-				'comments',
-				'pages',
-				'categories',
-				'users'
-			]
-		]
+		'mapper' => '\App\Mapper\Comments',
 	],
 	
 	'groups' => [
@@ -66,7 +55,6 @@ return [
 	 */
 	'relations' => [
 		'oneToOne' => '\Trial\DB\ORM\Relations\OneToOne',
-		'oneToOneBinding' => '\Trial\DB\ORM\Relations\OneToOneBinding',
 		'hierarchical' => '\Trial\DB\ORM\Relations\Hierarchical',
 		'multiple' => '\Trial\DB\ORM\Relations\Multiple'
 	]

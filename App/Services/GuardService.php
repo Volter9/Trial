@@ -7,7 +7,7 @@ use Trial\Services\Service;
 class GuardService implements Service {
 	
 	public function register (Container $container) {
-		$mapper = $container->get('orm')->mapper('\App\Entities\User');
+		$mapper = $container->get('orm')->table('users');
 		
 		$user = $mapper->get(1);
 	}

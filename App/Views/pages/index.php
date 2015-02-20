@@ -13,9 +13,12 @@
 		</p>
 		
 		<p class="info">
-			Опублиовал <?php echo $page['user_id'] ?> |
-			<?php echo date('Y.m.d', strtotime($page['date'])) ?> |
-			Категория <?php echo $page['category_id'] ?> 
+			Опубликовал <?php echo $page['user'] ?> 
+			<?php echo date('Y.m.d', strtotime($page['date'])) ?> <br/>
+			Категория 
+			<a href="<?php echo $this->route('category', $page['category_id']) ?>">
+				<?php echo $page['category'] ?> 
+			</a>
 		</p>
 	</li>
 <?php endforeach; ?> 

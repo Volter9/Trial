@@ -24,9 +24,7 @@ class Query {
 	private $limit = 0;
 	private $offset = 0;
 	
-	private $type;
-	private $sql = '';
-	private $data;
+	private $joins = [];
 	
 	public function __construct (Connection $connection) {
 		// Hahaha
@@ -62,77 +60,71 @@ class Query {
 		return $this->offset;
 	}
 	
+	public function getJoins() {
+		return $this->joins;
+	}
+	
 	public function from ($table) {
 		$this->table = $table;
 		
 		return $this;
 	}
 	
-	public function select ($column) {
-		$this->columns = $column ?: '*';
+	public function select ($columns = '*') {
+		$this->columns = $columns;
 		$select = $this->builder->formSelect();
 		
-		$this->type = 'select';
-		$this->sql = trim($select['query']);
-		$this->data = $select['data'];
+		$query = $select['query'];
+		$data = $select['data'];
 		
-		return $this;
+		$statement = $this->connection->query($query, $data);
+		
+		if ($this->limit === 1) return $statement->fetch();
+		
+		$this->clear();
+		
+		return $statement->fetchAll();
 	}
 	
 	public function insert (array $data) {
 		$insert = $this->builder->formInsert($data);
 		
-		$this->type = 'insert';
-		$this->sql = $insert['query'];
-		$this->data = $insert['data'];
+		$query = $insert['query'];
+		$data = $insert['data'];
 		
-		return $this;
+		$statement = $this->connection->query($query, $data);
+		
+		$this->clear();
+		
+		return $this->connection
+			->getConnection()
+			->lastInsertId();
 	}
 	
 	public function update (array $data) {
 		$update = $this->builder->formUpdate($data);
 		
-		$this->type = 'update';
-		$this->sql = $update['query'];
-		$this->data = $update['data'];
+		$query = $update['query'];
+		$data = $update['data'];
 		
-		return $this;
+		$statement = $this->connection->query($query, $data);
+		
+		$this->clear();
+		
+		return $statement->rowCount() > 0;
 	}
 	
 	public function delete () {
 		$delete = $this->builder->formDelete();
 		
-		$this->type = 'delete';
-		$this->sql = $delete['query'];
-		$this->data = $delete['data'];
+		$query = $delete['query'];
+		$data = $delete['data'];
 		
-		return $this;
-	}
-	
-	public function execute () {
-		$statement = $this->connection
-			->query(trim($this->sql), $this->data);
-
+		$statement = $this->connection->query($query, $data);
+		
 		$this->clear();
 		
-		switch ($this->type) {
-			case 'select':
-				if ($this->limit === 1) return $statement->fetch();
-				
-				return $statement->fetchAll();
-			
-			case 'insert':
-				return $this->connection
-					->getConnection()
-					->lastInsertId();
-			
-			case 'update':
-			case 'delete':
-				return $statement->rowCount() > 0;
-			
-			default:
-				throw new Exception('WTF man?');
-		}
+		return $statement->rowCount() > 0;
 	}
 	
 	public function where ($condition, array $data) {
@@ -174,6 +166,15 @@ class Query {
 		return $this;
 	}
 	
+	public function join ($table, $on) {
+		$this->joins[] = [
+			'table' => $table,
+			'on' => $on
+		];
+		
+		return $this;
+	}
+	
 	public function clear () {
 		$this->columns = '*';
 		
@@ -184,8 +185,7 @@ class Query {
 		$this->limit = 0;
 		$this->offset = 0;
 		
-		$this->sql = '';
-		$this->data = [];
+		$this->joins = [];
 		
 		return $this;
 	}

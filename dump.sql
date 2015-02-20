@@ -55,7 +55,7 @@ CREATE TABLE `categories` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `path` varchar(400) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0,'|1|');
+INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0,'|1|'),(2,'Под категория','Описание категории',1,'|1|2|'),(3,'Еще одна категория','Круть!',0,'|3|'),(4,'Подкатегория \"крутой\" категории','Описание крутой категории',3,'|3|4|');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,6 +80,7 @@ CREATE TABLE `comments` (
   `text` varchar(1000) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -91,7 +92,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1),(2,'Let\'s try it again','2015-02-06 00:00:00',1),(3,'Test','0000-00-00 00:00:00',1);
+INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1,0),(2,'Let\'s try it again','2015-02-06 00:00:00',1,0),(3,'Test','0000-00-00 00:00:00',1,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,7 +138,7 @@ CREATE TABLE `pages` (
   `category_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`,`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +147,7 @@ CREATE TABLE `pages` (
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'Валидация','Сегодня я напишу статью о том как работает валидацию $_POST данных.','Сегодня я напишу статью о том как работает валидацию $_POST данных.\n\nЭто будет очень длинная статья, потому что я расскажу про все способы валидации, вообще просто все способы PHP валидации, начиная от простого if условия, заканчивая сложным паттерно AbstractProxyValidationFactory.','2015-02-06 00:00:00',1,1),(2,'Пароли пользователей','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.\r\n\r\nХахаха XD','2015-02-14 18:51:39',2,1);
+INSERT INTO `pages` VALUES (1,'Валидация','Сегодня я напишу статью о том как работает валидацию $_POST данных.','Сегодня я напишу статью о том как работает валидацию $_POST данных.\n\nЭто будет очень длинная статья, потому что я расскажу про все способы валидации, вообще просто все способы PHP валидации, начиная от простого if условия, заканчивая сложным паттерно AbstractProxyValidationFactory.','2015-02-06 00:00:00',1,1),(2,'Пароли пользователей','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.\r\n\r\nХахаха XD','2015-02-14 18:51:39',2,1),(3,'HTML радуга','Простой способ нарисовать радугу на своем сайте с помощью HTML4 использую тэг font.','Немного текста.','2015-02-19 16:22:37',1,1);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-18  0:00:13
+-- Dump completed on 2015-02-20  8:04:07

@@ -4,4 +4,6 @@ use Trial\DB\ORM\Mapper;
 
 class Comments extends Mapper {
 	
+	
+	
 }

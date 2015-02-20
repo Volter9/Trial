@@ -6,7 +6,6 @@ class Entity implements ArrayAccess {
 	
 	protected $data;
 	
-	private $dirty = true;
 	private $original = true;
 	
 	/**
@@ -22,20 +21,12 @@ class Entity implements ArrayAccess {
 		return $this->data;
 	}
 	
-	public function isDirty () {
-		return $this->dirty;
-	}
-	
-	public function clean () {
-		$this->dirty = false;
+	public function expire () {
+		$this->original = false;
 	}
 	
 	public function isOriginal () {
 		return $this->original;
-	}
-	
-	public function expire () {
-		$this->original = false;
 	}
 	
 	/**
@@ -60,7 +51,6 @@ class Entity implements ArrayAccess {
 	
 	public function offsetSet ($offset, $value) {
 		$this->data[$offset] = $value;
-		$this->dirty = true;
 	}
 	
 }

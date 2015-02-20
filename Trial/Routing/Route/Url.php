@@ -14,7 +14,7 @@ class Url {
 		
 		list($method, $url) = explode(' ', $url);
 		
-		return new static($method, $url);
+		return new Url($method, $url);
 	}
 	
 	public function __construct ($method, $url) {

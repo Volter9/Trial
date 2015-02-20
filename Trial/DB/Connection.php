@@ -55,9 +55,6 @@ class Connection {
 			$statement->execute($parameters);
 		}
 		catch (PDOException $e) {
-			echo $e->getMessage();
-			var_dump($query, $parameters);
-			
 			throw $e;
 		}
 		
@@ -74,12 +71,12 @@ class Connection {
 		return $this->queries[$query];
 	}
 	
-	public function getBuilder () {
+	public function builder () {
 		return new Query($this);
 	}
 	
 	public function getTable ($table) {
-		return $this->getBuilder()->from($table);
+		return $this->builder()->from($table);
 	}
 	
 }

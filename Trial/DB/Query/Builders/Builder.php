@@ -20,9 +20,11 @@ class Builder {
 		$where = $this->query->getWhere();
 		$limit = $this->query->getLimit();
 		$offset = $this->query->getOffset();
+		$joins = $this->query->getJoins();
 		
 		$sql = "SELECT $columns ";
 		$sql .= "FROM $table ";
+		$sql .= $this->formJoins($joins);
 		$sql .= $this->formWhere($where);
 		$sql .= $this->formFields(' GROUP BY', $this->query->getGroups());
 		$sql .= $this->formFields(' ORDER BY', $this->query->getOrders());
@@ -41,6 +43,20 @@ class Builder {
 			'query' => $sql,
 			'data' => $data
 		];
+	}
+	
+	protected function formJoins (array $joins) {
+		if (empty($joins)) {
+			return '';
+		}
+		
+		$query = '';
+		
+		foreach ($joins as $join) {
+			$query .= "LEFT JOIN {$join['table']} ON ({$join['on']}) ";
+		}
+		
+		return $query;
 	}
 	
 	public function formInsert (array $data) {
@@ -147,7 +163,7 @@ class Builder {
 	
 	protected function formFields ($query, array $data) {
 		if (empty($data)) {
-			return ' ';
+			return '';
 		}
 		
 		return "$query " . implode(',', $data) . ' ';

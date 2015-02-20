@@ -24,17 +24,9 @@ class Factory {
 		$entity = $this->config->get("$table.entity", '\Trial\DB\ORM\Entity');
 		
 		return new $mapper(
-			$this->connections->get($connection), $entity, $table
+			$this->connections->get($connection), 
+			$entity, $table
 		);
-	}
-	
-	public function relation ($table) {
-		$relation = $this->config->get("$table.relations");
-		
-		$type = $relation['type'];
-		$class = $this->relations[$type];
-		
-		return new $class($this, $relation);
 	}
 	
 }

@@ -16,14 +16,17 @@ class Factory {
 	}
 	
 	public function input () {
-		return new Input([
-			'get' => $_GET,
-			'post' => $_POST,
-			'server' => $_SERVER
-		], getallheaders());
+		return new Input(
+			[
+				'get' => $_GET,
+				'post' => $_POST,
+				'server' => $_SERVER
+			], 
+			getallheaders()
+		);
 	}
 	
-	public function router (Routes $routes) {
+	public function router ($routes) {
 		return new Router($routes);
 	}
 	
