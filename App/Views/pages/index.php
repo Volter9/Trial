@@ -1,4 +1,4 @@
-<?php if (isset($pages)): ?> 
+<?php if (isset($pages) && $pages): ?> 
 <ul class="pages">
 <?php foreach ($pages as $page): ?> 
 	<li>

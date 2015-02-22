@@ -21,7 +21,7 @@ class Partial extends View {
 	
 	public function render (Response $response = null) {
 		$closure = $this->isolate()->bindTo($this->template);
-		
+
 		$closure($this->path, $this->data->content());
 	}
 	

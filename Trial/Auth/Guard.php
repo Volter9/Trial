@@ -2,7 +2,7 @@
 
 use Trial\Injection\Container;
 
-use Trial\DB\ORM\Entity;
+use Trial\DB\DataMapper\Entity;
 
 class Guard {
 	

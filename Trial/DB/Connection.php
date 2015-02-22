@@ -5,17 +5,12 @@ use PDO,
 
 use Trial\DB\Query\Query;
 
-/**
- * @todo extract query caching
- */
-
 class Connection {
 	
 	private $config;
 	private $dsn;
 	
 	private $pdo;
-	private $queries = [];
 	
 	public function __construct (array $config) {
 		$host = $config['host'];
@@ -49,9 +44,9 @@ class Connection {
 		return $this->pdo;
 	}
 	
-	public function query ($query, array $parameters = []) {
+	public function query ($query, array $parameters = []) {		
 		try {
-			$statement = $this->cacheStatement($query);		
+			$statement = $this->pdo->prepare($query);
 			$statement->execute($parameters);
 		}
 		catch (PDOException $e) {
@@ -61,21 +56,11 @@ class Connection {
 		return $statement;
 	}
 	
-	protected function cacheStatement ($query) {
-		if (!isset($this->queries[$query])) {
-			$statement = $this->pdo->prepare($query);
-			
-			$this->queries[$query] = $statement;
-		}
-		
-		return $this->queries[$query];
-	}
-	
 	public function builder () {
 		return new Query($this);
 	}
 	
-	public function getTable ($table) {
+	public function table ($table) {
 		return $this->builder()->from($table);
 	}
 	

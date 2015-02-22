@@ -23,8 +23,8 @@ define('BASE_PATH', __DIR__ . '/');
 require 'Trial/Autoloader.php';
 
 use Trial\Autoloader,
-	Trial\App;
+	Trial\App\Web;
 
 Autoloader::register();
 
-(new App('App'))->boot()->dispatch();
+(new Web('App'))->boot()->dispatch();

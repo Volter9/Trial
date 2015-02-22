@@ -1,4 +1,6 @@
-<?php namespace Trial;
+<?php namespace Trial\App;
+
+use Trial\Config;
 
 use Trial\Core\PathBuilder;
 
@@ -13,7 +15,7 @@ use Trial\Injection\Container,
  * @package Trial
  */
 
-class App {
+class Web {
 	
 	/**
 	 * @var \Trial\Injection\Container DI Container
@@ -47,15 +49,6 @@ class App {
 	}
 	
 	/**
-	 * Get path of app
-	 * 
-	 * @return string
-	 */
-	public function getPath () {
-		return $this->path;
-	}
-	
-	/**
 	 * Boot the app
 	 * 
 	 * @return \Trial\App
@@ -85,9 +78,9 @@ class App {
 	 */
 	protected function registerFactories ($factory) {
 		$factory->register('config', function ($path) {
-			$app = $this->get('app');
+			$pathBuilder = $this->get('app.path');
 			
-			return new Config($app->getPath()->build($path));
+			return new Config($pathBuilder->build("Configs/$path"));
 		});
 	}
 	
@@ -101,8 +94,8 @@ class App {
 		$container->set('app', $this);
 		$container->set('app.path', $this->path);
 		
-		$container->set('configs.db', $factory->create('config', 'Configs/database'));
-		$container->set('configs.app', $factory->create('config', 'Configs/app'));
+		$container->set('configs.db', $factory->create('config', 'database'));
+		$container->set('configs.app', $factory->create('config', 'app'));
 	}
 	
 	/**

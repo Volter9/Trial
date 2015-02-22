@@ -3,4 +3,3 @@
 .htaccess
 vendor/
 composer.lock
-Trial/DB/Banana/*

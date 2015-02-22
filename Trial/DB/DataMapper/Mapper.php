@@ -1,4 +1,4 @@
-<?php namespace Trial\DB\ORM;
+<?php namespace Trial\DB\DataMapper;
 
 use Closure,
 	Exception;
@@ -10,18 +10,14 @@ class Mapper {
 	
 	protected $entity;
 	protected $table;
-	protected $columns;
 	
 	protected $pk = 'id';
 	protected $query;
 	
-	public function __construct (
-		Connection $connection, 
-		$entity, $table
-	) {
+	public function __construct (Connection $connection, $entity, $table) {
 		$this->entity = $entity;
 		$this->table = $table;
-		$this->query = $connection->getTable($table);
+		$this->query = $connection->table($table);
 	}
 	
 	public function build (array $data) {
@@ -31,7 +27,7 @@ class Mapper {
 	}
 	
 	public function create (array $data) {
-		$data['id'] = $this->query->insert($data);
+		$data[$this->pk] = $this->query->insert($data);
 		
 		return $this->build($data);
 	}
@@ -39,7 +35,7 @@ class Mapper {
 	public function save (Entity $entity) {
 		$entity->clean();
 		
-		return $entity->isOriginal()
+		return !$entity[$this->pk]
 			? $this->insert($entity)
 			: $this->update($entity);
 	}
@@ -50,7 +46,6 @@ class Mapper {
 			->insert($data);
 		
 		$entity[$this->pk] = $id;
-		$entity->expire();
 		
 		return $id;
 	}
@@ -75,7 +70,6 @@ class Mapper {
 		}
 		
 		$entity = $this->build($result);
-		$entity->expire();
 		
 		return $entity;
 	}
@@ -84,16 +78,6 @@ class Mapper {
 		return $this->wrapInCollection(
 			$this->query->orderBy('id DESC')->select()
 		);
-	}
-	
-	public function custom (Closure $callback) {
-		$callback($this->query);
-		
-		return $this->wrapInCollection($this->query->select());
-	}
-	
-	public function getQuery () {
-		return $this->query;
 	}
 	
 	/**

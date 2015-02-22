@@ -1,4 +1,4 @@
-<?php namespace Trial\DB\ORM;
+<?php namespace Trial\DB\DataMapper;
 
 use Trial\Injection\Container;
 
@@ -7,21 +7,19 @@ class Factory {
 	private $config;
 	private $container;
 	private $connections;
-	private $relations;
 	
 	public function __construct (Container $container) {
 		$this->config = $container
 			->factory()
-			->create('config', 'Configs/mappings');
+			->create('config', 'mappings');
 		
 		$this->container = $container;
 		$this->connections = $container->get('connections');
-		$this->relations = $this->config->get('relations');
 	}
 	
 	public function table ($table, $connection = '') {
-		$mapper = $this->config->get("$table.mapper", '\Trial\DB\ORM\Mapper');
-		$entity = $this->config->get("$table.entity", '\Trial\DB\ORM\Entity');
+		$mapper = $this->config->get("$table.mapper", '\Trial\DB\DataMapper\Mapper');
+		$entity = $this->config->get("$table.entity", '\Trial\DB\DataMapper\Entity');
 		
 		return new $mapper(
 			$this->connections->get($connection), 

@@ -30,7 +30,8 @@ class Builder {
 		$sql .= $this->formFields(' ORDER BY', $this->query->getOrders());
 		$sql .= $this->formLimit($limit, $offset);
 		
-		$data = $this->formWhereData($where);
+		$data = $this->formData($joins);
+		$data = array_merge($data, $this->formData($where));
 		
 		if ($limit) {
 			$data[] = $limit;
@@ -57,6 +58,16 @@ class Builder {
 		}
 		
 		return $query;
+	}
+	
+	protected function formData (array $data) {
+		$result = [];
+		
+		foreach ($data as $value) {
+			$result = array_merge($result, $value['data']);
+		}
+		
+		return $result;
 	}
 	
 	public function formInsert (array $data) {
@@ -95,7 +106,7 @@ class Builder {
 		$sql .= $this->formLimit($limit, 0);
 		
 		$data = array_values($data);
-		$data = array_merge($data, $this->formWhereData($where));
+		$data = array_merge($data, $this->formData($where));
 		
 		if ($limit) {
 			$data[] = $limit;
@@ -125,7 +136,7 @@ class Builder {
 		$sql .= $this->formFields(' ORDER BY', $this->query->getOrders());
 		$sql .= $this->formLimit($limit, 0);
 		
-		$data = $where['data'];
+		$data = $this->formData($where);
 		
 		if ($limit) {
 			$data[] = $limit;
@@ -135,16 +146,6 @@ class Builder {
 			'query' => $sql,
 			'data' => $data
 		];
-	}
-	
-	protected function formWhereData (array $where) {
-		$data = [];
-		
-		foreach ($where as $statement) {
-			$data = array_merge($data, $statement['data']);
-		}
-		
-		return $data;
 	}
 	
 	protected function formWhere (array $where) {

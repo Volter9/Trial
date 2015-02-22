@@ -5,16 +5,14 @@ use Trial\Routing\Controller;
 class Index extends Controller {
 	
 	public function indexAction ($request, $response) {
-		$factory = $this->container->get('orm');
-		$pages = $factory->table('pages');
+		$db = $this->container->get('db.factory');
 		
-		return $this->container
-			->factory()
-			->create('template')
-			->view('pages/index', [
-				'title' => 'Главная Страница',
-				'pages' => $pages->all()
-			]);
+		$template = $this->container->get('template');
+		
+		return $template->view('pages/index', [
+			'title' => 'Главная Страница',
+			'pages' => $db->query('pages')->fetch()
+		]);
 	}
 	
 }

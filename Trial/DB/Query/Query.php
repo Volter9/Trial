@@ -127,7 +127,7 @@ class Query {
 		return $statement->rowCount() > 0;
 	}
 	
-	public function where ($condition, array $data) {
+	public function where ($condition, array $data = []) {
 		$this->where[] = [
 			'condition' => $condition,
 			'data' => $data,
@@ -137,7 +137,7 @@ class Query {
 		return $this;
 	}
 	
-	public function orWhere ($condition, array $data) {
+	public function orWhere ($condition, array $data = []) {
 		$this->where[] = [
 			'condition' => $condition,
 			'data' => $data,
@@ -166,10 +166,11 @@ class Query {
 		return $this;
 	}
 	
-	public function join ($table, $on) {
+	public function join ($table, $on, array $data = []) {
 		$this->joins[] = [
 			'table' => $table,
-			'on' => $on
+			'on' => $on,
+			'data' => $data
 		];
 		
 		return $this;

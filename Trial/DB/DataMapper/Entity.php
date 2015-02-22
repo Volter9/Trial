@@ -1,12 +1,10 @@
-<?php namespace Trial\DB\ORM;
+<?php namespace Trial\DB\DataMapper;
 
 use ArrayAccess;
 
 class Entity implements ArrayAccess {
 	
 	protected $data;
-	
-	private $original = true;
 	
 	/**
 	 * Constructor
@@ -19,14 +17,6 @@ class Entity implements ArrayAccess {
 	
 	public function getData () {
 		return $this->data;
-	}
-	
-	public function expire () {
-		$this->original = false;
-	}
-	
-	public function isOriginal () {
-		return $this->original;
 	}
 	
 	/**

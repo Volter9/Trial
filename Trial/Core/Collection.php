@@ -1,11 +1,13 @@
 <?php namespace Trial\Core;
 
-use Iterator,
-	Countable;
+use ArrayAccess,
+	Countable,
+	Iterator;
 
-class Collection implements Iterator, Countable {
+class Collection implements ArrayAccess, Countable, Iterator {
 	
 	protected $items;
+	protected $position;
 	
 	public function __construct (array $items = []) {
 		$this->items = $items;
@@ -48,6 +50,30 @@ class Collection implements Iterator, Countable {
 	
 	public function content () {
 		return $this->items;
+	}
+	
+	/**
+	 * ArrayAccess interface implementation
+	 */
+	
+	public function offsetExists ($offset) {
+		return isset($this->items[$offset]);
+	}
+	
+	public function offsetUnset ($offset) {
+		unset($this->items[$offset]);
+	}
+	
+	public function offsetGet ($offset) {
+		if (!$this->offsetExists($offset)) {
+			return false;
+		}
+		
+		return $this->items[$offset];
+	}
+	
+	public function offsetSet ($offset, $value) {
+		$this->items[$offset] = $value;
 	}
 	
 	/**

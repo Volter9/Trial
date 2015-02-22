@@ -11,9 +11,9 @@ return [
 		'\Trial\Services\RoutingService',
 		'\Trial\Services\ConnectionService',
 		'\Trial\Services\ViewService',
-		'\Trial\Services\MapperService',
+		'\Trial\Services\DatabaseService',
 		
-		'\App\Services\GuardService',
+		// '\App\Services\GuardService',
 		'\App\Services\TemplatesService'
 	],
 	
