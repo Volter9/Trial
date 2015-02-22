@@ -3,7 +3,7 @@
 use Trial\DB\Connection,
 	Trial\DB\Factory;
 
-interface RepositoryInerface {
+interface RepositoryInterface {
 	
 	public function __construct (Connection $connection, Factory $factory);
 	

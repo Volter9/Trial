@@ -1,8 +1,9 @@
 <?php namespace Trial\DB;
 
-use Trial\DB\Model;
+use Trial\DB\Repository\Model,
+	Trial\DB\Repository\RepositoryInterface;
 
-abstract class Repository {
+abstract class Repository implements RepositoryInterface {
 	
 	protected $connection;
 	protected $table;
