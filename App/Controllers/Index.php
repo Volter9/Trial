@@ -5,9 +5,10 @@ use Trial\Routing\Controller;
 class Index extends Controller {
 	
 	public function indexAction ($request, $response) {
-		$db = $this->container->get('db.factory');
+		$container = $this->container;
 		
-		$template = $this->container->get('template');
+		$db = $container->get('db.factory');
+		$template = $container->get('template');
 		
 		return $template->view('pages/index', [
 			'title' => 'Главная Страница',

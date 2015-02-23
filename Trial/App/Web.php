@@ -28,11 +28,6 @@ class Web {
 	private $path;
 	
 	/**
-	 * @var boolean is application running
-	 */
-	private $running = false;
-	
-	/**
 	 * App's constructor
 	 * 
 	 * @param string $path
@@ -54,12 +49,6 @@ class Web {
 	 * @return \Trial\App
 	 */
 	public function boot () {
-		if ($this->running) {
-			throw new Exception('Cannot run the app again!');
-		}
-		
-		$this->running = true;
-		
 		$container = $this->container;
 		$factory = $container->factory();
 		
@@ -128,7 +117,7 @@ class Web {
 		$router = $container->get('routing.router');
 		$dispatcher = $container->get('routing.dispatcher');
 		$request = $container->get('routing.request');
-	
+		
 		$route = $router->route($request);
 		
 		$response = $dispatcher->dispatch($route, $request);

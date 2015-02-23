@@ -37,8 +37,10 @@ class Dispatcher {
 	public function dispatch (Route $route, Request $request) {
 		list ($controller, $action) = $route->getController();
 		
-		$request->setParameters($route->getParameters($request));
+		$parameters = $route->getParameters($request);
 		$response = new Response;
+		
+		$request->setParameters($parameters);
 		
 		$body = (new $controller($this->container))->$action($request, $response);
 		$body and $response->setBody($body);

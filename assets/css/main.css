@@ -93,13 +93,19 @@ body > article > aside > h2 {
   margin: 0px;
   margin-bottom: 16px; }
 body > article > aside > ul {
-  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   list-style: none;
   margin: 0px;
   margin-bottom: 30px;
   padding: 0px; }
+  body > article > aside > ul ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px; }
+    body > article > aside > ul ul > li {
+      padding-left: 5%; }
   body > article > aside > ul li {
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     color: #555;
     font-size: 12px;
     line-height: 120%; }

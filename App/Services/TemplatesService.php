@@ -7,10 +7,11 @@ use Trial\Services\Service;
 class TemplatesService implements Service {
 	
 	public function register (Container $container) {
-		$categories = $container
-			->get('db.factory')
-			->query('all')
-			->fetch('categories');
+		$factory = $container->get('db.factory');
+		
+		$categories = $factory
+			->query('categoryTree')
+			->fetch();
 		
 		$viewFactory = $container->get('view');
 		

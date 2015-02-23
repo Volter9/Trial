@@ -5,10 +5,13 @@ use Trial\Routing\Controller;
 class Categories extends Controller {
 	
 	public function categoryAction ($request, $response) {
-		$db = $this->container->get('db.factory');
+		$container = $this->container;
+		$parameters = $request->getParameters();
 		
-		$template = $this->container->get('template');
-		$category = $request->getParameters()->get('category');
+		$db = $container->get('db.factory');
+		
+		$template = $container->get('template');
+		$category = $parameters->get('category');
 		
 		return $template->view('pages/index', [
 			'title' => 'Категории',

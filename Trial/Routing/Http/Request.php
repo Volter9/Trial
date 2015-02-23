@@ -6,9 +6,9 @@ use Trial\Routing\Route\Parameters,
 class Request {
 	
 	private $input;
+	private $url;
 	
 	private $parameters;
-	private $url;
 	
 	/**
 	 * Constructor

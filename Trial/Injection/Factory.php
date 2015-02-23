@@ -10,7 +10,9 @@ class Factory {
 	}
 	
 	public function register ($name, callable $callback) {
-		$this->factories[$name] = $callback->bindTo($this->container);
+		$callback = $callback->bindTo($this->container);
+		
+		$this->factories[$name] = $callback;
 	}
 	
 	public function create ($name) {

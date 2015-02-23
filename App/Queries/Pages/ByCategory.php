@@ -1,14 +1,8 @@
 <?php namespace App\Queries\Pages;
 
-use Trial\DB\Connection;
+use Trial\DB\Repository\Query;
 
-class ByCategory {
-	
-	private $connection;
-	
-	public function __construct (Connection $connection) {
-		$this->connection = $connection;
-	}
+class ByCategory extends Query {
 	
 	public function fetch ($id) {
 		$sql = $this->getSQL();

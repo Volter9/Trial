@@ -66,6 +66,7 @@ class Route {
 	/**
 	 * Matches the route based on request
 	 * 
+	 * @param \Trial\Routing\Http\Request
 	 * @return bool
 	 */
 	public function match (Request $request) {	

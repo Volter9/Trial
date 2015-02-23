@@ -1,14 +1,8 @@
 <?php namespace App\Queries;
 
-use Trial\DB\Connection;
+use Trial\DB\Repository\Query;
 
-class Find {
-	
-	private $connection;
-	
-	public function __construct (Connection $connection) {
-		$this->connection = $connection;
-	}
+class Find extends Query {
 	
 	public function fetch ($table, $id, $fields = '*') {
 		$sql = sprintf($this->getSQL(), $fields, $table);

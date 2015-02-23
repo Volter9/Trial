@@ -15,7 +15,5 @@ return [
 		
 		// '\App\Services\GuardService',
 		'\App\Services\TemplatesService'
-	],
-	
-	'assets' => '/oop_cms/assets/'
+	]
 ];

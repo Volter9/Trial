@@ -1,14 +1,8 @@
 <?php namespace App\Queries\Pages;
 
-use Trial\DB\Connection;
+use Trial\DB\Repository\Query;
 
-class All {
-	
-	private $connection;
-	
-	public function __construct (Connection $connection) {
-		$this->connection = $connection;
-	}
+class All extends Query {
 	
 	public function fetch () {
 		$sql = $this->getSQL();

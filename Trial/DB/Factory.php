@@ -15,12 +15,14 @@ class Factory {
 		$this->connections = $container->get('connections');
 		
 		$factory = $container->factory();
+		
 		$this->queries = $factory->create('config', 'queries');
 		$this->repositories = $factory->create('config', 'repositories');
 	}
 	
 	public function query ($id, $connection = 'default') {
 		$class = $this->queries->get($id);
+		
 		$connection = $this->connections->get($connection);
 		
 		return $class ? new $class($connection) : false;
@@ -28,9 +30,10 @@ class Factory {
 	
 	public function repository ($id, $type = 'sql', $connection = 'default') {
 		$class = $this->repositories->get("$id.$type");
+		
 		$connection = $this->connections->get($connection);
 		
-		return new $class($connection, $this);
+		return $class ? new $class($connection, $this) : false;
 	}
 	
 }

@@ -13,4 +13,6 @@ return [
 	
 	'pages' => '\App\Queries\Pages\All',
 	'pagesByCategory' => '\App\Queries\Pages\ByCategory',
+	
+	'categoryTree' => '\App\Queries\Categories\Tree'
 ];

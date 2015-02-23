@@ -64,7 +64,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0,'|1|'),(2,'Под категория','Описание категории',1,'|1|2|'),(3,'Еще одна категория','Круть!',0,'|3|'),(4,'Подкатегория \"крутой\" категории','Описание крутой категории',3,'|3|4|');
+INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0,'|1|'),(2,'Под категория','Описание категории',1,'|1|2|'),(3,'Еще одна категория','Круть!',2,'|3|'),(4,'Подкатегория \"крутой\" категории','Описание крутой категории',3,'|1|4|');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-21 21:50:30
+-- Dump completed on 2015-02-22 19:40:02

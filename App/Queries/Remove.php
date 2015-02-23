@@ -1,8 +1,8 @@
 <?php namespace App\Queries;
 
-use Trial\DB\Connection;
+use Trial\DB\Repository\Query;
 
-class Remove {
+class Remove extends Query {
 	
 	private $connection;
 	
