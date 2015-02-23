@@ -1,8 +1,10 @@
 <?php namespace Trial\View\Plugins;
 
+use Trial\Core\Collection;
+
 use Trial\Injection\Container;
 
-use Trial\Core\Collection;
+use Trial\View\Template;
 
 class RoutePlugin implements Plugin {
 	
@@ -12,7 +14,7 @@ class RoutePlugin implements Plugin {
 		$this->builder = $container->get('routing.builder');
 	}
 	
-	public function execute (Collection $arguments) {
+	public function execute (Collection $arguments, Template $template) {
 		return $this->builder->urlToRoute(
 			$arguments->shift(), 
 			$arguments->content()

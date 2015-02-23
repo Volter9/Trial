@@ -8,15 +8,10 @@ class TemplatesService implements Service {
 	
 	public function register (Container $container) {
 		$factory = $container->get('db.factory');
-		
-		$categories = $factory
-			->query('categoryTree')
-			->fetch();
-		
 		$viewFactory = $container->get('view');
 		
 		$template = $viewFactory->create('main', [
-			'categories' => $categories
+			'categories' => $factory->query('categoryTree')->fetch()
 		]);
 		
 		$container->set('template', $template);

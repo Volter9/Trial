@@ -9,13 +9,14 @@ class Categories extends Controller {
 		$parameters = $request->getParameters();
 		
 		$db = $container->get('db.factory');
+		$categories = $db->repository('categories');
 		
 		$template = $container->get('template');
-		$category = $parameters->get('category');
+		$category = $categories->find($parameters->get('category'));
 		
 		return $template->view('pages/index', [
-			'title' => 'Категории',
-			'pages' => $db->query('pagesByCategory')->fetch($category)
+			'title' => sprintf('Категория "%s"', $category->title),
+			'pages' => $db->query('pagesByCategory')->fetch($category->id)
 		]);
 	}
 	

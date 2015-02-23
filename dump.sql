@@ -53,7 +53,6 @@ CREATE TABLE `categories` (
   `title` varchar(80) NOT NULL,
   `description` varchar(500) NOT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
-  `path` varchar(400) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +63,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0,'|1|'),(2,'Под категория','Описание категории',1,'|1|2|'),(3,'Еще одна категория','Круть!',2,'|3|'),(4,'Подкатегория \"крутой\" категории','Описание крутой категории',3,'|1|4|');
+INSERT INTO `categories` VALUES (1,'Крутая категория','Описание не смог придумать ',0),(2,'Под категория','Описание категории',1),(3,'Еще одна категория','Круть!',2),(4,'Подкатегория \"крутой\" категории','Описание крутой категории',3);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-22 19:40:02
+-- Dump completed on 2015-02-23 10:28:41

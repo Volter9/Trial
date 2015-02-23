@@ -1,5 +1,7 @@
 <?php namespace Trial\View;
 
+use Exception;
+
 use Trial\View\Plugins\Plugin;
 
 class Plugins {

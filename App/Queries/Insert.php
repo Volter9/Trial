@@ -21,7 +21,7 @@ class Insert extends Query {
 	}
 	
 	private function prepareValues (array $data) {
-		return chop(str_repeat('?, ', count($data)), ', ')
+		return chop(str_repeat('?, ', count($data)), ', ');
 	}
 	
 	public function getSQL () {

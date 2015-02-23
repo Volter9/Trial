@@ -14,7 +14,7 @@ class Update extends Query {
 		return $statement->rowCount() > 0;
 	}
 	
-	private prepareValues ($data) {
+	private function prepareValues ($data) {
 		$callback = function ($value, $key) {
 			return "$key = ?";
 		};

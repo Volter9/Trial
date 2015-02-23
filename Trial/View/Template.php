@@ -38,16 +38,6 @@ class Template implements Output {
 		$this->view->render();
 	}
 	
-	public function partial ($name, array $data = []) {
-		$content = clone $this->view->getData();
-		
-		$view = new Partial(
-			$this, $content->merge($data), $this->path->build("Views/$name")
-		);
-		
-		$view->render();
-	}
-	
 	public function view ($view, array $data) {
 		$this->getData()
 			->merge($data)
@@ -59,7 +49,7 @@ class Template implements Output {
 	public function __call ($plugin, $params) {
 		return $this->plugins
 			->get($plugin)
-			->execute(new Collection($params));
+			->execute(new Collection($params), $this);
 	}
 		
 }

@@ -1,3 +1,13 @@
+<?php 
+
+/**
+ * Recursive categories view
+ * 
+ * @var array $categories
+ */
+
+?>
+
 <ul>
 <?php foreach ($categories as $category): ?> 
 	<li>

@@ -4,6 +4,8 @@ use Trial\Core\Collection;
 
 use Trial\Injection\Container;
 
+use Trial\View\Template;
+
 class AssetPlugin implements Plugin {
 	
 	private $builder;
@@ -12,7 +14,7 @@ class AssetPlugin implements Plugin {
 		$this->builder = $container->get('routing.builder');
 	}
 	
-	public function execute (Collection $arguments) {
+	public function execute (Collection $arguments, Template $template) {
 		$path = $arguments->first();
 		
 		return $this->builder->url("/assets/$path");
