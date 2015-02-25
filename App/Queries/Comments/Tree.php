@@ -21,7 +21,7 @@ class Tree extends BaseTree {
 	public function getSQL () {
 		return '
 			SELECT 
-				c.id, c.parent_id, c.text, c.user_id, u.username
+				c.id, c.parent_id, c.text, c.user_id, c.date, u.username
 			FROM comments c
 			LEFT JOIN users u ON (c.user_id = u.id)
 			LEFT JOIN bind_comments b ON (b.comment_id = c.id)

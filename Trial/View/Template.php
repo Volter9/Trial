@@ -12,11 +12,13 @@ use Trial\View\Template\Data,
 	Trial\View\Template\Partial;
 
 /**
- * @method string route($route, ...mixed $parameters)
- * @method string language($key)
- * @method string asset($path)
- * @method void partial($view, array $data)
+ * @method string route(string $route, ...string $parameters) Absolute URL to route
+ * @method string language(string $key) Language string by key
+ * @method string asset(string $path) Absolute path to asset
+ * @method void   partial(string $view, array $data) View partial view
+ * @package Trial
  */
+
 class Template implements Output {
 	
 	private $path;

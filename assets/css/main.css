@@ -129,6 +129,11 @@ body > article > section a:hover {
 
 body > article > section p.no-pages {
   margin-top: 1em; }
+body > article > section .description {
+  border-left: 2px solid #ddd;
+  color: #555555;
+  margin-top: 12px;
+  padding: 4px 8px; }
 body > article > section div.container {
   background-color: #fcfcfc;
   border-bottom: 4px solid #ddd;
@@ -220,6 +225,32 @@ body > article > section div.users ul {
   font-size: 18px;
   font-weight: normal;
   margin: 1em 0px;
+  margin-bottom: 0.5em;
   padding-bottom: 4px; }
+#comments ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px; }
+  #comments ul p {
+    margin: 0px; }
+#comments .no-comments {
+  color: #555555; }
+#comments ul.comments ul {
+  padding-left: 5%; }
+#comments ul.comments .comment {
+  background-color: #fff;
+  border-bottom: 2px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px; }
+  #comments ul.comments .comment .header {
+    font-size: 18px;
+    margin-bottom: 2px; }
+    #comments ul.comments .comment .header small {
+      color: #bbb;
+      font-size: 12px; }
+  #comments ul.comments .comment p {
+    font-size: 14px;
+    margin: 0px; }
 
 /*# sourceMappingURL=main.css.map */

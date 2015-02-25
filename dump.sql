@@ -91,7 +91,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1,0),(2,'Let\'s try it again','2015-02-06 00:00:00',1,0),(3,'Test','0000-00-00 00:00:00',1,1),(6,'cool text','2015-02-24 16:57:53',2,0);
+INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1,0),(2,'Let\'s try it again','2015-02-06 00:00:00',1,0),(3,'Test','2015-02-21 00:00:00',1,1),(6,'cool text','2015-02-24 16:57:53',2,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-24 20:38:47
+-- Dump completed on 2015-02-25 14:41:23

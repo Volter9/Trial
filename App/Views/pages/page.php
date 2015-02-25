@@ -22,16 +22,9 @@
 	</footer>
 </div>
 
-<section id="comments">
-	<h3>
-		<?php printf($this->lang('pages.comments'), $page->title) ?> 
-	</h3>
-	
-	<?php if ($comments): ?> 
-<?php $this->partial('blocks/comments') ?> 
-	<?php else: ?> 
-	<p>
-		<?php printf($this->lang('comments.empty'), $page->title) ?> 
-	</p>
-	<?php endif; ?> 
-</div>
+<?php 
+	$this->partial('blocks/comments/tree', [
+		'header' => $this->lang('pages.comments'), 
+		'title' => $page->title
+	]) 
+?>

@@ -6,6 +6,7 @@ use Trial\DB\Repository\Model,
 abstract class Repository implements RepositoryInterface {
 	
 	protected $connection;
+	
 	protected $table;
 	protected $model;
 	

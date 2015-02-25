@@ -19,14 +19,20 @@ class Pages extends Controller {
 		$page = $request->get('page');
 		$page = $db->repository('pages')->find($page);
 		
+		if (!$page) {
+			throw new Exception('Not Found');
+		}
+		
 		$page->user = $db->repository('users')->find($page->user_id);
 		$page->category = $db->repository('categories')->find($page->category_id);
 		
 		$comments = $db->query('commentTree')->fetch('pages', $page->id);
 		
+		$title = sprintf($this->language->get('pages.one') . ' "%s"', $page->title);
+		
 		return $this->template->view('pages/page', [
-			'title' => sprintf($this->language->get('pages.one') . ' "%s"', $page->title),
-			'page' => $page,
+			'title'    => $title,
+			'page'     => $page,
 			'comments' => $comments
 		]);
 	}

@@ -3,6 +3,14 @@ body > article > section {
 		margin-top: 1em;
 	}
 	
+	.description {
+		border-left: 2px solid $border-color;
+		color: $light-secondary-color;
+		
+		margin-top: 12px;
+		padding: 4px 8px;
+	}
+	
 	div.container {
 		background-color: #fcfcfc;
 		border-bottom: 4px solid $border-color;

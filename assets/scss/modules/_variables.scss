@@ -12,6 +12,7 @@ $background: #eee;
 
 $primary-color: #fff;
 $secondary-color: #222;
+$light-secondary-color: lighten($secondary-color, 20%);
 
 $subtle-text-color: #bbb;
 $subtle-active-color: #aaa;

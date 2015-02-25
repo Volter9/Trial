@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use Exception;
+
 use Trial\Routing\Controller;
 
 class Categories extends Controller {
@@ -11,6 +13,10 @@ class Categories extends Controller {
 		$category = $categories->find(
 			$request->get('category')
 		);
+		
+		if (!$category) {
+			throw new Exception('Not Found');
+		}
 		
 		$comments = $db
 			->query('commentTree')

@@ -54,14 +54,4 @@
 		<li><code>Trial/Services</code> – Сервисы</li>
 		<li><code>Trial/View</code> – Классы для работы с представлением</li>
 	</ul>
-	
-	<h2>Как установить</h2>
-	
-	<ol>
-		<li>Залить все файлы этого репозитория на (локальный) хост.</li>
-		<li>Залить дамп в базу данных.</li>
-		<li>Настроить доступ к БД в конфиге <code>App/Configs/database.php</code></li>
-		<li>Настроить конфиг приложения <code>App/Configs/app.php</code></li>
-		<li>Изменить имя файла <code>~.htaccess</code> на <code>.htaccess</code> и настроить <code>RewriteBase</code></li>
-	</ol>
 </div>
