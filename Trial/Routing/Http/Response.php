@@ -35,22 +35,8 @@ class Response {
 		$this->headers[$name] = $value;
 	}
 	
-	public function text ($text) {
-		$this->body = (string)$text;
-		
-		return $this;
-	}
-	
-	public function json (array $data) {
-		$this->body = json_encode($data, JSON_UNESCAPED_UNICODE);
-		
-		return $this;
-	}
-	
 	public function redirect ($url) {
 		$this->setHeader('Location', $url);
-		
-		return $this;
 	}
 	
 	public function send () {

@@ -2,11 +2,12 @@
 
 use Trial\DB\Model;
 
-class Category extends Model {
+class Comment extends Model {
 	
 	public $id;
-	public $title;
-	public $description;
+	public $text;
+	public $date;
+	public $user_id;
 	public $parent_id;
 	
 }

@@ -1,13 +1,16 @@
-<?php namespace App\Models;
+<?php namespace Trial\DB;
 
 use Trial\DB\Repository\Model as ModelInterface;
 
 abstract class Model implements ModelInterface {
 	
 	public function export () {
-		return array_filter(get_object_vars($this), function ($value) {
-			return $value !== null;
-		});
+		return array_filter(
+			get_object_vars($this), 
+			function ($value) {
+				return $value !== null;
+			}
+		);
 	}
 	
 	public function import (array $data) {

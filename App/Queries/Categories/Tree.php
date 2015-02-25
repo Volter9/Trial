@@ -1,47 +1,20 @@
 <?php namespace App\Queries\Categories;
 
-use Trial\DB\Repository\Query;
+use App\Queries\Tree as BaseTree;
 
-class Tree extends Query {
+class Tree extends BaseTree {
 	
 	public function fetch () {
-		$sql = $this->getSQL();
-		$statement = $this->connection->query($sql);
+		$statement = $this->connection->query($this->getSQL());
 		
 		if ($statement->rowCount() <= 0) {
 			return false;
 		}
 		
-		$categories = $this->group($statement->fetchAll());
+		$categories = $statement->fetchAll();
+		$categories = $this->group($categories);
 		
 		return $this->order($categories);
-	}
-	
-	public function group (array $categories) {
-		$result = [];
-		
-		foreach ($categories as $category) {
-			$result[$category['id']] = $category;
-		}
-		
-		return $result;
-	}
-	
-	public function order (array $categories) {
-		$result = [];
-		
-		foreach ($categories as $id => &$category) {
-			$parent_id = (int)$category['parent_id'];
-			
-			if ($parent_id === 0) {
-				$result[$id] = &$category;
-			}
-			else {
-				$categories[$parent_id]['sub'][] = &$category;
-			}
-		}
-		
-		return $result;
 	}
 	
 	public function getSQL () {

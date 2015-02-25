@@ -1,2 +1,2 @@
-<title><?php echo $title ?> - TrialCMS</title>
+<title><?php echo $title ?> - <?php echo $this->lang('website') ?></title>
 <link href="<?php echo $this->asset('css/main.css') ?>" rel="stylesheet" type="text/css"/>

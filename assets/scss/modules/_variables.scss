@@ -9,14 +9,19 @@ $footer-height: 40px;
  * Colors
  */
 $background: #eee;
+
 $primary-color: #fff;
 $secondary-color: #222;
+
 $subtle-text-color: #bbb;
 $subtle-active-color: #aaa;
+
 $link-color: #28a;
+$dark-link-color: darken($link-color, 10%);
 $border-color: #ddd;
+
 $header-color: darken($background, 65%);
-$light-color: #eee;
+$light-color: #f4f4f4;
 
 /**
  * Misc

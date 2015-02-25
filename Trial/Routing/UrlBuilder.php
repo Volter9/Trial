@@ -20,9 +20,9 @@ class UrlBuilder {
 	
 	private function base () {
 		$root = $this->input->server('DOCUMENT_ROOT');
-		$base = substr(BASE_PATH, strlen($root) - 1);
+		$root = $root !== '' ? $root : BASE_PATH;
 		
-		return rtrim($base, '/');
+		return rtrim(substr(BASE_PATH, strlen($root) - 1), '/');
 	}
 	
 	public function urlToRoute ($id, array $params) {

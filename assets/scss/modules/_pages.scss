@@ -1,4 +1,76 @@
-body > article > section.pages {
+body > article > section {
+	p.no-pages {
+		margin-top: 1em;
+	}
+	
+	div.container {
+		background-color: #fcfcfc;
+		border-bottom: 4px solid $border-color;
+		
+		box-sizing: border-box;
+		margin-top: 1em;
+		padding: 30px;
+		
+		h1 {
+			font-size: 1.6em;
+		}
+		
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0px;
+			margin-bottom: 1em;
+		}
+		
+		ul, ol {
+			margin-bottom: 1em;
+			padding: 0px;
+			padding-left: 1.5em;
+			
+			li {
+				font-size: 14px;
+				
+				margin-bottom: 10px;
+			}
+		}
+		
+		ol {
+			padding-left: 1.70em;
+		}
+		
+		p {
+			margin: 0px;
+			margin-bottom: 1em;
+		}
+		
+		code {
+			background-color: #c3d8e0;
+			border-radius: 2px;
+			color: #3b7689;
+			font-size: 0.9em;
+			vertical-align: middle;
+			
+			padding: 3px 4px;
+		}
+		
+		blockquote {
+			color: #888;
+			border-left: 3px solid $border-color;
+			
+			margin: 0px;
+			margin-bottom: 1em;
+			padding: 4px 0px;
+			padding-left: 10px;
+			
+			p:last-child {
+				margin-bottom: 0px;
+			}
+		}
+		
+		footer {
+			color: $subtle-text-color;
+			font-size: 12px;
+		}
+	}
+	
 	ul.pages {
 		@extend .clearfix;
 		
@@ -35,11 +107,6 @@ body > article > section.pages {
 				
 				margin: 0px;
 				margin-bottom: 15px;
-				
-				span {
-					color: $subtle-text-color;
-					font-size: 14px;
-				}
 			}
 			
 			p.info {

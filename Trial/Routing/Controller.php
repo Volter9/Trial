@@ -1,6 +1,6 @@
 <?php namespace Trial\Routing;
 
-use Trial\Injection\Container;
+use Trial\Injection\ContainerAwareTrait;
 
 /**
  * Controller class
@@ -10,18 +10,6 @@ use Trial\Injection\Container;
 
 abstract class Controller {
 	
-	/**
-	 * @var \Trial\Injection\Container DI Container
-	 */
-	protected $container;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param \Trial\Injection\Container $container
-	 */
-	public function __construct (Container $container) {
-		$this->container = $container;
-	}
+	use ContainerAwareTrait;
 	
 }

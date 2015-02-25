@@ -37,4 +37,8 @@ class Request {
 		$this->parameters = $parameters;
 	}
 	
+	public function get ($key) {
+		return $this->parameters->get($key);
+	}
+	
 }

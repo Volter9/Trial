@@ -11,6 +11,12 @@ use Trial\View\Plugins\Plugin;
 use Trial\View\Template\Data,
 	Trial\View\Template\Partial;
 
+/**
+ * @method string route($route, ...mixed $parameters)
+ * @method string language($key)
+ * @method string asset($path)
+ * @method void partial($view, array $data)
+ */
 class Template implements Output {
 	
 	private $path;

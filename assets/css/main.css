@@ -19,7 +19,7 @@ body {
     color: #28a;
     text-decoration: none; }
 
-.clearfix:after, body > article:after, body > header:after, body > article > section.pages ul.pages:after {
+.clearfix:after, body > article:after, body > header:after, body > article > section ul.pages:after {
   content: "";
   font-size: 0px;
   visibility: hidden;
@@ -27,9 +27,9 @@ body {
   display: block;
   height: 0px;
   width: 100%; }
-.clearfix .left, body > article .left, body > header .left, body > article > section.pages ul.pages .left {
+.clearfix .left, body > article .left, body > header .left, body > article > section ul.pages .left {
   float: left; }
-.clearfix .right, body > article .right, body > header .right, body > article > section.pages ul.pages .right {
+.clearfix .right, body > article .right, body > header .right, body > article > section ul.pages .right {
   float: right; }
 
 .fluid, body > article,
@@ -83,7 +83,7 @@ body > header {
     color: #fff;
     font-size: 14px; }
     body > header a:hover {
-      color: #eee; }
+      color: #f4f4f4; }
 
 body > article > aside > h2 {
   color: #aaa;
@@ -127,10 +127,54 @@ body > article > section p {
 body > article > section a:hover {
   text-decoration: underline; }
 
-body > article > section.pages ul.pages {
+body > article > section p.no-pages {
+  margin-top: 1em; }
+body > article > section div.container {
+  background-color: #fcfcfc;
+  border-bottom: 4px solid #ddd;
+  box-sizing: border-box;
+  margin-top: 1em;
+  padding: 30px; }
+  body > article > section div.container h1 {
+    font-size: 1.6em; }
+  body > article > section div.container h1, body > article > section div.container h2, body > article > section div.container h3, body > article > section div.container h4, body > article > section div.container h5, body > article > section div.container h6 {
+    margin: 0px;
+    margin-bottom: 1em; }
+  body > article > section div.container ul, body > article > section div.container ol {
+    margin-bottom: 1em;
+    padding: 0px;
+    padding-left: 1.5em; }
+    body > article > section div.container ul li, body > article > section div.container ol li {
+      font-size: 14px;
+      margin-bottom: 10px; }
+  body > article > section div.container ol {
+    padding-left: 1.70em; }
+  body > article > section div.container p {
+    margin: 0px;
+    margin-bottom: 1em; }
+  body > article > section div.container code {
+    background-color: #c3d8e0;
+    border-radius: 2px;
+    color: #3b7689;
+    font-size: 0.9em;
+    vertical-align: middle;
+    padding: 3px 4px; }
+  body > article > section div.container blockquote {
+    color: #888;
+    border-left: 3px solid #ddd;
+    margin: 0px;
+    margin-bottom: 1em;
+    padding: 4px 0px;
+    padding-left: 10px; }
+    body > article > section div.container blockquote p:last-child {
+      margin-bottom: 0px; }
+  body > article > section div.container footer {
+    color: #bbb;
+    font-size: 12px; }
+body > article > section ul.pages {
   list-style: none;
   padding: 0px; }
-  body > article > section.pages ul.pages li {
+  body > article > section ul.pages li {
     background-color: #fcfcfc;
     border-bottom: 4px solid #ddd;
     box-sizing: border-box;
@@ -139,25 +183,43 @@ body > article > section.pages ul.pages {
     margin-bottom: 3%;
     padding: 30px;
     width: 47%; }
-    body > article > section.pages ul.pages li:nth-child(2n) {
+    body > article > section ul.pages li:nth-child(2n) {
       margin-right: 0px; }
-    body > article > section.pages ul.pages li:nth-child(2n + 1) {
+    body > article > section ul.pages li:nth-child(2n + 1) {
       clear: left; }
-    body > article > section.pages ul.pages li:nth-last-child(-n + 2) {
+    body > article > section ul.pages li:nth-last-child(-n + 2) {
       margin-bottom: 0px; }
-    body > article > section.pages ul.pages li h2 {
+    body > article > section ul.pages li h2 {
       font-size: 20px;
       font-weight: normal;
       margin: 0px;
       margin-bottom: 15px; }
-      body > article > section.pages ul.pages li h2 span {
-        color: #bbb;
-        font-size: 14px; }
-    body > article > section.pages ul.pages li p.info {
+    body > article > section ul.pages li p.info {
       color: #bbb;
       font-size: 12px;
       margin-bottom: 0px; }
-      body > article > section.pages ul.pages li p.info a {
+      body > article > section ul.pages li p.info a {
         color: #74acbe; }
+
+body > article > section div.users ul {
+  border-bottom: 1px solid #ddd;
+  list-style: none;
+  margin: 0px;
+  margin-top: 1em;
+  padding: 0px; }
+  body > article > section div.users ul li {
+    border-top: 1px solid #ddd;
+    font-size: 14px;
+    padding: 10px; }
+    body > article > section div.users ul li .right {
+      color: #bbb;
+      font-size: 12px; }
+
+#comments h3 {
+  border-bottom: 2px solid #ddd;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 1em 0px;
+  padding-bottom: 4px; }
 
 /*# sourceMappingURL=main.css.map */

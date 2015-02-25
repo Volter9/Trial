@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use Trial\DB\Model;
+
 class User extends Model {
 	
 	public $id;

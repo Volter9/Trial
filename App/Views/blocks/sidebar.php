@@ -8,9 +8,7 @@
 
 ?>
 <aside>
-	<h2>Категории</h2>
+	<h2><?php echo $this->lang('categories.all') ?></h2>
 	
 <?php $this->partial('blocks/categories') ?> 
-	
-<?php $this->partial('blocks/panel') ?> 
 </aside>

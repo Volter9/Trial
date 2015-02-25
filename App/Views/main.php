@@ -21,7 +21,7 @@
 		<article>
 <?php $this->partial('blocks/sidebar') ?> 
 
-			<section class="pages">
+			<section>
 				<h1><?php echo $title ?></h1>
 				
 <?php $this->partial($view) ?> 

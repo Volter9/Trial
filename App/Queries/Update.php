@@ -7,6 +7,7 @@ class Update extends Query {
 	public function update ($table, $id, array $data) {
 		$data[] = $id;
 		$values = $this->prepareValues($data);
+		
 		$sql = sprintf($this->getSQL(), $table, $values);
 		
 		$statement = $this->connection->query($sql, $data);

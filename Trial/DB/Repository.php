@@ -7,6 +7,7 @@ abstract class Repository implements RepositoryInterface {
 	
 	protected $connection;
 	protected $table;
+	protected $model;
 	
 	protected $find;
 	protected $remove;
@@ -24,7 +25,16 @@ abstract class Repository implements RepositoryInterface {
 		$this->update = $factory->query('update');
 	}
 	
-	abstract function find ($id);
+	public function find ($id, $fields = '*') {
+		if (!$result = $this->find->fetch($this->table, $id, $fields)) {
+			return false;
+		}
+		
+		$item = new $this->model;
+		$item->import($result);
+		
+		return $item;
+	}
 	
 	public function save (Model $model) {
 		$data = $model->export();

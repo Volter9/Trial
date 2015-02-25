@@ -37,7 +37,7 @@ CREATE TABLE `bind_comments` (
 
 LOCK TABLES `bind_comments` WRITE;
 /*!40000 ALTER TABLE `bind_comments` DISABLE KEYS */;
-INSERT INTO `bind_comments` VALUES (1,'pages',1),(2,'pages',1);
+INSERT INTO `bind_comments` VALUES (6,'categories',1),(1,'pages',1),(2,'pages',1),(3,'pages',1);
 /*!40000 ALTER TABLE `bind_comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +82,7 @@ CREATE TABLE `comments` (
   `parent_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1,0),(2,'Let\'s try it again','2015-02-06 00:00:00',1,0),(3,'Test','0000-00-00 00:00:00',1,1);
+INSERT INTO `comments` VALUES (1,'Test','2015-02-06 00:00:00',1,0),(2,'Let\'s try it again','2015-02-06 00:00:00',1,0),(3,'Test','0000-00-00 00:00:00',1,1),(6,'cool text','2015-02-24 16:57:53',2,0);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES (1,'user','comment'),(2,'editor','comment,pages'),(3,'admin','*');
+INSERT INTO `groups` VALUES (1,'users','comment'),(2,'editors','comment,pages'),(3,'admins','*');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +146,7 @@ CREATE TABLE `pages` (
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'Валидация','Сегодня я напишу статью о том как работает валидацию $_POST данных.','Сегодня я напишу статью о том как работает валидацию $_POST данных.\n\nЭто будет очень длинная статья, потому что я расскажу про все способы валидации, вообще просто все способы PHP валидации, начиная от простого if условия, заканчивая сложным паттерно AbstractProxyValidationFactory.','2015-02-06 00:00:00',1,1),(2,'Пароли пользователей','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.\r\n\r\nХахаха XD','2015-02-14 18:51:39',2,3),(3,'HTML радуга','Простой способ нарисовать радугу на своем сайте с помощью HTML4 использую тэг font.','Немного текста.','2015-02-19 16:22:37',1,1),(4,'Еще одна категория','print(\'Привет чуваки!\'); Как дела? Сегодня я буду писать про PHP','Немного текста','2015-02-20 18:23:51',1,2);
+INSERT INTO `pages` VALUES (1,'Валидация','Сегодня я напишу статью о том как работает валидацию $_POST данных.','Это будет очень длинная статья, потому что я расскажу про все способы валидации, вообще просто все способы PHP валидации, начиная от простого if условия, заканчивая сложным паттерно AbstractProxyValidationFactory.','2015-02-06 00:00:00',1,1),(2,'Пароли пользователей','Я хакнул базу данных и посмотрел таблицу юзеров. Сделал вывод что все пароли в базе данных это \"123456\", да да, \"123456\" лол.','Теперь все могут без проблем заходить в систему с паролем \"123456\" хихихи','2015-02-14 18:51:39',2,3),(3,'HTML радуга','Простой способ нарисовать радугу на своем сайте с помощью HTML4 использую тэг font.','Немного текста.','2015-02-19 16:22:37',1,1),(4,'Еще одна категория','print(\'Привет чуваки!\'); Как дела? Сегодня я буду писать про PHP','Немного текста','2015-02-20 18:23:51',1,2);
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,7 +174,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',3,'2015-02-06 19:37:29'),(2,'trololo','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-14 18:48:09'),(3,'Dummy','123456',1,'2015-02-21 20:56:47');
+INSERT INTO `users` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',3,'2015-02-06 19:37:29'),(2,'trololo','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-14 18:48:09'),(3,'Dummy','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-21 20:56:47');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-23 10:28:41
+-- Dump completed on 2015-02-24 20:38:47

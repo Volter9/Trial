@@ -1,3 +1,7 @@
+<p>
+	<?php echo $category->description ?> 
+</p>
+
 <?php if (isset($pages) && $pages): ?> 
 <ul class="pages">
 <?php foreach ($pages as $page): ?> 
@@ -29,3 +33,17 @@
 	<?php echo $this->lang('no-pages') ?> 
 </p>
 <?php endif; ?> 
+
+<section id="comments">
+	<h3>
+		<?php printf($this->lang('categories.comments'), $category->title) ?> 
+	</h3>
+	
+	<?php if ($comments): ?> 
+<?php $this->partial('blocks/comments') ?> 
+	<?php else: ?> 
+	<p>
+		<?php printf($this->lang('comments.empty'), $category->title) ?> 
+	</p>
+	<?php endif; ?> 
+</div>

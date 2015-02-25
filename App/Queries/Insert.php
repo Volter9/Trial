@@ -9,11 +9,13 @@ class Insert extends Query {
 		
 		$columns = $this->prepareColumns($keys);
 		$values = $this->prepareValues($data);
+		
 		$sql = sprintf($this->getSQL(), $table, $columns, $values);
-
 		$statement = $this->connection->query($sql, $data);
 		
-		return $this->connection->getConnection()->lastInsertId();
+		return $statement->rowCount() > 0
+			? $this->connection->getConnection()->lastInsertId()
+			: false;
 	}
 	
 	private function prepareColumns (array $keys) {
@@ -21,7 +23,10 @@ class Insert extends Query {
 	}
 	
 	private function prepareValues (array $data) {
-		return chop(str_repeat('?, ', count($data)), ', ');
+		$count = count($data);
+		$placeholders = str_repeat('?, ', $count);
+		
+		return chop($placeholders, ', ');
 	}
 	
 	public function getSQL () {

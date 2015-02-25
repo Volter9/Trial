@@ -7,5 +7,9 @@ return [
 	
 	'categories' => [
 		'sql' => '\App\Repositories\Categories'
+	],
+	
+	'pages' => [
+		'sql' => '\App\Repositories\Pages'
 	]
 ];
