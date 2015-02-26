@@ -23,7 +23,8 @@ class ErrorHandler {
 		
 		$template = $viewFactory->create('exception', [
 			'title' => $exception->getMessage(),
-			'exception' => $exception
+			'exception' => $exception,
+			'container' => $this->container
 		]);
 		
 		$template->render();

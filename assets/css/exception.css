@@ -1,0 +1,76 @@
+/**
+ * Sizes
+ */
+/**
+ * Colors
+ */
+/**
+ * Misc
+ */
+html,
+body {
+  background-color: #eee;
+  color: #222;
+  font-family: sans-serif;
+  margin: 0px;
+  padding: 0px; }
+  html a,
+  body a {
+    color: #28a;
+    text-decoration: none; }
+
+.clearfix:after {
+  content: "";
+  font-size: 0px;
+  visibility: hidden;
+  clear: both;
+  display: block;
+  height: 0px;
+  width: 100%; }
+.clearfix .left {
+  float: left; }
+.clearfix .right {
+  float: right; }
+
+.fluid {
+  margin: 0px auto;
+  width: 960px; }
+
+#exception {
+  box-sizing: border-box;
+  margin: 10px auto;
+  padding: 10px;
+  width: 960px; }
+  #exception h1 {
+    font-weight: normal;
+    margin: 0px;
+    margin-bottom: 0.2em; }
+  #exception p {
+    font-size: 14px;
+    line-height: 140%;
+    margin: 0px;
+    margin-bottom: 0.5em; }
+  #exception ul, #exception ol {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 0px;
+    margin-bottom: 0.5em;
+    padding: 10px;
+    padding-left: 2em; }
+    #exception ul li, #exception ol li {
+      font-size: 12px;
+      line-height: 160%;
+      margin-bottom: 15px; }
+      #exception ul li:last-child, #exception ol li:last-child {
+        margin-bottom: 0px; }
+    #exception ul code, #exception ol code {
+      background-color: #dee9ee;
+      border-radius: 2px;
+      color: #148ab0;
+      font-size: 0.9em;
+      font-weight: bold;
+      vertical-align: middle;
+      padding: 3px 4px; }
+
+/*# sourceMappingURL=exception.css.map */

@@ -46,7 +46,7 @@ class UrlBuilder {
 		$url = $input->server('REQUEST_URI');
 		
 		$path = parse_url($url, PHP_URL_PATH);
-		$path = str_replace($this->base, '', $path);
+		$path = substr($path, strlen($this->base));
 		
 		return new Url($input->server('REQUEST_METHOD'), $path);
 	}
