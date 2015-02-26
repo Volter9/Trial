@@ -15,7 +15,7 @@ class Find extends Query {
 	}
 	
 	public function getSQL () {
-		return 'SELECT %s FROM %s WHERE id = ?';
+		return 'SELECT %s FROM __%s WHERE id = ?';
 	}
 	
 }

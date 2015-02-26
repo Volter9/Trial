@@ -15,7 +15,7 @@ class All extends Query {
 	}
 	
 	public function getSQL () {
-		return 'SELECT %s FROM %s';
+		return 'SELECT %s FROM __%s';
 	}
 	
 }

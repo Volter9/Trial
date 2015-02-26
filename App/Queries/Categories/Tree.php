@@ -18,7 +18,7 @@ class Tree extends BaseTree {
 	}
 	
 	public function getSQL () {
-		return 'SELECT id, title, parent_id FROM categories';
+		return 'SELECT id, title, parent_id FROM __categories';
 	}
 	
 }

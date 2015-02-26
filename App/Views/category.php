@@ -29,9 +29,15 @@
 <?php endforeach; ?> 
 </ul>
 <?php else: ?> 
-<p class="no-pages">
-	<?php echo $this->lang('no-pages') ?> 
-</p>
+<div class="container">
+	<h2>
+		<?php echo $this->lang('no-pages') ?> 
+	</h2>
+	
+	<p>
+		<?php echo $this->lang('no-pages') ?> 
+	</p>
+</div>
 <?php endif; ?> 
 
 <?php 

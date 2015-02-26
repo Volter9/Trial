@@ -26,7 +26,7 @@ class Update extends Query {
 	}
 	
 	public function getSQL () {
-		return 'UPDATE %s SET %s WHERE id = ?';
+		return 'UPDATE %s SET __%s WHERE id = ?';
 	}
 	
 }

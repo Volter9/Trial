@@ -140,6 +140,8 @@ body > article > section div.container {
   box-sizing: border-box;
   margin-top: 1em;
   padding: 30px; }
+  body > article > section div.container p:last-child {
+    margin-bottom: 0px; }
   body > article > section div.container h1 {
     font-size: 1.6em; }
   body > article > section div.container h1, body > article > section div.container h2, body > article > section div.container h3, body > article > section div.container h4, body > article > section div.container h5, body > article > section div.container h6 {
@@ -240,7 +242,6 @@ body > article > section div.users ul {
 #comments ul.comments .comment {
   background-color: #fff;
   border-bottom: 2px solid #ddd;
-  border-radius: 10px;
   margin-bottom: 10px;
   padding: 10px; }
   #comments ul.comments .comment .header {

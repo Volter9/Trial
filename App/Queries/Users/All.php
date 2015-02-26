@@ -18,8 +18,8 @@ class All extends Query {
 			SELECT 
 				u.id, u.username, u.registered_at,
 				g.title
-			FROM users u
-			LEFT JOIN groups g ON (g.id = u.group_id)
+			FROM __users u
+			LEFT JOIN __groups g ON (g.id = u.group_id)
 			ORDER BY id DESC
 		';
 	}

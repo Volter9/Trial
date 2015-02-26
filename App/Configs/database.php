@@ -14,7 +14,7 @@ return [
 		'password' => '',
 		'charset' => 'utf8',
 		'driver' => 'mysql',
-		'prefix' => ''
+		'prefix' => 'trial_'
 	],
 	
 	'autoload' => true

@@ -13,7 +13,7 @@ class Remove extends Query {
 	}
 	
 	public function getSQL () {
-		return 'DELETE FROM %s WHERE id = ?';
+		return 'DELETE FROM __%s WHERE id = ?';
 	}
 	
 }

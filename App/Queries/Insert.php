@@ -30,7 +30,7 @@ class Insert extends Query {
 	}
 	
 	public function getSQL () {
-		return 'INSERT INTO %s (%s) VALUES %s';
+		return 'INSERT INTO __%s (%s) VALUES %s';
 	}
 	
 }

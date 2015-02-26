@@ -4,9 +4,9 @@
 	</h1>
 	
 	<?php if ($pages): ?> 
-	<h3>
-		<?php echo $this->lang('users.pages') ?>
-	</h3>
+	<p>
+		<?php printf($this->lang('users.pages'), $user->username) ?>
+	</p>
 	
 	<ul>
 		<?php foreach ($pages as $page): ?> 

@@ -19,6 +19,10 @@ body > article > section {
 		margin-top: 1em;
 		padding: 30px;
 		
+		p:last-child {
+			margin-bottom: 0px;
+		}
+		
 		h1 {
 			font-size: 1.6em;
 		}

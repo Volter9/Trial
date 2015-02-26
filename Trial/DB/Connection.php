@@ -7,6 +7,8 @@ use Trial\DB\Query\Query;
 
 class Connection {
 	
+	const PREFIX_TOKEN = '__';
+	
 	private $config;
 	private $dsn;
 	
@@ -44,7 +46,9 @@ class Connection {
 		return $this->pdo;
 	}
 	
-	public function query ($query, array $parameters = []) {		
+	public function query ($query, array $parameters = []) {
+		$query = str_replace(self::PREFIX_TOKEN, $this->config['prefix'], $query);
+		
 		try {
 			$statement = $this->pdo->prepare($query);
 			$statement->execute($parameters);

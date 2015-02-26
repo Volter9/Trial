@@ -22,9 +22,9 @@ class Tree extends BaseTree {
 		return '
 			SELECT 
 				c.id, c.parent_id, c.text, c.user_id, c.date, u.username
-			FROM comments c
-			LEFT JOIN users u ON (c.user_id = u.id)
-			LEFT JOIN bind_comments b ON (b.comment_id = c.id)
+			FROM __comments c
+			LEFT JOIN __users u ON (c.user_id = u.id)
+			LEFT JOIN __bind_comments b ON (b.comment_id = c.id)
 			WHERE b.destination = ? AND b.destination_id = ?
 			ORDER BY c.id
 		';
