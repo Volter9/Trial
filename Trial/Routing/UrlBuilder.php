@@ -30,11 +30,15 @@ class UrlBuilder {
 			return '';
 		}
 		
-		return $this->base . $route->url($params);
+		return $this->removeMultipleSlashes($this->base . $route->url($params));
 	}
 	
 	public function url ($path) {
-		return $this->base . $path;
+		return $this->removeMultipleSlashes($this->base . $path);
+	}
+	
+	public function removeMultipleSlashes ($url) {
+		return preg_replace('/\/{2,}/', '/', $url);
 	}
 	
 	public function requestUrl () {
