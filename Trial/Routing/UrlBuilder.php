@@ -22,7 +22,7 @@ class UrlBuilder {
 		$root = $this->input->server('DOCUMENT_ROOT');
 		$root = $root !== '' ? $root : BASE_PATH;
 		
-		return rtrim(substr(BASE_PATH, strlen($root) - 1), '/');
+		return '/' . trim(substr(BASE_PATH, strlen($root)), '/');
 	}
 	
 	public function urlToRoute ($id, array $params) {
