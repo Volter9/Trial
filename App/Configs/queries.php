@@ -1,7 +1,9 @@
 <?php 
 
 /**
- * Queries
+ * Query objects
+ * 
+ * @package Trial
  */
 
 return [

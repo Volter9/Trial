@@ -11,9 +11,7 @@ ob_start();
 ini_set('display_errors', 1);
 error_reporting(-1);
 
-set_error_handler(function ($code, $message, $file, $line) {
-	$message = "$message in file '$file' at line $line";
-	
+set_error_handler(function ($code, $message) {
 	throw new Exception($message);
 });
 

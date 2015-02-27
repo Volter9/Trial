@@ -24,7 +24,7 @@ class Router {
 			return $route;
 		}
 		
-		throw new Exception('Not found');
+		throw new Exception('Not Found');
 	}
 	
 }

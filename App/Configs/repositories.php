@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Repositories metadata
+ * 
+ * @package Trial
+ */
+
 return [
 	'users' => [
 		'sql' => '\App\Repositories\Users'

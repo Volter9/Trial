@@ -11,8 +11,6 @@
 class Autoloader {
 	
 	/**
-	 * Register autoloader
-	 * 
 	 * @link http://php.net/manual/ru/function.spl-autoload-register.php#92514
 	 */
 	static public function register () {

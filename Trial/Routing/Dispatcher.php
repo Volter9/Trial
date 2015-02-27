@@ -15,35 +15,26 @@ use Trial\Injection\Container,
 class Dispatcher {
 	
 	/**
-	 * @var \Trial\Injection\Container
-	 */
-	private $container;
-		
-	/**
-	 * Constructor
-	 * 
-	 * @param \Trial\Injection\Container $container
-	 */
-	public function __construct (Container $container) {
-		$this->container = $container;
-	}
-	
-	/**
 	 * Dispatch the request
 	 * 
 	 * @param \Trial\Routing\Http\Request $route
 	 * @param \Trial\Routing\Http\Response $request
 	 */
-	public function dispatch (Route $route, Request $request) {
-		list ($controller, $action) = $route->getController();
+	public function dispatch (
+		Container $container, 
+		Route $route, 
+		Request $request
+	) {
+		$action = $route->getAction();
 		
 		$parameters = $route->getParameters($request);
 		$response = new Response;
 		
 		$request->setParameters($parameters);
 		
-		$body = (new $controller($this->container))->$action($request, $response);
-		$body and $response->setBody($body);
+		if ($body = $action->invoke($container, $request, $response)) {
+			$response->setBody($body);
+		}
 		
 		return $response;
 	}

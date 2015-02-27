@@ -15,7 +15,7 @@ class ConnectionManager {
 		}
 	}
 	
-	public function get ($group) {
+	public function get ($group = '') {
 		$group = $group ?: 'default';
 		
 		if (!isset($this->connections[$group])) {
@@ -25,7 +25,9 @@ class ConnectionManager {
 		return $this->connections[$group];
 	}
 	
-	public function connect ($group = 'default') {
+	public function connect ($group = '') {
+		$group = $group ?: 'default';
+		
 		$config = $this->config->get($group);
 		
 		if (!$config) {

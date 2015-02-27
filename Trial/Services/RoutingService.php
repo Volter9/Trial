@@ -2,32 +2,33 @@
 
 use Trial\Injection\Container;
 
-use Trial\Routing\Factory;
+use Trial\Routing\Dispatcher,
+	Trial\Routing\Router,
+	Trial\Routing\UrlBuilder;
+
+use Trial\Routing\Http\Input,
+	Trial\Routing\Http\Request;
 
 class RoutingService implements Service {
 	
 	public function register (Container $container) {
-		$factory = new Factory($container);
-		
 		$path = $container->get('app.path');
 		
-		$input  = $factory->input();
+		$input  = new Input;
 		$routes = include $path->build('Configs/routes');
 		
-		$builder    = $factory->urlBuilder($input, $routes);
-		$dispatcher = $factory->dispatcher();
-		$router     = $factory->router($routes);
+		$builder    = new UrlBuilder($input, $routes);
+		$dispatcher = new Dispatcher;
+		$router     = new Router($routes);
 		
 		$url     = $builder->requestUrl();
-		$request = $factory->request($url, $input);
+		$request = new Request($url, $input);
 		
 		$container->set('routes', $routes);
 		$container->set('routing.request', $request);
 		$container->set('routing.router', $router);
 		$container->set('routing.dispatcher', $dispatcher);
 		$container->set('routing.builder', $builder);
-		
-		$container->set('routing', $factory);
 	}
 	
 }

@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use Exception;
+
 use Trial\Routing\Controller;
 
 class Pages extends Controller {
@@ -20,7 +22,9 @@ class Pages extends Controller {
 		$page = $db->repository('pages')->find($page);
 		
 		if (!$page) {
-			throw new Exception('Not Found');
+			throw new Exception(
+				sprintf('Page by id %s is not exists!', $request->get('page'))
+			);
 		}
 		
 		$page->user = $db->repository('users')->find($page->user_id);
@@ -28,7 +32,11 @@ class Pages extends Controller {
 		
 		$comments = $db->query('commentTree')->fetch('pages', $page->id);
 		
-		$title = sprintf($this->language->get('pages.one') . ' "%s"', $page->title);
+		$title = sprintf(
+			 '%s "%s"', 
+			 $this->language->get('pages.one'),
+			 $page->title
+		);
 		
 		return $this->template->view('pages/page', [
 			'title'    => $title,

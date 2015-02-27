@@ -1,8 +1,9 @@
 <?php namespace Trial\Routing;
 
-use Trial\Routing\Route\Url;
+use Trial\Helpers\UrlParsing;
 
-use Trial\Routing\Http\Input;
+use Trial\Routing\Route\Url,
+	Trial\Routing\Http\Input;
 
 class UrlBuilder {
 	
@@ -20,9 +21,12 @@ class UrlBuilder {
 	
 	private function base () {
 		$root = $this->input->server('DOCUMENT_ROOT');
-		$root = $root !== '' ? $root : BASE_PATH;
+		$root = strlen($root ?: BASE_PATH);
 		
-		return '/' . trim(substr(BASE_PATH, strlen($root)), '/');
+		$url = substr(BASE_PATH, $root);
+		$url = trim($url, '/');
+		
+		return "/$url";
 	}
 	
 	public function urlToRoute ($id, array $params) {
@@ -30,25 +34,27 @@ class UrlBuilder {
 			return '';
 		}
 		
-		return $this->removeMultipleSlashes($this->base . $route->url($params));
+		return $this->url($route->url($params));
 	}
 	
 	public function url ($path) {
-		return $this->removeMultipleSlashes($this->base . $path);
-	}
-	
-	public function removeMultipleSlashes ($url) {
-		return preg_replace('/\/{2,}/', '/', $url);
+		return UrlParsing::trimSlashes("{$this->base}$path");
 	}
 	
 	public function requestUrl () {
-		$input = $this->input;	
-		$url = $input->server('REQUEST_URI');
+		$url    = $this->input->server('REQUEST_URI');
+		$method = $this->input->server('REQUEST_METHOD');
 		
 		$path = parse_url($url, PHP_URL_PATH);
-		$path = substr($path, strlen($this->base));
 		
-		return new Url($input->server('REQUEST_METHOD'), $path);
+		if (
+			$this->base !== '' && 
+			$this->base !== '/'
+		) {
+			$path = substr($path, strlen($this->base));
+		}
+		
+		return new Url($method, $path);
 	}
 	
 }

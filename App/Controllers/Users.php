@@ -21,17 +21,19 @@ class Users extends Controller {
 		$user = $db->repository('users')->find($request->get('user'));
 		
 		if (!$user) {
-			throw new Exception('Not Found');
+			throw new Exception(
+				sprintf('User by id %s is not exists!', $request->get('user'))
+			);
 		}
+		
+		$pages = $db->query('pagesByUser')->fetch($user->id);
+		$comments = $db->query('commentTree')->fetch('users', $user->id);
 		
 		$title = sprintf(
 			'%s %s',
 			$this->language->get('users.one'),
 			$user->username
 		);
-		
-		$pages = $db->query('pagesByUser')->fetch($user->id);
-		$comments = $db->query('commentTree')->fetch('users', $user->id);
 		
 		return $this->template->view('users/user', [
 			'title'    => $title,

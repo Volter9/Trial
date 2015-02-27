@@ -15,7 +15,7 @@ use Trial\Injection\Container,
  * @package Trial
  */
 
-class Web {
+class Web implements Application {
 	
 	/**
 	 * @var \Trial\Injection\Container DI Container
@@ -54,6 +54,7 @@ class Web {
 		
 		$this->registerFactories($factory);
 		$this->registerConfigs($container, $factory);
+		
 		$this->systemTweaks();
 		$this->setupServices();
 		
@@ -67,9 +68,9 @@ class Web {
 	 */
 	protected function registerFactories ($factory) {
 		$factory->register('config', function ($path) {
-			$pathBuilder = $this->get('app.path');
+			$builder = $this->get('app.path');
 			
-			return new Config($pathBuilder->build("Configs/$path"));
+			return new Config($builder->build("Configs/$path"));
 		});
 	}
 	
@@ -83,20 +84,13 @@ class Web {
 		$container->set('app', $this);
 		$container->set('app.path', $this->path);
 		
-		$container->set('configs.db', $factory->create('config', 'database'));
 		$container->set('configs.app', $factory->create('config', 'app'));
 	}
 	
-	/**
-	 * Tweak the PHP system
-	 */
 	protected function systemTweaks () {
 		include $this->path->build('Configs/bootstrap');
 	}
 	
-	/**
-	 * Setup services
-	 */
 	protected function setupServices () {
 		$services = $this->container
 			->get('configs.app')
@@ -108,20 +102,18 @@ class Web {
 		}
 	}
 	
-	/**
-	 * Dispatch the request
-	 */
 	public function dispatch () {
 		$container = $this->container;
 		
-		$router = $container->get('routing.router');
-		$dispatcher = $container->get('routing.dispatcher');
+		$router  = $container->get('routing.router');
 		$request = $container->get('routing.request');
 		
 		$route = $router->route($request);
 		
-		$response = $dispatcher->dispatch($route, $request);
-		$response->send();
+		$container
+			->get('routing.dispatcher')
+			->dispatch($container, $route, $request)
+			->send();
 	}
 	
 }

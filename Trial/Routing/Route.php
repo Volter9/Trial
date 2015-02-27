@@ -1,8 +1,12 @@
 <?php namespace Trial\Routing;
 
+use Closure;
+
 use Trial\Routing\Http\Request;
 
 use Trial\Routing\Route\Action,
+	Trial\Routing\Route\Actions\Controller,
+	Trial\Routing\Route\Actions\Callback,
 	Trial\Routing\Route\Parameters,
 	Trial\Routing\Route\Url;
 
@@ -29,9 +33,26 @@ class Route {
 	 */
 	private $parameters;
 	
+	/**
+	 * @param string $url
+	 * @param string $controller
+	 * @return \Trial\Routing\Route
+	 */
 	static public function fromUrl ($url, $controller) {
 		$url    = Url::fromString($url);
-		$action = Action::fromString($controller);
+		$action = Controller::fromString($controller);
+		
+		return new Route($url, $action, new Parameters($url));
+	}
+	
+	/**
+	 * @param string $url
+	 * @param \Closure $callback
+	 * @return \Trial\Routing\Route
+	 */
+	static public function withCallback ($url, Closure $callback) {
+		$url    = Url::fromString($url);
+		$action = new Callback($callback);
 		
 		return new Route($url, $action, new Parameters($url));
 	}
@@ -54,13 +75,17 @@ class Route {
 	}
 	
 	/**
-	 * Returns representation of controller (class and method) 
-	 * in indexed array.
-	 * 
-	 * @return array
+	 * @return \Trial\Routing\Route\Url
 	 */
-	public function getController () {
-		return $this->action->toArray();
+	public function getUrl () {
+		return $this->url;
+	}
+	
+	/**
+	 * @return \Trial\Routing\Route\Action
+	 */
+	public function getAction () {
+		return $this->action;
 	}
 	
 	/**
@@ -69,7 +94,7 @@ class Route {
 	 * @param \Trial\Routing\Http\Request
 	 * @return bool
 	 */
-	public function match (Request $request) {	
+	public function match (Request $request) {
 		return $this->action->exists() 
 			&& $this->url->match($request->getUrl());
 	}

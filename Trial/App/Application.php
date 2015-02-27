@@ -2,13 +2,15 @@
 
 use Trial\Injection\Container;
 
-/**
- * @todo force the contract
- */
-
 interface Application {
 	
-	public function __construct (Container $container = null);
-	public function dispatch ($some_cool_arg_for_dispatching);
+	/**
+	 * @param string $path Path to application relative to the enter point
+	 * @param \Trial\Injection\Container $container
+	 */
+	public function __construct ($path, Container $container = null);
+	
+	public function boot ();
+	public function dispatch ();
 	
 }

@@ -4,14 +4,25 @@ use Trial\Injection\Container;
 
 class Factory {
 	
-	private $container;
+	/**
+	 * @var \Trial\DB\ConnectionManager
+	 */
 	private $connections;
 	
+	/**
+	 * @var \Trial\Config
+	 */
 	private $queries;
+	
+	/**
+	 * @var \Trial\Config
+	 */
 	private $repositories;
 	
+	/**
+	 * @param \Trial\Injection\Container
+	 */
 	public function __construct (Container $container) {
-		$this->container = $container;
 		$this->connections = $container->get('connections');
 		
 		$factory = $container->factory();
@@ -20,20 +31,25 @@ class Factory {
 		$this->repositories = $factory->create('config', 'repositories');
 	}
 	
-	public function query ($id, $connection = 'default') {
+	/**
+	 * @param string $id
+	 * @param string $connection
+	 */
+	public function query ($id, $connection = '') {
 		$class = $this->queries->get($id);
 		
-		$connection = $this->connections->get($connection);
-		
-		return $class ? new $class($connection) : false;
+		return new $class($this->connections->get($connection));
 	}
 	
-	public function repository ($id, $type = 'sql', $connection = 'default') {
+	/**
+	 * @param string $id
+	 * @param string $type
+	 * @param string $connection
+	 */
+	public function repository ($id, $type = 'sql', $connection = '') {
 		$class = $this->repositories->get("$id.$type");
 		
-		$connection = $this->connections->get($connection);
-		
-		return $class ? new $class($connection, $this) : false;
+		return new $class($this->connections->get($connection), $this);
 	}
 	
 }

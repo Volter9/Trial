@@ -19,7 +19,7 @@ class Url {
 	
 	public function __construct ($method, $url) {
 		$this->method = $method;
-		$this->url = chop($url, '/');
+		$this->url = $url;
 	}
 	
 	public function getUrl () {

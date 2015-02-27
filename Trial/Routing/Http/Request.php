@@ -11,8 +11,6 @@ class Request {
 	private $parameters;
 	
 	/**
-	 * Constructor
-	 * 
 	 * @param \Trial\Routing\Route\Url $url
 	 * @param \Trial\Routing\Http\Input
 	 */
@@ -27,10 +25,6 @@ class Request {
 	
 	public function getInput () {
 		return $this->input;
-	}
-	
-	public function getParameters () {
-		return $this->parameters;
 	}
 	
 	public function setParameters (Parameters $parameters) {

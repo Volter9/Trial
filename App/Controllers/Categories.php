@@ -15,7 +15,9 @@ class Categories extends Controller {
 		);
 		
 		if (!$category) {
-			throw new Exception('Not Found');
+			throw new Exception(
+				sprintf('Category by id %s is not exists!', $request->get('category'))
+			);
 		}
 		
 		$comments = $db

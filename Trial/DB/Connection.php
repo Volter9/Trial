@@ -3,8 +3,6 @@
 use PDO,
 	PDOException;
 
-use Trial\DB\Query\Query;
-
 class Connection {
 	
 	const PREFIX_TOKEN = '__';
@@ -48,25 +46,16 @@ class Connection {
 	}
 	
 	public function query ($query, array $parameters = []) {
-		$query = str_replace(self::PREFIX_TOKEN, $this->config['prefix'], $query);
+		$query = str_replace(
+			self::PREFIX_TOKEN, 
+			$this->config['prefix'], 
+			$query
+		);
 		
-		try {
-			$statement = $this->pdo->prepare($query);
-			$statement->execute($parameters);
-		}
-		catch (PDOException $e) {
-			throw $e;
-		}
+		$statement = $this->pdo->prepare($query);
+		$statement->execute($parameters);
 		
 		return $statement;
-	}
-	
-	public function builder () {
-		return new Query($this);
-	}
-	
-	public function table ($table) {
-		return $this->builder()->from($table);
 	}
 	
 }

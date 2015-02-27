@@ -15,7 +15,7 @@ class ErrorHandler {
 	}
 	
 	/**
-	 * Ugly tricl
+	 * Ugly trick
 	 */
 	public function handleException (Exception $exception) {
 		$viewFactory = $this->container->get('view');

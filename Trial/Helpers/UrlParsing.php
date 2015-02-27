@@ -35,7 +35,11 @@ class UrlParsing {
 			$url = str_replace("/@$value", "/$values[$index]", $url);
 		}
 		
-		return preg_replace('/\/{2,}/', '/', $url);
+		return static::trimSlashes($url);
+	}
+	
+	static public function trimSlashes ($path) {
+		return preg_replace('/\/{2,}/', '/', $path);
 	}
 	
 }

@@ -7,7 +7,7 @@ interface RepositoryInterface {
 	
 	/**
 	 * @param int $id
-	 * @param strign $fields
+	 * @param string $fields
 	 * @return \Trial\DB\Repository\Model
 	 */
 	public function find ($id, $fields = '*');

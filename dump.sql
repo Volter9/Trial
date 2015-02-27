@@ -165,7 +165,7 @@ CREATE TABLE `trial_users` (
   `registered_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `group_id` (`group_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +174,7 @@ CREATE TABLE `trial_users` (
 
 LOCK TABLES `trial_users` WRITE;
 /*!40000 ALTER TABLE `trial_users` DISABLE KEYS */;
-INSERT INTO `trial_users` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',3,'2015-02-06 19:37:29'),(2,'trololo','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-14 18:48:09'),(3,'Dummy','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-21 20:56:47');
+INSERT INTO `trial_users` VALUES (1,'admin','e10adc3949ba59abbe56e057f20f883e',3,'2015-02-06 19:37:29'),(2,'trololo','e10adc3949ba59abbe56e057f20f883e',2,'2015-02-14 18:48:09'),(3,'Dummy','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-21 20:56:47'),(4,'guest','e10adc3949ba59abbe56e057f20f883e',1,'2015-02-26 12:40:30');
 /*!40000 ALTER TABLE `trial_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -187,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-26  8:40:28
+-- Dump completed on 2015-02-27  8:41:47
