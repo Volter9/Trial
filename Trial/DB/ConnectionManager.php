@@ -1,14 +1,14 @@
 <?php namespace Trial\DB;
 
-use Trial\Injection\Container;
+use Trial\Config;
 
 class ConnectionManager {
 	
 	private $config;
 	private $connections = [];
 	
-	public function __construct (Container $container) {
-		$this->config = $container->get('configs.db');
+	public function __construct (Config $config) {
+		$this->config = $config;
 		
 		if ($this->config->get('autoload')) {
 			$this->connect();

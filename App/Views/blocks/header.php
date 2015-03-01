@@ -19,7 +19,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="<?php echo $this->route('auth.login') ?>">
 				<?php echo $this->lang('auth.login') ?> 
 			</a>
 		</li>

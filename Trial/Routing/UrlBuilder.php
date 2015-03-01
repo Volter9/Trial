@@ -16,10 +16,10 @@ class UrlBuilder {
 		$this->input = $input;
 		$this->routes = $routes;
 		
-		$this->base = $this->base();
+		$this->base = $this->getBase();
 	}
 	
-	private function base () {
+	private function getBase () {
 		$root = $this->input->server('DOCUMENT_ROOT');
 		$root = strlen($root ?: BASE_PATH);
 		
@@ -29,7 +29,7 @@ class UrlBuilder {
 		return "/$url";
 	}
 	
-	public function urlToRoute ($id, array $params) {
+	public function urlToRoute ($id, array $params = []) {
 		if (!$route = $this->routes->getById($id)) {
 			return '';
 		}

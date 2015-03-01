@@ -38,7 +38,13 @@ return [
 	
 	'auth' => [
 		'login' => 'Вход',
-		'signout' => 'Выход'
+		'signout' => 'Выход',
+		'submit' => 'Войти',
+		
+		'fields' => [
+			'username' => 'Имя пользователя',
+			'password' => 'Пароль'
+		]
 	],
 	
 	'404' => [

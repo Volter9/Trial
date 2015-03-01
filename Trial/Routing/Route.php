@@ -4,10 +4,12 @@ use Closure;
 
 use Trial\Routing\Http\Request;
 
-use Trial\Routing\Route\Action,
-	Trial\Routing\Route\Actions\Controller,
-	Trial\Routing\Route\Actions\Callback,
-	Trial\Routing\Route\Parameters,
+use Trial\Routing\Route\Action;
+
+use Trial\Routing\Route\Actions\Controller,
+	Trial\Routing\Route\Actions\Callback;
+
+use Trial\Routing\Route\Parameters,
 	Trial\Routing\Route\Url;
 
 /**

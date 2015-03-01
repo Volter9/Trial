@@ -19,7 +19,7 @@ body {
     color: #28a;
     text-decoration: none; }
 
-.clearfix:after, body > article:after, body > header:after, body > article > section ul.pages:after {
+.clearfix:after, body > article:after, body > header:after, body > article > section ul.pages:after, form.form:after {
   content: "";
   font-size: 0px;
   visibility: hidden;
@@ -27,9 +27,9 @@ body {
   display: block;
   height: 0px;
   width: 100%; }
-.clearfix .left, body > article .left, body > header .left, body > article > section ul.pages .left {
+.clearfix .left, body > article .left, body > header .left, body > article > section ul.pages .left, form.form .left {
   float: left; }
-.clearfix .right, body > article .right, body > header .right, body > article > section ul.pages .right {
+.clearfix .right, body > article .right, body > header .right, body > article > section ul.pages .right, form.form .right {
   float: right; }
 
 .fluid, body > article,
@@ -253,5 +253,20 @@ body > article > section div.users ul {
   #comments ul.comments .comment p {
     font-size: 14px;
     margin: 0px; }
+
+form.form label {
+  display: block;
+  margin-bottom: 1.5em;
+  width: 100%; }
+form.form input {
+  font-size: 12px;
+  box-sizing: border-box;
+  display: block;
+  margin-top: 0.5em;
+  padding: 8px;
+  width: 100%; }
+form.form button {
+  float: right;
+  padding: 8px 16px; }
 
 /*# sourceMappingURL=main.css.map */

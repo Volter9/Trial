@@ -3,8 +3,9 @@
 use Trial\Injection\Container;
 	
 use Trial\View\Factory,
-	Trial\View\Plugins,
-	Trial\View\Plugins\AssetPlugin,
+	Trial\View\Plugins;
+
+use Trial\View\Plugins\AssetPlugin,
 	Trial\View\Plugins\PartialPlugin,
 	Trial\View\Plugins\RoutePlugin,
 	Trial\View\Plugins\LanguagePlugin;

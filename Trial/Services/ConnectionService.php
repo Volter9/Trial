@@ -10,7 +10,9 @@ class ConnectionService implements Service {
 		$factory = $container->factory();
 		
 		$container->set('configs.db', $factory->create('config', 'database'));
-		$container->set('connections', new ConnectionManager($container));
+		$container->set('connections', 
+			new ConnectionManager($container->get('configs.db'))
+		);
 	}
 	
 }

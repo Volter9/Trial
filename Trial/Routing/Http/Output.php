@@ -6,6 +6,9 @@
 
 interface Output {
 	
+	/**
+	 * @param \Trial\Routing\Http\Response
+	 */
 	public function render (Response $response = null);
 	
 }

@@ -36,4 +36,11 @@ $routes->add('user',
 	Route::fromUrl('/users/@user', '\App\Controllers\Users::user')
 );
 
+$routes->add('auth.login',
+	Route::fromUrl('GET /auth/login', '\App\Controllers\Auth::logIn')
+);
+$routes->add('auth.loginPost',
+	Route::fromUrl('POST /auth/login', '\App\Controllers\Auth::logInPost')
+);
+
 return $routes;

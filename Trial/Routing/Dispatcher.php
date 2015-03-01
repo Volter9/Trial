@@ -17,8 +17,10 @@ class Dispatcher {
 	/**
 	 * Dispatch the request
 	 * 
-	 * @param \Trial\Routing\Http\Request $route
-	 * @param \Trial\Routing\Http\Response $request
+	 * @param \Trial\Injection\Container $container
+	 * @param \Trial\Routing\Http\Route $route
+	 * @param \Trial\Routing\Http\Request $request
+	 * @return \Trial\Routing\Http\Response
 	 */
 	public function dispatch (
 		Container $container, 
@@ -26,7 +28,6 @@ class Dispatcher {
 		Request $request
 	) {
 		$action = $route->getAction();
-		
 		$parameters = $route->getParameters($request);
 		$response = new Response;
 		
