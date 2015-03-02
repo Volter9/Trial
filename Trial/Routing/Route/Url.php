@@ -9,14 +9,6 @@ class Url {
 	
 	private $pattern;
 	
-	static public function fromString ($url) {
-		$url = strpos($url, ' ') === false ? "* $url" : $url;
-		
-		list($method, $url) = explode(' ', $url);
-		
-		return new Url($method, $url);
-	}
-	
 	public function __construct ($method, $url) {
 		$this->method = $method;
 		$this->url = $url;

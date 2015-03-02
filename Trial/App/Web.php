@@ -109,6 +109,7 @@ class Web implements Application {
 		$request = $container->get('routing.request');
 		
 		$route = $router->route($request);
+		$request->setRoute($route);
 		
 		$container
 			->get('routing.dispatcher')

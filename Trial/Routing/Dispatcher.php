@@ -1,7 +1,8 @@
 <?php namespace Trial\Routing;
 
-use Trial\Injection\Container,
-	Trial\Routing\Http\Request,
+use Trial\Injection\Container;
+
+use Trial\Routing\Http\Request,
 	Trial\Routing\Http\Response;
 
 /**
@@ -28,10 +29,7 @@ class Dispatcher {
 		Request $request
 	) {
 		$action = $route->getAction();
-		$parameters = $route->getParameters($request);
 		$response = new Response;
-		
-		$request->setParameters($parameters);
 		
 		if ($body = $action->invoke($container, $request, $response)) {
 			$response->setBody($body);

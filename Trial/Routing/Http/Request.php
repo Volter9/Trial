@@ -1,6 +1,6 @@
 <?php namespace Trial\Routing\Http;
 
-use Trial\Routing\Route\Parameters,
+use Trial\Routing\Route,
 	Trial\Routing\Route\Url;
 
 class Request {
@@ -8,7 +8,15 @@ class Request {
 	private $input;
 	private $url;
 	
+	/**
+	 * @var \Trial\Routing\Route\Parameters
+	 */
 	private $parameters;
+	
+	/**
+	 * @var \Trial\Routing\Route
+	 */
+	private $route;
 	
 	/**
 	 * @param \Trial\Routing\Route\Url $url
@@ -27,8 +35,13 @@ class Request {
 		return $this->input;
 	}
 	
-	public function setParameters (Parameters $parameters) {
-		$this->parameters = $parameters;
+	public function getRoute () {
+		return $this->route;
+	}
+	
+	public function setRoute (Route $route) {
+		$this->route = $route;
+		$this->parameters = $route->getParameters($this);
 	}
 	
 	public function get ($key) {

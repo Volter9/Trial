@@ -4,10 +4,17 @@
 		 verbose="true"
 		 stopOnError="true"
          stopOnFailure="true"
-         stopOnSkipped="true">
+         stopOnSkipped="true"
+	     beStrictAboutTestsThatDoNotTestAnything="true">
 	<testsuites>
 		<testsuite name="Trial tests">
 			<directory>./Tests</directory>
 		</testsuite>
 	</testsuites>
+	
+	<filter>
+		<whitelist>
+			<directory suffix=".php">./Trial/</directory>
+		</whitelist>
+	</filter>
 </phpunit>

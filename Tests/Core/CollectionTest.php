@@ -1,4 +1,4 @@
-<?php namespace Tests;
+<?php namespace Tests\Core;
 
 use Trial\Core\Collection;
 

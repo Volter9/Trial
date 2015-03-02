@@ -1,7 +1,7 @@
 <?php
 
 use Trial\Routing\Routes,
-	Trial\Routing\Route;
+	Trial\Routing\RoutesFactory;
 
 /**
  * Define your routes here
@@ -10,37 +10,38 @@ use Trial\Routing\Routes,
  */
 
 $routes = new Routes;
+$factory = new RoutesFactory;
 
 $routes->add('home', 
-	Route::fromUrl('/', '\App\Controllers\Index')
+	$factory->controller('/', '\App\Controllers\Index')
 );
 
 $routes->add('pages', 
-	Route::fromUrl('/pages/', '\App\Controllers\Pages')
+	$factory->controller('/pages/', '\App\Controllers\Pages')
 );
 $routes->add('page', 
-	Route::fromUrl('/pages/@page', '\App\Controllers\Pages::page')
+	$factory->controller('/pages/@page', '\App\Controllers\Pages::page')
 );
 
 $routes->add('categories', 
-	Route::fromUrl('/categories/', '\App\Controllers\Categories')
+	$factory->controller('/categories/', '\App\Controllers\Categories')
 );
 $routes->add('category', 
-	Route::fromUrl('/categories/@category', '\App\Controllers\Categories::category')
+	$factory->controller('/categories/@category', '\App\Controllers\Categories::category')
 );
 
 $routes->add('users', 
-	Route::fromUrl('/users/', '\App\Controllers\Users')
+	$factory->controller('/users/', '\App\Controllers\Users')
 );
 $routes->add('user', 
-	Route::fromUrl('/users/@user', '\App\Controllers\Users::user')
+	$factory->controller('/users/@user', '\App\Controllers\Users::user')
 );
 
 $routes->add('auth.login',
-	Route::fromUrl('GET /auth/login', '\App\Controllers\Auth::logIn')
+	$factory->controller('GET /auth/login', '\App\Controllers\Auth::logIn')
 );
 $routes->add('auth.loginPost',
-	Route::fromUrl('POST /auth/login', '\App\Controllers\Auth::logInPost')
+	$factory->controller('POST /auth/login', '\App\Controllers\Auth::logInPost')
 );
 
 return $routes;

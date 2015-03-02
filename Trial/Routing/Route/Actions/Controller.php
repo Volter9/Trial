@@ -8,20 +8,8 @@ use Trial\Routing\Route\Action,
 
 class Controller implements Action {
 	
-	const DELIMETER = '::';
-	
 	private $controller;
 	private $action;
-	
-	static public function fromString ($controller) {
-		$action = 'index';
-		
-		if (strpos($controller, self::DELIMETER) !== false) {
-			list($controller, $action) = explode(self::DELIMETER, $controller);
-		}
-		
-		return new static($controller, $action);
-	}
 	
 	public function __construct ($controller, $action) {
 		$this->controller = $controller;

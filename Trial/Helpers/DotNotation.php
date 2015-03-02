@@ -64,13 +64,13 @@ class DotNotation {
 	/**
 	 * Fetch a key
 	 * 
-	 * @access protected
+	 * @access private
 	 * @param array $array
 	 * @param string $key
 	 * @param mixed $value
 	 * @return mixed
 	 */
-	static protected function fetch (array &$array, $key, $value = null) {
+	static private function fetch (array &$array, $key, $value = null) {
 		$keys = explode(static::$delimeter, $key);
 		
 		/* 
@@ -103,11 +103,11 @@ class DotNotation {
 	/**
 	 * Handle empty array for setter
 	 * 
-	 * @access protected
+	 * @access private
 	 * @param array $array
 	 * @param string $key
 	 */
-	static protected function handleEmptyArray (array &$array, $key) {
+	static private function handleEmptyArray (array &$array, $key) {
 		if (!isset($array[$key])) {
 			$array[$key] = [];
 		}
