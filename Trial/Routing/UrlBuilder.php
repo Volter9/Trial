@@ -2,8 +2,9 @@
 
 use Trial\Helpers\UrlParsing;
 
-use Trial\Routing\Route\Url,
-	Trial\Routing\Http\Input;
+use Trial\Routing\Route\Url;
+
+use Trial\Routing\Http\Input;
 
 class UrlBuilder {
 	

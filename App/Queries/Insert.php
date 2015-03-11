@@ -14,7 +14,7 @@ class Insert extends Query {
 		$statement = $this->connection->query($sql, $data);
 		
 		return $statement->rowCount() > 0
-			? $this->connection->getConnection()->lastInsertId()
+			? $this->connection->getLink()->lastInsertId()
 			: false;
 	}
 	

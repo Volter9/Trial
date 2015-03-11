@@ -4,6 +4,9 @@ use Exception;
 
 use Trial\Injection\Container;
 
+/**
+ * @todo do it better
+ */
 class ErrorHandler {
 	
 	private $container;
@@ -14,15 +17,12 @@ class ErrorHandler {
 		set_exception_handler([$this, 'handleException']);
 	}
 	
-	/**
-	 * Ugly trick
-	 */
 	public function handleException (Exception $exception) {
 		$viewFactory = $this->container->get('view');
 		$language = $this->container->get('language');
 		
-		$template = $viewFactory->create('exception', [
-			'title' => $exception->getMessage(),
+		$template = $viewFactory->createTemplate('exception', [
+			'title'     => $exception->getMessage(),
 			'exception' => $exception,
 			'container' => $this->container
 		]);

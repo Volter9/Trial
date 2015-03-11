@@ -1,6 +1,6 @@
 <?php namespace Trial\Services;
 
-use Trial\Config;
+use Trial\Storage\PHPConfig;
 
 use Trial\Injection\Container;
 
@@ -13,7 +13,7 @@ class LanguageService implements Service {
 			"{$config['folder']}{$config['default']}"
 		);
 		
-		$container->set('language', new Config($path));
+		$container->set('language', new PHPConfig($path));
 	}
 	
 }

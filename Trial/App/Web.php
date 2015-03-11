@@ -1,6 +1,6 @@
 <?php namespace Trial\App;
 
-use Trial\Config;
+use Trial\Storage\PHPConfig;
 
 use Trial\Core\PathBuilder;
 
@@ -70,7 +70,7 @@ class Web implements Application {
 		$factory->register('config', function ($path) {
 			$builder = $this->get('app.path');
 			
-			return new Config($builder->build("Configs/$path"));
+			return new PHPConfig($builder->build("Configs/$path"));
 		});
 	}
 	

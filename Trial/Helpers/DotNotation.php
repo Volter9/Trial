@@ -7,7 +7,7 @@
  * by specifying dot notation.
  * 
  * This class could be extended to change delimeter for multidimensional
- * arrays (i.e. you prefer more ':' than '.' as a delimeter).
+ * arrays (i.e. you prefer more ':' or '/' than '.' as a delimeter).
  * 
  * @package Trial
  */

@@ -15,24 +15,17 @@ class Input {
 	private $headers;
 	
 	public function __construct (array $data = [], array $headers = []) {
-		$this->get = isset($data['get']) ? $data['get'] : $_GET;
-		$this->post = isset($data['post']) ? $data['post'] : $_POST;
+		$this->get    = isset($data['get'])    ? $data['get']    : $_GET;
+		$this->post   = isset($data['post'])   ? $data['post']   : $_POST;
 		$this->server = isset($data['server']) ? $data['server'] : $_SERVER;
 		
-		if (function_exists('getallheaders')) {
-			$this->headers = $headers ? $headers : getallheaders();
-		}
-		else {
-			$this->headers = $headers ?: [];
-		}
+		$this->headers = $headers ? $headers : getallheaders();
 	}
 	
-	public function getHeader ($header = null) {
-		if ($header === null) {
-			return $this->headers;
-		}
-		
-		return DotNotation::get($this->headers, $header, false);
+	public function header ($header = null) {
+		return $header === null
+			? $this->headers
+			: DotNotation::get($this->headers, $header, false);
 	}
 	
 	public function get ($key = null) {

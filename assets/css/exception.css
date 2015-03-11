@@ -43,6 +43,7 @@ body {
   width: 960px; }
   #exception h1 {
     font-weight: normal;
+    line-height: 120%;
     margin: 0px;
     margin-bottom: 0.2em; }
   #exception p {

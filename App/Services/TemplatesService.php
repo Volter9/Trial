@@ -10,7 +10,7 @@ class TemplatesService implements Service {
 		$factory = $container->get('db.factory');
 		$viewFactory = $container->get('view');
 		
-		$template = $viewFactory->create('main', [
+		$template = $viewFactory->createTemplate('main', [
 			'categories' => $factory->query('categoryTree')->fetch()
 		]);
 		

@@ -35,7 +35,8 @@ class Template implements Output {
 		$this->path = $container->get('app.path');
 		$this->plugins = $plugins;
 		
-		$this->view = new Partial($this, $data, $this->path->build("Views/$view"));
+		$this->view = new Partial($data, $this->path->build("Views/$view"));
+		$this->view->attach($this);
 	}
 	
 	public function getData () {

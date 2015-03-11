@@ -2,26 +2,19 @@
 
 use Trial\Routing\Http\Response;
 
-use Trial\View\View,
-	Trial\View\Template;
+use Trial\View\Attachable,
+	Trial\View\View;
 
-class Partial extends View {
+class Partial extends View implements Attachable {
 	
-	private $template;
+	protected $attachment;
 	
-	public function __construct (
-		Template $template, 
-		Data $data, 
-		$path
-	) {
-		parent::__construct($data, $path);
-		
-		$this->template = $template;
+	public function attach ($attachment) {
+		$this->attachment = $attachment;
 	}
 	
 	public function render (Response $response = null) {
-		$closure = $this->isolate()->bindTo($this->template);
-
+		$closure = $this->isolate()->bindTo($this->attachment);
 		$closure($this->path, $this->data->content());
 	}
 	

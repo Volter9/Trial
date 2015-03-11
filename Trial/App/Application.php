@@ -10,6 +10,9 @@ interface Application {
 	 */
 	public function __construct ($path, Container $container = null);
 	
+	/**
+	 * @return \Trial\App\Application
+	 */
 	public function boot ();
 	public function dispatch ();
 	

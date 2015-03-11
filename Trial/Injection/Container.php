@@ -21,9 +21,7 @@ class Container {
 	
 	public function get ($name) {
 		if (!isset($this->members[$name])) {
-			throw new Exception (
-				"Member '$name' does not exists in container!"
-			);
+			throw new Exception("Member '$name' does not exists in container!");
 		}
 		
 		return $this->members[$name];

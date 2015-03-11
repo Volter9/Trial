@@ -1,8 +1,7 @@
 <?php namespace Trial\Storage;
 
-interface Container {
+interface Container extends Readable {
 	
-	public function get ($key);
 	public function set ($key, $value);
 	
 }

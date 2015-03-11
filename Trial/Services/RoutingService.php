@@ -12,10 +12,12 @@ use Trial\Routing\Http\Input,
 class RoutingService implements Service {
 	
 	public function register (Container $container) {
-		$path = $container->get('app.path');
-		
 		$input  = new Input;
-		$routes = include $path->build('Configs/routes');
+		$routes = function ($path) {
+			return include $path->build('Configs/routing');
+		};
+		
+		$routes = $routes($container->get('app.path'));
 		
 		$builder    = new UrlBuilder($input, $routes);
 		$dispatcher = new Dispatcher;

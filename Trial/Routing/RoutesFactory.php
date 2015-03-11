@@ -2,7 +2,8 @@
 
 use Closure;
 
-use Trial\Routing\Route;
+use Trial\Routing\Route,
+	Trial\Routing\Routes;
 
 use Trial\Routing\Route\Actions\Callback,
 	Trial\Routing\Route\Actions\Controller;
@@ -12,18 +13,24 @@ use Trial\Routing\Route\Parameters,
 
 class RoutesFactory {
 	
-	public function callback ($url, Closure $callback) {
+	private $routes;
+	
+	public function __construct (Routes $routes) {
+		$this->routes = $routes;
+	}
+	
+	public function callback ($id, $url, Closure $callback) {
 		$url = $this->createUrl($url);
 		$action = new Callback($callback);
 		
-		return $this->createRoute($url, $action);
+		$this->routes->add($id, $this->createRoute($url, $action));
 	}
 	
-	public function controller ($url, $controller) {
+	public function controller ($id, $url, $controller) {
 		$url = $this->createUrl($url);
 		$action = $this->createController($controller);
 		
-		return $this->createRoute($url, $action);
+		$this->routes->add($id, $this->createRoute($url, $action));
 	}
 	
 	private function createRoute ($url, $action) {
@@ -32,7 +39,10 @@ class RoutesFactory {
 	
 	private function createUrl ($url) {
 		$token = ' ';
-		$url = !strpos($url, $token) ? "* $url" : $url;
+		
+		if (!strpos($url, $token)) {
+			$url = "* $url";
+		}
 		
 		list($method, $url) = explode($token, $url);
 		
@@ -41,11 +51,42 @@ class RoutesFactory {
 	
 	private function createController ($controller) {
 		$token = '::';
-		$controller = !strpos($controller, $token) ? "$controller::index" : $controller;
+		
+		if (!strpos($controller, $token)) {
+			$controller = "$controller::index";
+		}
 		
 		list($controller, $action) = explode($token, $controller);
 		
 		return new Controller($controller, $action);
+	}
+	
+	public function import (array $config) {
+		foreach ($config as $id => $route) {
+			if (!isset($route['method'])) {
+				$route['method'] = '*';
+			}
+			
+			$path   = $route['path'];
+			$method = $route['method'];
+			
+			$url = new Url($method, $path);
+			
+			$action = $this->createAction($route);
+			
+			$this->routes->add($id, $this->createRoute($url, $action));
+		}
+	}
+	
+	protected function createAction (array $route) {
+		if (isset($route['controller'])) {
+			return $this->createController($route['controller']);
+		}
+		else if (isset($route['callback'])) {
+			return new Callback($route['callback']);
+		}
+		
+		throw new Exception('Action could not be created in RoutesFactory!!!');
 	}
 	
 }

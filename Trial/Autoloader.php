@@ -4,6 +4,7 @@
  * Auto loader class
  * 
  * Registers SPL autoloader which is faster than custom autoloader
+ * Composer autoloader also could be used
  * 
  * @package Trial
  */

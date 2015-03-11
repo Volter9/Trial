@@ -1,47 +1,54 @@
 <?php
 
-use Trial\Routing\Routes,
-	Trial\Routing\RoutesFactory;
-
 /**
- * Define your routes here
- * 
- * @package Trial
+ * Routes
  */
 
-$routes = new Routes;
-$factory = new RoutesFactory;
-
-$routes->add('home', 
-	$factory->controller('/', '\App\Controllers\Index')
-);
-
-$routes->add('pages', 
-	$factory->controller('/pages/', '\App\Controllers\Pages')
-);
-$routes->add('page', 
-	$factory->controller('/pages/@page', '\App\Controllers\Pages::page')
-);
-
-$routes->add('categories', 
-	$factory->controller('/categories/', '\App\Controllers\Categories')
-);
-$routes->add('category', 
-	$factory->controller('/categories/@category', '\App\Controllers\Categories::category')
-);
-
-$routes->add('users', 
-	$factory->controller('/users/', '\App\Controllers\Users')
-);
-$routes->add('user', 
-	$factory->controller('/users/@user', '\App\Controllers\Users::user')
-);
-
-$routes->add('auth.login',
-	$factory->controller('GET /auth/login', '\App\Controllers\Auth::logIn')
-);
-$routes->add('auth.loginPost',
-	$factory->controller('POST /auth/login', '\App\Controllers\Auth::logInPost')
-);
-
-return $routes;
+return [
+	'home' => [
+		'path'       => '/', 
+		'controller' => '\App\Controllers\Index'
+	],
+	
+	'pages' => [
+		'path'       => '/pages/',
+		'controller' => '\App\Controllers\Pages'
+	],
+	
+	'page' => [
+		'path'       => '/pages/@page/',
+		'controller' => '\App\Controllers\Pages::page'
+	],
+	
+	'categories' => [
+		'path'       => '/categories/',
+		'controller' => '\App\Controllers\Categories'
+	],
+	
+	'category' => [
+		'path'       => '/categories/@category/',
+		'controller' => '\App\Controllers\Categories::category'
+	],
+	
+	'users' => [
+		'path'       => '/users/',
+		'controller' => '\App\Controllers\Users'
+	],
+	
+	'user' => [
+		'path'       => '/users/@user/',
+		'controller' => '\App\Controllers\Users::user'
+	],
+	
+	'auth.login' => [
+		'path'       => '/auth/login/',
+		'method'     => 'GET',
+		'controller' => '\App\Controllers\Auth::logIn'
+	],
+	
+	'auth.login.post' => [
+		'path'       => '/auth/login/',
+		'method'     => 'POST',
+		'controller' => '\App\Controllers\Auth::logInPost'
+	]
+];

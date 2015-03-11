@@ -1,9 +1,8 @@
 <?php namespace Trial\DB;
 
-use PDO,
-	PDOException;
+use PDO;
 
-class Connection {
+class Connection implements ConnectionInterface {
 	
 	const PREFIX_TOKEN = '__';
 	
@@ -41,7 +40,7 @@ class Connection {
 		$this->pdo = $pdo;
 	}
 	
-	public function getConnection () {
+	public function getLink () {
 		return $this->pdo;
 	}
 	

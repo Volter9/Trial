@@ -1,7 +1,8 @@
 <?php namespace Trial\View;
 
-use Trial\Injection\Container,
-	Trial\Routing\Http\Output,
+use Trial\Injection\Container;
+
+use Trial\Routing\Http\Output,
 	Trial\Routing\Http\Response;
 
 use Trial\View\Template\Data;

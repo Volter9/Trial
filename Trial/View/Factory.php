@@ -17,7 +17,7 @@ class Factory {
 		$this->plugins = $plugins;
 	}
 	
-	public function create ($view, array $data = []) {
+	public function createTemplate ($view, array $data = []) {
 		$data = new Data($data);
 		
 		$template = new Template(
@@ -27,6 +27,15 @@ class Factory {
 		);
 		
 		return $template;
+	}
+	
+	public function createView ($view, array $data) {
+		$path = $this->container->get('app.path');
+		$data = new Data($data);
+		
+		$view = new View($data, $path->build("Views/$view"));
+		
+		return $view;
 	}
 	
 }

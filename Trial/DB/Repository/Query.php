@@ -6,6 +6,9 @@ abstract class Query {
 	
 	protected $connection;
 	
+	/**
+	 * @param \Trial\DB\Connection
+	 */
 	public function __construct (Connection $connection) {
 		$this->connection = $connection;
 	}

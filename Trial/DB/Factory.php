@@ -10,12 +10,12 @@ class Factory {
 	private $connections;
 	
 	/**
-	 * @var \Trial\Config
+	 * @var \Trial\Storage\Readable
 	 */
 	private $queries;
 	
 	/**
-	 * @var \Trial\Config
+	 * @var \Trial\Storage\Readable
 	 */
 	private $repositories;
 	

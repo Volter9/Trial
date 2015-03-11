@@ -1,13 +1,13 @@
 <?php namespace Trial\DB;
 
-use Trial\Config;
+use Trial\Storage\Readable;
 
 class ConnectionManager {
 	
 	private $config;
 	private $connections = [];
 	
-	public function __construct (Config $config) {
+	public function __construct (Readable $config) {
 		$this->config = $config;
 		
 		if ($this->config->get('autoload')) {

@@ -10,12 +10,11 @@
 	<body>
 		<section id="exception">
 			<h1>
-				<?php echo $title ?> 
+				<?php echo $title ?>
 			</h1>
 			
 			<p>
-				<?php echo $this->lang('exception.something-wrong') ?>.
-				Trace:
+				Something went wrong. Stack trace:
 			</p>
 			
 			<ol>
@@ -26,24 +25,24 @@
 					<code>
 						<?php echo $trace['file'] ?> 
 					</code><br/>
-					On line:
-					<?php echo $trace['line'] ?><br/>
 					Via:
 					<code>
 						<?php echo $trace['class'] . $trace['type'] . $trace['function'] ?>
-					</code>
+					</code><br/>
+					On line:
+					<?php echo $trace['line'] ?>
 				</li>
 				<?php endforeach; ?> 
 				<?php endif; ?>
 			</ol>
 			
-			<p>Запрос:</p>
+			<p>Request:</p>
 			<?php if ($request = $container->get('routing.request')): ?> 
 			<ul>
 				<li>
-					Запрашиваемый URL: 
+					Request URL: 
 					<code><?php echo $request->getUrl()->getUrl() ?></code><br/>
-					HTTP Метод: 
+					HTTP Method: 
 					<code>
 						<?php echo $request->getUrl()->getMethod() ?> 
 					</code>

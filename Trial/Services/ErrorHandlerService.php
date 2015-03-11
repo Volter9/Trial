@@ -1,7 +1,6 @@
 <?php namespace Trial\Services;
 
-use Trial\Config,
-	Trial\ErrorHandler;
+use Trial\ErrorHandler;
 
 use Trial\Injection\Container;
 

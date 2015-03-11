@@ -22,9 +22,11 @@ class PartialPlugin implements Plugin {
 		$data = $arguments->first() ?: [];
 		
 		$view = new Partial(
-			$template, $content->merge($data), $this->path->build("Views/$view")
+			$content->merge($data), 
+			$this->path->build("Views/$view")
 		);
 		
+		$view->attach($template);
 		$view->render();
 	}
 	

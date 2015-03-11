@@ -14,6 +14,7 @@ interface RepositoryInterface {
 	
 	/**
 	 * @param \Trial\DB\Repository\Model
+	 * @return int|bool
 	 */
 	public function save (Model $model);
 	
