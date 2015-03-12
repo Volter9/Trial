@@ -13,18 +13,18 @@ class UrlBuilder {
 	
 	private $base;
 	
-	public function __construct (Input $input, Routes $routes) {
+	public function __construct (Input $input, Routes $routes, $basePath) {
 		$this->input = $input;
 		$this->routes = $routes;
 		
-		$this->base = $this->getBase();
+		$this->base = $this->getBase($basePath);
 	}
 	
-	private function getBase () {
+	private function getBase ($basePath) {
 		$root = $this->input->server('DOCUMENT_ROOT');
-		$root = strlen($root ?: BASE_PATH);
+		$root = strlen($root ?: $basePath);
 		
-		$url = substr(BASE_PATH, $root);
+		$url = substr($basePath, $root);
 		$url = trim($url, '/');
 		
 		return "/$url";

@@ -19,7 +19,7 @@ class RoutingService implements Service {
 		
 		$routes = $routes($container->get('app.path'));
 		
-		$builder    = new UrlBuilder($input, $routes);
+		$builder    = new UrlBuilder($input, $routes, BASE_PATH);
 		$dispatcher = new Dispatcher;
 		$router     = new Router($routes);
 		

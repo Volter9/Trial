@@ -15,5 +15,9 @@ return [
 		$length = strlen($value);
 		
 		return $length <= $max && $length >= $min; 
+	},
+	
+	'alphadash' => function ($value) {
+		return (bool)preg_match('/^[\w\d\-\_]+$/i', $value);
 	}
 ];

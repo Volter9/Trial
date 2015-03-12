@@ -14,6 +14,7 @@ interface Application {
 	 * @return \Trial\App\Application
 	 */
 	public function boot ();
+	
 	public function dispatch ();
 	
 }

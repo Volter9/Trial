@@ -4,36 +4,39 @@ class Validation {
 	
 	private $rules;
 	private $validators;
-	private $fields;
 	
-	private $errors = [];
+	private $errored = [];
 	
-	public function __construct (
-		RuleSet $rules, 
-		Validators $validators, 
-		array $fields
-	) {
+	public function __construct ($rules, $validators) {
 		$this->rules = $rules;
-		$this->validators = $valudators;
-		$this->fields = $fields;
+		$this->validators = $validators;
 	}
 	
-	public function getValidators () {
-		return $this->validators;
-	}
-	
-	public function isValid () {
-		return empty($this->errors);
-	}
-	
-	public function getErrors () {
-		return $this->errors;
-	}
-	
-	public function validate (array $data) {
-		foreach ($this->rules as $rule) {
+	public function isValid (array $data) {
+		$this->errored = [];
+		
+		foreach ($this->rules as $field => $rules) {
+			$value = $data[$field];
 			
+			$this->validateField($field, $rules, $value);
 		}
+		
+		return empty($this->errored);
+	}
+	
+	private function validateField ($field, $rules, $value) {
+		foreach ($rules as $validator => $parameters) {
+			$callback   = $this->validators[$validator];
+			$parameters = array_merge([$value, $field], $parameters);
+			
+			if (!call_user_func_array($callback, $parameters)) {
+				$this->errored[$field][] = $validator;
+			}
+		}
+	}
+	
+	public function getErroredFields () {
+		return $this->errored;
 	}
 	
 }
