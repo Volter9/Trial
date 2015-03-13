@@ -4,23 +4,15 @@ use Trial\Data\Formatters\Basic;
 
 class FormatterTest extends \PHPUnit_Framework_TestCase {
 	
-	private $messages = [
-		'required'  => 'The field "%s" is required!',
-		'alphadash' => 'The field "%s" should be an alpha numeric!',
-		'length'    => 'The field "%s" should be between %s and %s!'
-	];
-	
-	private $fields = [
-		'username' => 'Cool user name',
-		'password' => 'Unique ID of Swagger'
-	];
-	
 	public function erroredFields () {
 		return [
 			[
 				['username' => ['required' => []]],
 				['username' => [
-					sprintf($this->messages['required'], $this->fields['username']),
+					sprintf(
+						Config::$messages['required'], 
+						Config::$fields['username']
+					),
 				]]
 			],
 			[
@@ -30,11 +22,20 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
 				],
 				[
 					'username' => [
-						sprintf($this->messages['required'], $this->fields['username'])
+						sprintf(
+							Config::$messages['required'], 
+							Config::$fields['username']
+						)
 					],
 					'password' => [
-						sprintf($this->messages['required'], $this->fields['password']),
-						sprintf($this->messages['length']  , $this->fields['password'], 10, 20),
+						sprintf(
+							Config::$messages['required'], 
+							Config::$fields['password']
+						),
+						sprintf(
+							Config::$messages['length'], 
+							Config::$fields['password'], 10, 20
+						),
 					]
 				]
 			]	
@@ -45,7 +46,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider erroredFields
 	 */
 	public function testFormatting ($errors, $expected) {
-		$basic = new Basic($this->messages, $this->fields);
+		$basic = new Basic(Config::$messages, Config::$fields);
 		
 		$this->assertEquals($basic->format($errors), $expected);
 	}

@@ -1,9 +1,9 @@
 <?php namespace Tests\Data;
 
-use Trial\Data\Validation;
+use Trial\Data\Validation,
+	Trial\Data\Validators;
 
 class ValidationTest extends \PHPUnit_Framework_TestCase {
-	
 	
 	public function rules () {
 		return [
@@ -17,27 +17,6 @@ class ValidationTest extends \PHPUnit_Framework_TestCase {
 				'alphadash' => [],
 				'length'    => [4, 20],
 			]
-		];
-	}
-	
-	public function validators () {
-		return [
-			'required' => function ($value) {
-				return !!$value;
-			},
-			
-			'length' => function ($value, $key, $min, $max) {
-				$min = $min === ''   ? 0           : (int)$min;
-				$max = $max === null ? PHP_INT_MAX : (int)$max;
-				
-				$length = strlen($value);
-				
-				return $length <= $max && $length >= $min; 
-			},
-			
-			'alphadash' => function ($value) {
-				return (bool)preg_match('/^[\w\d\-\_]+$/i', $value);
-			}
 		];
 	}
 	
@@ -63,10 +42,37 @@ class ValidationTest extends \PHPUnit_Framework_TestCase {
 		];
 	}
 	
+	public function nonExistentData () {
+		return [
+			[[]],
+			[['username' => 'something']],
+			[['password' => 'dasdasdsa']]
+		];
+	}
+	
+	public function extraFieldData () {
+		return [
+			[
+				[
+					'username' => 'someones', 
+					'password' => '1234', 
+					'extra' => '10'
+				]
+			],
+			[
+				[
+					'username' => 'elseproblem', 
+					'password' => '5678', 
+					'another_field' => '42'
+				]
+			]
+		];
+	}
+	
 	public function createValidation () {
 		return new Validation(
 			$this->rules(),
-			$this->validators()	
+			new Validators(Config::validators())
 		);
 	}
 	
@@ -86,6 +92,20 @@ class ValidationTest extends \PHPUnit_Framework_TestCase {
 		$validation = $this->createValidation();
 		
 		$this->assertFalse($validation->isValid($data));
+	}
+	
+	/**
+	 * @dataProvider extraFieldData
+	 */
+	public function testValidDataWithExtraFields ($data) {
+		$this->testValidData($data);
+	}
+	
+	/**
+	 * @dataProvider nonExistentData
+	 */
+	public function testNonExistentFields ($data) {
+		$this->testInvalidData($data);
 	}
 	
 	/**

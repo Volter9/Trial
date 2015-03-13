@@ -7,7 +7,7 @@ class Validation {
 	
 	private $errored = [];
 	
-	public function __construct ($rules, $validators) {
+	public function __construct ($rules, Validators $validators) {
 		$this->rules = $rules;
 		$this->validators = $validators;
 	}
@@ -16,7 +16,7 @@ class Validation {
 		$this->errored = [];
 		
 		foreach ($this->rules as $field => $rules) {
-			$value = $data[$field];
+			$value = isset($data[$field]) ? $data[$field] : null;
 			
 			$this->validateField($field, $rules, $value);
 		}
@@ -26,11 +26,11 @@ class Validation {
 	
 	private function validateField ($field, $rules, $value) {
 		foreach ($rules as $validator => $parameters) {
-			$callback   = $this->validators[$validator];
-			$parameters = array_merge([$value, $field], $parameters);
+			$parameters = $parameters ?: [];
+			$arguments  = array_merge([$value, $field], $parameters);
 			
-			if (!call_user_func_array($callback, $parameters)) {
-				$this->errored[$field][] = $validator;
+			if (!$this->validators->invoke($validator, $arguments)) {
+				$this->errored[$field][$validator] = $parameters;
 			}
 		}
 	}

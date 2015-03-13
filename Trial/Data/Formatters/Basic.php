@@ -21,7 +21,7 @@ class Basic implements Formatter {
 	}
 	
 	public function formatError ($field, $rules) {
-		$label  = $this->fields[$field];
+		$label  = isset($this->fields[$field]) ? $this->fields[$field] : $field;
 		$errors = [];
 		
 		foreach ($rules as $rule => $parameters) {
