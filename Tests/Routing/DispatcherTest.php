@@ -16,6 +16,9 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		
+		$route->method('getAction')
+			->willReturn($action);
+		
 		$request = $this->getMockBuilder('\Trial\Routing\Http\Request')
 			->disableOriginalConstructor()
 			->getMock();
@@ -23,8 +26,8 @@ class DispatcherTest extends \PHPUnit_Framework_TestCase {
 		$action = $this->getMockBuilder('\Trial\Routing\Route\Action')
 			->getMock();
 			
-		$action->method('invoke')->willReturn('foostring');
-		$route->method('getAction')->willReturn($action);
+		$action->method('invoke')
+			->willReturn('foostring');
 		
 		$dispatcher = new Dispatcher;
 		$response = $dispatcher->dispatch($container, $route, $request);

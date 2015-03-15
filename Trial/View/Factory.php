@@ -2,8 +2,10 @@
 
 use Trial\Injection\Container;
 
-use Trial\View\Plugins\Plugin,
-	Trial\View\Template\Data;
+use Trial\View\Plugins\Plugin;
+
+use Trial\View\Template\Data,
+	Trial\View\Template\Partial;
 
 class Factory {
 	
@@ -18,24 +20,20 @@ class Factory {
 	}
 	
 	public function createTemplate ($view, array $data = []) {
+		$path = $this->container->get('app.path');
+		
 		$data = new Data($data);
+		$view = new Partial($data, $path->build("Views/$view"));
 		
-		$template = new Template(
-			$this->container, 
-			$this->plugins,
-			$data, $view
-		);
-		
-		return $template;
+		return new Template($this->plugins, $view);
 	}
 	
 	public function createView ($view, array $data) {
 		$path = $this->container->get('app.path');
+		
 		$data = new Data($data);
 		
-		$view = new View($data, $path->build("Views/$view"));
-		
-		return $view;
+		return new View($data, $path->build("Views/$view"));
 	}
 	
 }

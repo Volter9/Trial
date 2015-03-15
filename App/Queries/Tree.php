@@ -1,8 +1,21 @@
 <?php namespace App\Queries;
 
+use PDOStatement;
+
 use Trial\DB\Repository\Query;
 
 abstract class Tree extends Query {
+	
+	protected function createTree (PDOStatement $statement) {
+		if ($statement->rowCount() <= 0) {
+			return false;
+		}
+		
+		$items = $statement->fetchAll();
+		$items = $this->group($items);
+		
+		return $this->order($items);
+	}
 	
 	protected function group (array $items) {
 		$result = [];

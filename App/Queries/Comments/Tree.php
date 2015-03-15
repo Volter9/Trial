@@ -8,14 +8,7 @@ class Tree extends BaseTree {
 		$sql = $this->getSQL();
 		$statement = $this->connection->query($sql, [$destination, $id]);
 		
-		if ($statement->rowCount() <= 0) {
-			return false;
-		}
-		
-		$comments = $statement->fetchAll();
-		$comments = $this->group($comments);
-		
-		return $this->order($comments);
+		return $this->createTree($statement);
 	}
 	
 	public function getSQL () {

@@ -10,30 +10,30 @@ class Categories extends Controller {
 		$db = $this->dbFactory;
 		
 		$categories = $db->repository('categories');
-		$category = $categories->find(
-			$request->get('category')
-		);
+		
+		$category_id = $request->get('category');
+		$category = $categories->find($category_id);
 		
 		if (!$category) {
 			throw new Exception(
-				sprintf('Category by id %s is not exists!', $request->get('category'))
+				sprintf('Category by id %s is not exists!', $category_id)
 			);
 		}
 		
 		$comments = $db
 			->query('commentTree')
-			->fetch('categories', $category->id);
+			->fetch('categories', $category_id);
 		
 		$pages = $db
 			->query('pagesByCategory')
-			->fetch($category->id);
+			->fetch($category_id);
 		
 		$title = sprintf(
 			$this->language->get('category.one') . ' "%s"', $category->title
 		);
 		
 		return $this->template->view('category', [
-			'title' => $title,
+			'title'    => $title,
 			'category' => $category,
 			'pages'    => $pages,
 			'comments' => $comments

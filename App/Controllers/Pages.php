@@ -9,10 +9,12 @@ class Pages extends Controller {
 	public function indexAction ($request, $response) {
 		$db = $this->dbFactory;
 		
-		return $this->template->view('pages/index', [
+		$data = [
 			'title' => $this->language->get('pages.all'),
 			'pages' => $db->query('pages')->fetch()
-		]);
+		];
+		
+		return $this->template->view('pages/index', $data);
 	}
 	
 	public function pageAction ($request, $response) {

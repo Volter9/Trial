@@ -71,7 +71,6 @@ class RoutesFactory {
 			$method = $route['method'];
 			
 			$url = new Url($method, $path);
-			
 			$action = $this->createAction($route);
 			
 			$this->routes->add($id, $this->createRoute($url, $action));

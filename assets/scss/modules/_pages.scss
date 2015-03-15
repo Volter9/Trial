@@ -4,11 +4,10 @@ body > article > section {
 	}
 	
 	.description {
-		border-left: 2px solid $border-color;
 		color: $light-secondary-color;
 		
-		margin-top: 12px;
-		padding: 4px 8px;
+		margin-top: 6px;
+		margin-bottom: 24px;
 	}
 	
 	div.container {
@@ -24,7 +23,7 @@ body > article > section {
 		}
 		
 		h1 {
-			font-size: 1.6em;
+			font-size: 1.5em;
 		}
 		
 		h1, h2, h3, h4, h5, h6 {
@@ -99,19 +98,7 @@ body > article > section {
 			margin-right: 6%;
 			margin-bottom: 3%;
 			padding: 30px;
-			width: 47%;
-			
-			&:nth-child(2n) {
-				margin-right: 0px;
-			}
-			
-			&:nth-child(2n + 1) {
-				clear: left;
-			}
-			
-			&:nth-last-child(-n + 2) {
-				margin-bottom: 0px;
-			}
+			width: 100%;
 			
 			h2 {
 				font-size: 20px;

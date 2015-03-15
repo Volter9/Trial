@@ -1,6 +1,6 @@
 <?php namespace Trial\DB;
 
-use Trial\Injection\Container;
+use Trial\Storage\Readable;
 
 class Factory {
 	
@@ -22,13 +22,14 @@ class Factory {
 	/**
 	 * @param \Trial\Injection\Container
 	 */
-	public function __construct (Container $container) {
-		$this->connections = $container->get('connections');
-		
-		$factory = $container->factory();
-		
-		$this->queries = $factory->create('config', 'queries');
-		$this->repositories = $factory->create('config', 'repositories');
+	public function __construct (
+		ConnectionManager $connections,
+		Readable $queries,
+		Readable $repositories
+	) {
+		$this->connections = $connections;
+		$this->queries = $queries;
+		$this->repositories = $repositories;
 	}
 	
 	/**

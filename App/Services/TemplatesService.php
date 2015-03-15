@@ -7,7 +7,7 @@ use Trial\Services\Service;
 class TemplatesService implements Service {
 	
 	public function register (Container $container) {
-		$factory = $container->get('db.factory');
+		$factory     = $container->get('db.factory');
 		$viewFactory = $container->get('view');
 		
 		$template = $viewFactory->createTemplate('main', [

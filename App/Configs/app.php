@@ -14,9 +14,10 @@ return [
 		'\Trial\Services\ErrorHandlerService',
 		'\Trial\Services\ConnectionService',
 		'\Trial\Services\DatabaseService',
+		'\Trial\Services\ValidationService',
 		
 		'\App\Services\GuardService',
-		'\App\Services\TemplatesService'
+		'\App\Services\TemplatesService',
 	],
 	
 	'language' => [

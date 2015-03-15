@@ -5,7 +5,14 @@ use Trial\Routing\Route,
 
 class Request {
 	
+	/**
+	 * @var \Trial\Routing\Http\Input
+	 */
 	private $input;
+	
+	/**
+	 * @var \Trial\Routing\Route\Url
+	 */
 	private $url;
 	
 	/**

@@ -2,8 +2,6 @@
 
 use Trial\Injection\Container;
 
-use Trial\DB\DataMapper\Entity;
-
 class Guard {
 	
 	private $rules;

@@ -1,17 +1,9 @@
 <?php namespace Trial\Storage;
 
-class Session implements Container {
+class Session extends Memory {
 	
-	public function get ($key) {
-		if (!isset($_SESSION[$key])) {
-			return false;
-		}
-		
-		return $_SESSION[$key];
-	}
-	
-	public function set ($key, $value) {
-		$_SESSION[$key] = $value;
+	public function __destruct () {
+		$_SESSION = $this->data;
 	}
 	
 }

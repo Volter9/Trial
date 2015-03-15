@@ -2,8 +2,9 @@
 
 use Trial\Injection\Container;
 
-use Trial\Routing\Route\Action,
-	Trial\Routing\Http\Request,
+use Trial\Routing\Route\Action;
+
+use Trial\Routing\Http\Request,
 	Trial\Routing\Http\Response;
 
 class Controller implements Action {
@@ -31,7 +32,6 @@ class Controller implements Action {
 		Response $response
 	) {
 		$action = $this->getAction();
-		
 		$controller = $this->create($container);
 		
 		return $controller->$action($request, $response);

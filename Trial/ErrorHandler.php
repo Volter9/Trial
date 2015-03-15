@@ -19,7 +19,7 @@ class ErrorHandler {
 	
 	public function handleException (Exception $exception) {
 		$viewFactory = $this->container->get('view');
-		$language = $this->container->get('language');
+		$language    = $this->container->get('language');
 		
 		$template = $viewFactory->createTemplate('exception', [
 			'title'     => $exception->getMessage(),

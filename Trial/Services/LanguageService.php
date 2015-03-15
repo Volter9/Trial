@@ -9,9 +9,8 @@ class LanguageService implements Service {
 	public function register (Container $container) {
 		$config = $container->get('configs.app')->get('language');
 		
-		$path = $container->get('app.path')->build(
-			"{$config['folder']}{$config['default']}"
-		);
+		$path = "{$config['folder']}{$config['default']}";
+		$path = $container->get('app.path')->build($path);
 		
 		$container->set('language', new PHPConfig($path));
 	}

@@ -36,9 +36,9 @@ class RulePacker {
 	
 	protected function prepareComplexRule ($field) {
 		$fragments  = explode(static::$arguments, $field);
-		$parameters = explode(static::$separator, $fragments[1]);
+		$parameters = explode(static::$separator, array_pop($fragments));
 		
-		return [$fragments[0], $parameters];
+		return [current($fragments), $parameters];
 	}
 	
 	public function packRuleSet (array $rules) {

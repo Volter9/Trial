@@ -130,10 +130,9 @@ body > article > section a:hover {
 body > article > section p.no-pages {
   margin-top: 1em; }
 body > article > section .description {
-  border-left: 2px solid #ddd;
   color: #555555;
-  margin-top: 12px;
-  padding: 4px 8px; }
+  margin-top: 6px;
+  margin-bottom: 24px; }
 body > article > section div.container {
   background-color: #fcfcfc;
   border-bottom: 4px solid #ddd;
@@ -143,7 +142,7 @@ body > article > section div.container {
   body > article > section div.container p:last-child {
     margin-bottom: 0px; }
   body > article > section div.container h1 {
-    font-size: 1.6em; }
+    font-size: 1.5em; }
   body > article > section div.container h1, body > article > section div.container h2, body > article > section div.container h3, body > article > section div.container h4, body > article > section div.container h5, body > article > section div.container h6 {
     margin: 0px;
     margin-bottom: 1em; }
@@ -189,13 +188,7 @@ body > article > section ul.pages {
     margin-right: 6%;
     margin-bottom: 3%;
     padding: 30px;
-    width: 47%; }
-    body > article > section ul.pages li:nth-child(2n) {
-      margin-right: 0px; }
-    body > article > section ul.pages li:nth-child(2n + 1) {
-      clear: left; }
-    body > article > section ul.pages li:nth-last-child(-n + 2) {
-      margin-bottom: 0px; }
+    width: 100%; }
     body > article > section ul.pages li h2 {
       font-size: 20px;
       font-weight: normal;
@@ -223,7 +216,6 @@ body > article > section div.users ul {
       font-size: 12px; }
 
 #comments h3 {
-  border-bottom: 2px solid #ddd;
   font-size: 18px;
   font-weight: normal;
   margin: 1em 0px;
@@ -268,5 +260,17 @@ form.form input {
 form.form button {
   float: right;
   padding: 8px 16px; }
+
+div.errors {
+  background-color: #fcc;
+  color: #800;
+  font-size: 12px;
+  line-height: 140%;
+  margin-top: -15px;
+  margin-bottom: 15px;
+  padding: 20px; }
+  div.errors h3 {
+    font-size: 18px;
+    margin-bottom: 10px; }
 
 /*# sourceMappingURL=main.css.map */

@@ -88,7 +88,7 @@ class Web implements Application {
 	}
 	
 	protected function systemTweaks () {
-		include $this->path->build('Configs/bootstrap');
+		require $this->path->build('Configs/bootstrap');
 	}
 	
 	protected function setupServices () {

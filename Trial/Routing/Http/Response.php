@@ -24,10 +24,6 @@ class Response {
 	}
 	
 	public function setBody ($body) {
-		if (!is_string($body) && !$body instanceof Output) {
-			return false;
-		}
-		
 		$this->body = $body;
 	}
 	

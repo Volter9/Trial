@@ -16,16 +16,13 @@ class PartialPlugin implements Plugin {
 	}
 	
 	public function execute (Collection $arguments, Template $template) {
-		$content = clone $template->getData();
-		
 		$view = $arguments->shift();
 		$data = $arguments->first() ?: [];
 		
-		$view = new Partial(
-			$content->merge($data), 
-			$this->path->build("Views/$view")
-		);
+		$content = clone $template->getData();
+		$content->merge($data);
 		
+		$view = new Partial($content, $this->path->build("Views/$view"));
 		$view->attach($template);
 		$view->render();
 	}

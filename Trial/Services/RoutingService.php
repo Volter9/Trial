@@ -12,21 +12,21 @@ use Trial\Routing\Http\Input,
 class RoutingService implements Service {
 	
 	public function register (Container $container) {
-		$input  = new Input;
 		$routes = function ($path) {
 			return include $path->build('Configs/routing');
 		};
 		
 		$routes = $routes($container->get('app.path'));
 		
-		$builder    = new UrlBuilder($input, $routes, BASE_PATH);
 		$dispatcher = new Dispatcher;
-		$router     = new Router($routes);
+		
+		$input   = new Input;
+		$router  = new Router($routes);
+		$builder = new UrlBuilder($input, $routes, BASE_PATH);
 		
 		$url     = $builder->requestUrl();
 		$request = new Request($url, $input);
 		
-		$container->set('routes', $routes);
 		$container->set('routing.request', $request);
 		$container->set('routing.router', $router);
 		$container->set('routing.dispatcher', $dispatcher);

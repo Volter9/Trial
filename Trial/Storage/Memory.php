@@ -2,7 +2,11 @@
 
 class Memory implements Container {
 	
-	private $data = [];
+	protected $data;
+	
+	public function __construct (array $data = []) {
+		$this->data = $data;
+	}
 	
 	public function get ($key) {
 		if (!isset($this->data[$key])) {

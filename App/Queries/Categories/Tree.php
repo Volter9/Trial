@@ -7,14 +7,7 @@ class Tree extends BaseTree {
 	public function fetch () {
 		$statement = $this->connection->query($this->getSQL());
 		
-		if ($statement->rowCount() <= 0) {
-			return false;
-		}
-		
-		$categories = $statement->fetchAll();
-		$categories = $this->group($categories);
-		
-		return $this->order($categories);
+		return $this->createTree($statement);
 	}
 	
 	public function getSQL () {

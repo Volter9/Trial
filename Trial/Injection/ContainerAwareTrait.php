@@ -9,14 +9,12 @@ trait ContainerAwareTrait {
 	}
 	
 	public function __get ($key) {
-		$key = $this->resolveName($key);
-		
-		return $this->container->get($key);
+		return $this->container->get($this->resolveName($key));
 	}
 	
 	private function resolveName ($key) {
 		$callback = function ($matches) {
-			return strtolower("$matches[1].$matches[2]");
+			return strtolower("{$matches[1]}.{$matches[2]}");
 		};
 		
 		return preg_replace_callback('/([a-z])([A-Z])/', $callback, $key);

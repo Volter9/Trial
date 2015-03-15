@@ -4,18 +4,28 @@ use Trial\Routing\Controller;
 
 class Auth extends Controller {
 	
-	public function logInAction ($request, $response) {
-		return $this->view();
+	public function logInAction () {
+		$this->view();
 	}
 	
-	public function logInPostAction ($request, $response) {
+	public function logInPostAction () {
+		$input = $request->getInput()->post();
+		
+		$validation = $this->validation->createWrapper('auth');
+		
+		if (!$validation->validate($input)) {
+			return $this->view($validation->getErrors());
+		}
+		
 		
 	}
 	
-	private function view ($error = '') {
+	private function view ($errors = true) {
+		$language = $this->language;
+		
 		return $this->template->view('auth/login', [
-			'title' => $this->language->get('auth.login'),
-			'error' => $error
+			'title'  => $language->get('auth.login'),
+			'errors' => $errors
 		]);
 	}
 	

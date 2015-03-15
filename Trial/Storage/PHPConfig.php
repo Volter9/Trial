@@ -15,7 +15,7 @@ class PHPConfig implements Readable {
 	 * @param string $file
 	 */
 	public function __construct ($file) {
-		$this->data = include $file;
+		$this->data = require $file;
 	}
 	
 	/**

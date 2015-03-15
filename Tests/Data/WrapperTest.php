@@ -1,11 +1,6 @@
 <?php namespace Tests\Data;
 
-use Trial\Data\RulePacker,
-	Trial\Data\Validation,
-	Trial\Data\Validators,
-	Trial\Data\Wrapper;
-
-use Trial\Data\Formatters\Basic;
+use Trial\Data\Wrapper;
 
 class WrapperTest extends \PHPUnit_Framework_TestCase {
 	
@@ -24,38 +19,39 @@ class WrapperTest extends \PHPUnit_Framework_TestCase {
 		];
 	}
 	
-	public function createValidationWrapper (array $rules) {
-		$packer = new RulePacker;
-		$validators = new Validators(Config::validators());
+	public function createValidationWrapper ($valid, array $errors = []) {
+		$validation = $this->getMockBuilder('\Trial\Data\Validation')
+			->disableOriginalConstructor()
+			->getMock();
 		
-		$validation = new Validation(
-			$packer->packRuleSet($rules), 
-			$validators
-		);
+		$validation->method('isValid')
+			->willReturn($valid);
 		
-		return new Wrapper($validation, $this->createFormatter());
-	}
-	
-	public function createFormatter () {
-		return new Basic (
-			Config::$messages,
-			Config::$fields
-		);
+		$validation->method('getErroredFields')
+			->willReturn($errors);
+		
+		$formatter = $this->getMockBuilder('\Trial\Data\Formatter')
+			->disableOriginalConstructor()
+			->getMock();
+		
+		$formatter->method('format')
+			->willReturn($errors);
+		
+		return new Wrapper($validation, $formatter);
 	}
 	
 	/**
 	 * @dataProvider data
 	 */
 	public function testValidationOfData ($rules, $data, $expected) {
-		$wrapper = $this->createValidationWrapper($rules);
+		$wrapper = $this->createValidationWrapper($expected);
 		
 		$this->assertEquals($wrapper->validate($data), $expected);
 	}
 	
 	public function testValdationErrors () {
-		$wrapper = $this->createValidationWrapper([
-			'bullshit' => 'required|alphadash'
-		]);
+		$wrapper = $this->createValidationWrapper(false, ['bullshit' => []]);
+		
 		$wrapper->validate([]);
 		
 		$this->assertCount(1, $wrapper->getErrors());
